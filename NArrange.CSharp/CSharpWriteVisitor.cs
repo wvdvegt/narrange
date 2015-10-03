@@ -758,7 +758,7 @@ namespace NArrange.CSharp
 
 		private void WriteAutoPropertyInitializer(PropertyElement element)
 		{
-			Writer.Write(" =");
+			Writer.Write(" = ");
 			Writer.Write(element.AutoPropertyInitializer);
 			Writer.Write(';');
 		}
