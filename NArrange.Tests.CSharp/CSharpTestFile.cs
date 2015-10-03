@@ -74,10 +74,9 @@ namespace NArrange.Tests.CSharp
 		/// Compiles C# source code.
 		/// </summary>
 		/// <param name="source">The source.</param>
-		/// <param name="name">The assembly name.</param>
 		/// <param name="targetCSharp6"></param>
 		/// <returns>Compiler results.</returns>
-		public static CompilerResults Compile(string source, string name, bool targetCSharp6 = false)
+		public static CompilerResults Compile(string source, bool targetCSharp6 = false)
 		{
 			//
 			// Compile the test source file
@@ -151,7 +150,7 @@ namespace NArrange.Tests.CSharp
 				{
 					string source = reader.ReadToEnd();
 
-					CompilerResults results = Compile(source, resourceName, targetCSharp6);
+					CompilerResults results = Compile(source, targetCSharp6);
 
 					if (results.Errors.Count > 0)
 					{

@@ -24,5 +24,14 @@ namespace SampleNamespace
                 Name = first + " " + last;
             }
         }
+
+        public class Customer4
+        {
+            public string First { get; set; }
+
+            public string Last { get; }
+            
+        }
+
     }
 }
