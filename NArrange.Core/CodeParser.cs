@@ -370,7 +370,7 @@ namespace NArrange.Core
 		/// <returns></returns>
 		protected char PeekNextCharExcept(char[] ignores)
 		{
-			int data = _reader.Peek();
+			int data = _reader.PeekAhead();
 			while (data > 0)
 			{
 				char ch = (char)data;
@@ -381,7 +381,7 @@ namespace NArrange.Core
 					return ch;
 				}
 
-				data = _reader.Peek();
+				data = _reader.PeekAhead();
 			}
 			// EOF
 			return '\0';
