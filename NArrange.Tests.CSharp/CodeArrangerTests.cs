@@ -1,16 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
 using NArrange.Core;
 using NArrange.Core.CodeElements;
 using NArrange.Core.Configuration;
 using NArrange.CSharp;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 
 namespace NArrange.Tests.CSharp
 {
-    /// <summary>
+	/// <summary>
 	/// Test fixture for the CodeArranger class.
 	/// </summary>
 	[TestFixture]

@@ -5,6 +5,9 @@ using System.IO;
 
 namespace NArrange.Tests.CSharp
 {
+	/// <summary>
+	/// Tests the new C# 6 feature where auto properties can have initializers
+	/// </summary>
 	[TestFixture]
 	public class InlinePropertyWhenPossibleTests
 	{
@@ -18,6 +21,9 @@ namespace NArrange.Tests.CSharp
 
 		#region Methods
 
+		/// <summary>
+		/// Asserts that multiline auto properties are reformatted to single line.
+		/// </summary>
 		[Test]
 		public void CodeWithMultilineAutoPropertyShouldBeFormatted()
 		{
@@ -43,6 +49,9 @@ namespace NArrange.Tests.CSharp
 			}
 		}
 
+		/// <summary>
+		/// Asserts that multiline properties (with backing field) are not reformatted.
+		/// </summary>
 		[Test]
 		public void CodeWithMultilinePropertyShouldNotBeFormatted()
 		{
@@ -68,6 +77,9 @@ namespace NArrange.Tests.CSharp
 			}
 		}
 
+		/// <summary>
+		/// Asserts that inline properties are not modified.
+		/// </summary>
 		[Test]
 		public void PrettyCodeShouldNotBeModified()
 		{

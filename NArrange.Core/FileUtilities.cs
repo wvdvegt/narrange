@@ -35,12 +35,13 @@
 
 #endregion Header
 
+
 using System.IO;
 using System.Text;
 
 namespace NArrange.Core
 {
-    /// <summary>
+	/// <summary>
 	/// File utility methods.
 	/// </summary>
 	public static class FileUtilities
