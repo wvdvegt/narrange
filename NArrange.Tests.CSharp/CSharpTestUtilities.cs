@@ -17,6 +17,15 @@ namespace NArrange.Tests.CSharp
 		}
 
 		/// <summary>
+		/// C# 6.0 auto property initializers test file.
+		/// </summary>
+		/// <returns></returns>
+		public static CSharpTestFile GetAutoPropertyInitializersFile()
+		{
+			return new CSharpTestFile("CSharp_6_0_Features.AutoPropertyInitializers.cs", true);
+		}
+
+		/// <summary>
 		/// Class attributes test file.
 		/// </summary>
 		/// <returns>The test file.</returns>

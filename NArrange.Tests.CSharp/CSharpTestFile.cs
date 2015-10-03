@@ -39,10 +39,11 @@ namespace NArrange.Tests.CSharp
 		/// Creates a new test file using the specified resource.
 		/// </summary>
 		/// <param name="resourceName">Name of the resource.</param>
-		public CSharpTestFile(string resourceName)
+		/// <param name="targetCSharp6">Set to true if C# 6 features are used. This will use the new Microsoft CodeDomCompiler, otherwise the old one is used.</param>
+		public CSharpTestFile(string resourceName, bool targetCSharp6 = false)
 		{
 			_resourceName = resourceName;
-			_assembly = GetAssembly(resourceName);
+			_assembly = GetAssembly(resourceName, targetCSharp6);
 		}
 
 		#endregion Constructors
@@ -74,15 +75,16 @@ namespace NArrange.Tests.CSharp
 		/// </summary>
 		/// <param name="source">The source.</param>
 		/// <param name="name">The assembly name.</param>
+		/// <param name="targetCSharp6"></param>
 		/// <returns>Compiler results.</returns>
-		public static CompilerResults Compile(string source, string name)
+		public static CompilerResults Compile(string source, string name, bool targetCSharp6 = false)
 		{
 			//
 			// Compile the test source file
 			//
-			CodeDomProvider provider = CSharpCodeProvider.CreateProvider("CSharp");
 
 			CompilerParameters parameters = new CompilerParameters();
+
 			parameters.GenerateInMemory = true;
 			parameters.GenerateExecutable = false;
 			parameters.CompilerOptions = "/unsafe";
@@ -92,9 +94,11 @@ namespace NArrange.Tests.CSharp
 			parameters.ReferencedAssemblies.Add("System.Data.dll");
 			parameters.ReferencedAssemblies.Add("System.Xml.dll");
 
-			CompilerResults results = provider.CompileAssemblyFromSource(parameters, source);
+			var provider = targetCSharp6 ?
+				new Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider() :
+				CSharpCodeProvider.CreateProvider("CSharp");
 
-			return results;
+			return provider.CompileAssemblyFromSource(parameters, source);
 		}
 
 		/// <summary>
@@ -116,7 +120,7 @@ namespace NArrange.Tests.CSharp
 		{
 			Assembly assembly = Assembly.GetExecutingAssembly();
 			Stream stream = assembly.GetManifestResourceStream(
-				typeof (CSharpTestUtilities), "TestSourceFiles." + resourceName);
+				typeof(CSharpTestUtilities), "TestSourceFiles." + resourceName);
 
 			Assert.IsNotNull(stream, "Test stream could not be retrieved.");
 
@@ -136,8 +140,9 @@ namespace NArrange.Tests.CSharp
 		/// Gets the assembly.
 		/// </summary>
 		/// <param name="resourceName">Name of the resource.</param>
+		/// <param name="targetCSharp6"></param>
 		/// <returns>The assembly for the resource.</returns>
-		private static Assembly GetAssembly(string resourceName)
+		private static Assembly GetAssembly(string resourceName, bool targetCSharp6 = false)
 		{
 			Assembly assembly = null;
 			if (!_compiledSourceFiles.TryGetValue(resourceName, out assembly))
@@ -146,7 +151,7 @@ namespace NArrange.Tests.CSharp
 				{
 					string source = reader.ReadToEnd();
 
-					CompilerResults results = Compile(source, resourceName);
+					CompilerResults results = Compile(source, resourceName, targetCSharp6);
 
 					if (results.Errors.Count > 0)
 					{
