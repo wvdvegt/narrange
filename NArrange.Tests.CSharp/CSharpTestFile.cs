@@ -92,6 +92,7 @@ namespace NArrange.Tests.CSharp
 			parameters.ReferencedAssemblies.Add("System.dll");
 			parameters.ReferencedAssemblies.Add("System.Data.dll");
 			parameters.ReferencedAssemblies.Add("System.Xml.dll");
+			parameters.ReferencedAssemblies.Add("System.Core.dll");
 
 			var provider = targetCSharp6 ?
 				new Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider() :
