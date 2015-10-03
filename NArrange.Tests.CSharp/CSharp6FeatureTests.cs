@@ -1,4 +1,5 @@
-﻿using NArrange.Core.CodeElements;
+﻿using FluentAssertions;
+using NArrange.Core.CodeElements;
 using NArrange.CSharp;
 using NUnit.Framework;
 using System.Collections.ObjectModel;
@@ -25,6 +26,8 @@ namespace NArrange.Tests.CSharp
 			{
 				CSharpParser parser = new CSharpParser();
 				ReadOnlyCollection<ICodeElement> elements = parser.Parse(reader);
+				elements.Should().HaveCount(1, "because there is only one namespace");
+				elements[0].Children.Should().HaveCount(3, "because there are 3 classes in the namespace");
 			}
 		}
 

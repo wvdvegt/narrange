@@ -555,7 +555,7 @@ namespace NArrange.Tests.ConsoleApplication
 		/// Tests Run without args
 		/// </summary>
 		[Test]
-		[ExpectedException(typeof (ArgumentNullException))]
+		[ExpectedException(typeof(ArgumentNullException))]
 		public void RunNullArgsTest()
 		{
 			Program.Run(new TestLogger(), null);
@@ -565,7 +565,7 @@ namespace NArrange.Tests.ConsoleApplication
 		/// Tests Run without a logger
 		/// </summary>
 		[Test]
-		[ExpectedException(typeof (ArgumentNullException))]
+		[ExpectedException(typeof(ArgumentNullException))]
 		public void RunNullLoggerTest()
 		{
 			Program.Run(null, CommandArguments.Parse("Input.cs"));

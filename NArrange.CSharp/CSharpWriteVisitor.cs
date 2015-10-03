@@ -332,7 +332,7 @@ namespace NArrange.CSharp
 			}
 
 			if (element[CSharpExtendedProperties.Fixed] is bool &&
-				(bool) element[CSharpExtendedProperties.Fixed])
+				(bool)element[CSharpExtendedProperties.Fixed])
 			{
 				Writer.Write(CSharpKeyword.Fixed);
 				Writer.Write(' ');
@@ -491,6 +491,33 @@ namespace NArrange.CSharp
 				Writer.Write(element.IndexParameter);
 				Writer.Write(CSharpSymbol.EndAttribute);
 			}
+
+			// only inline the property if it doesn't contain braces as that means
+			// that we are definitly not using get;/set; notation
+			bool inline = !element.BodyText.Contains("{") && !element.BodyText.Contains("}");
+			if (inline)
+			{
+				// code copied from WriteBody method; but altered to
+				// remove indenting with tabs and line feeds
+				this.Writer.Write(" { ");
+				if (element.BodyText == null || element.BodyText.Trim().Length <= 0)
+				{
+					this.Writer.Write("}");
+					return;
+				}
+				// check whether we actually have a valid property
+				var noWhiteSpaces = element.BodyText.Replace(" ", "").Replace("\t", "");
+				var noFormatting = element.BodyText.Replace("\r", "").Replace("\n", "");
+				if (noFormatting.Contains("get;") || noFormatting.Contains("set;"))
+				{
+					// in C# get; or set; cannpt be used in combination with get {} or set {}, therefore if one of them has a ";" we can assume auto property
+					// it appears to be; inline by replacing all linefeeds and whitespaces
+					this.Writer.Write("get; set; }");
+					base.WriteClosingComment(element, "// ");
+					return;
+				}
+			}
+			// no inline = use same methods as before
 
 			Writer.WriteLine();
 
@@ -833,7 +860,7 @@ namespace NArrange.CSharp
 
 			if (paramList != null)
 			{
-				string[] paramLines = paramList.Split(new string[] {Environment.NewLine}, StringSplitOptions.None);
+				string[] paramLines = paramList.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
 				for (int paramLineIndex = 0; paramLineIndex < paramLines.Length; paramLineIndex++)
 				{
 					string paramLine = paramLines[paramLineIndex];

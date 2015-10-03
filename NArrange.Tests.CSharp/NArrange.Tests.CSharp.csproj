@@ -49,6 +49,14 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentAssertions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.0.0\lib\net45\FluentAssertions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentAssertions.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.0.0\lib\net45\FluentAssertions.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -63,6 +71,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
@@ -77,8 +86,12 @@
     <Compile Include="CSharpTestFile.cs" />
     <Compile Include="CSharpTestUtilities.cs" />
     <Compile Include="CSharpWriterTests.cs" />
+    <Compile Include="InlinePropertyWhenPossibleTests.cs" />
     <Compile Include="SourceHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="TestSourceFiles\PropertyChanges\PropertyWithLogicCode.cs" />
+    <EmbeddedResource Include="TestSourceFiles\PropertyChanges\PrettyCode.cs" />
+    <EmbeddedResource Include="TestSourceFiles\PropertyChanges\UglyCode.cs" />
     <EmbeddedResource Include="TestSourceFiles\CSharp_6_0_Features\ExpressionBodies.cs" />
     <EmbeddedResource Include="TestSourceFiles\CSharp_6_0_Features\AutoPropertyInitializers.cs" />
     <EmbeddedResource Include="TestSourceFiles\CSharp_6_0_Features\NullConditionalOperator.cs" />
