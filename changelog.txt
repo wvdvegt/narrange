@@ -1,3 +1,14 @@
+2015-10-03	Marc Stanglmayr
+
+	* Forked latest from Sourceforge (which includes support for async/await)
+	* Updated NArrange itself to .Net 4.5
+	* Added support for C# 6.0 features including
+		* Auto property initializers
+		* Getter only properties
+		* Expression bodies on properties and methods
+		* Using static for classes and extension methods
+	* Removed old WiX installer
+	
 2010-12-02  James Nies
 
 	* Updated homepage URL
