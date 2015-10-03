@@ -76,6 +76,11 @@ namespace NArrange.Core.CodeElements
 		}
 
 		/// <summary>
+		/// Used only if <see cref="IsExpressionBodyProperty"/> is true.
+		/// </summary>
+		public string ExpressionBodyText { get; set; }
+
+		/// <summary>
 		/// Gets or sets the property index parameter.
 		/// </summary>
 		public string IndexParameter
@@ -83,6 +88,11 @@ namespace NArrange.Core.CodeElements
 			get { return _indexParameter; }
 			set { _indexParameter = value; }
 		}
+
+		/// <summary>
+		/// New C# 6 API for implicitly declared get-only properties (have neither getter nor setter, but only an expression body).
+		/// </summary>
+		public bool IsExpressionBodyProperty { get; set; }
 
 		#endregion Properties
 
@@ -105,8 +115,10 @@ namespace NArrange.Core.CodeElements
 		protected override InterfaceMemberElement DoInterfaceMemberClone()
 		{
 			PropertyElement propertyElement = new PropertyElement();
+			propertyElement.IsExpressionBodyProperty = IsExpressionBodyProperty;
 			propertyElement._indexParameter = _indexParameter;
 			propertyElement._autoPropertyInitializer = _autoPropertyInitializer;
+			propertyElement.ExpressionBodyText = ExpressionBodyText;
 			return propertyElement;
 		}
 

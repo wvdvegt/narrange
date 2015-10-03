@@ -21,7 +21,7 @@ namespace SampleNamespace
 			public string Name { get; }
 
 			public Customer3(string first, string last)
-	 {
+			{
 				Name = first + " " + last;
 			}
 		}

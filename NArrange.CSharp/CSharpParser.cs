@@ -36,6 +36,9 @@
 
 #endregion Header
 
+
+using System.Linq;
+
 namespace NArrange.CSharp
 {
 	using NArrange.Core;
@@ -1662,12 +1665,12 @@ namespace NArrange.CSharp
 					var expressionHead = new[] { CSharpSymbol.ExpressionBodyArrow1, CSharpSymbol.ExpressionBodyArrow2 };
 					// lucky for us, expressions can only have one statement (unlike expression lambdas),
 					// therefore we must have text like this "=> followed.by.a.statement;" which ParseOptionalAssignment will automatically trim to "followed.by.a.statement"
-					method.BodyText = this.ParseOptionalAssignment(expressionHead);
+					method.BodyText = this.ParseOptionalExpression(expressionHead);
 					method.HasExpressionBody = true;
 					if (string.IsNullOrEmpty(method.BodyText))
 					{
 						// is expression, but no suitable body found
-						this.OnParseError("Unexpected end of file. Expected " + new string(expressionHead));
+						this.OnParseError("Unexpected end of method. Expected " + new string(expressionHead) + " or a method body.");
 					}
 				}
 				else
@@ -1873,7 +1876,7 @@ namespace NArrange.CSharp
 		/// </summary>
 		/// <param name="assignmentSymbols">The symbols required to be found in order. E.g. = for a auto property initializer or => for a method expression body.</param>
 		/// <returns>Returns null if none found, otherwise the assignment content.</returns>
-		private string ParseOptionalAssignment(char[] assignmentSymbols)
+		private string ParseOptionalExpression(char[] assignmentSymbols)
 		{
 			// peek next char only, if we eat the whitespaces now, we might swallow the comment of the next property
 			var next = PeekNextCharExcept(WhiteSpaceCharacters);
@@ -1916,9 +1919,10 @@ namespace NArrange.CSharp
 		/// <param name="returnType">Type of the return.</param>
 		/// <param name="access">The access.</param>
 		/// <param name="memberAttributes">The member attributes.</param>
+		/// <param name="isExpressionBodyProperty">Set to true if the property uses the new C# 6 API where it does not even need braces, but instead can directly use an expression body (= implicit get only property).</param>
 		/// <returns>A property code element.</returns>
 		private PropertyElement ParseProperty(string memberName, string returnType, CodeAccess access,
-			MemberModifiers memberAttributes)
+			MemberModifiers memberAttributes, bool isExpressionBodyProperty)
 		{
 			PropertyElement property = new PropertyElement();
 
@@ -1936,9 +1940,25 @@ namespace NArrange.CSharp
 			property.Type = returnType;
 			property.MemberModifiers = memberAttributes;
 
-			property.BodyText = this.ParseBlock(false, property);
+			if (isExpressionBodyProperty)
+			{
+				property.IsExpressionBodyProperty = true;
+				var expressionHead = new[] { CSharpSymbol.ExpressionBodyArrow1, CSharpSymbol.ExpressionBodyArrow2 };
+				// we can skip the first part as it already has been swallowed in order to identify the property
+				var body = this.ParseOptionalExpression(expressionHead.Skip(1).ToArray());
+				if (string.IsNullOrEmpty(body))
+				{
+					// in this case the expression is not optional and in fact required.
+					this.OnParseError("Unexpected end of property. Expected " + new string(expressionHead) + " or property body with getter/setter.");
+				}
+				property.ExpressionBodyText = body;
+			}
+			else
+			{
+				property.BodyText = this.ParseBlock(false, property);
 
-			property.AutoPropertyInitializer = this.ParseOptionalAssignment(new[] { CSharpSymbol.Assignment });
+				property.AutoPropertyInitializer = this.ParseOptionalExpression(new[] { CSharpSymbol.Assignment });
+			}
 			return property;
 		}
 
@@ -2266,6 +2286,7 @@ namespace NArrange.CSharp
 				bool isStatement = lastChar == CSharpSymbol.EndOfStatement;
 				bool hasParams = lastChar == CSharpSymbol.BeginParameterList;
 				bool isProperty = lastChar == CSharpSymbol.BeginBlock;
+				bool isExpressionBodyProperty = (CurrentChar == CSharpSymbol.ExpressionBodyArrow1 && NextChar == CSharpSymbol.ExpressionBodyArrow2);
 
 				if (words.Length > 0 &&
 					(words.Length > 1 ||
@@ -2275,9 +2296,10 @@ namespace NArrange.CSharp
 					 words[0] == CSharpKeyword.Enumeration ||
 					 words[0] == CSharpKeyword.Event ||
 					 words[0][0] == CSharpSymbol.BeginFinalizer ||
-					 isStatement || hasParams || isProperty))
+					 isStatement || hasParams || isProperty || isExpressionBodyProperty))
 				{
-					bool isAssignment = !isOperator &&
+					bool isAssignment = !isExpressionBodyProperty &&
+										!isOperator &&
 										lastChar == CSharpSymbol.Assignment &&
 										NextChar != CSharpSymbol.Assignment &&
 										PreviousChar != CSharpSymbol.Assignment &&
@@ -2302,7 +2324,7 @@ namespace NArrange.CSharp
 
 					ElementType elementType;
 					TypeElementType? typeElementType = null;
-					if (isProperty)
+					if (isProperty || isExpressionBodyProperty)
 					{
 						elementType = ElementType.Property;
 					}
@@ -2348,7 +2370,7 @@ namespace NArrange.CSharp
 						string memberName = null;
 						string returnType = null;
 
-						if (isStatement || isAssignment || hasParams || isProperty)
+						if (isStatement || isAssignment || hasParams || isProperty || isExpressionBodyProperty)
 						{
 							GetMemberNameAndType(wordList, out memberName, out returnType);
 						}
@@ -2403,7 +2425,7 @@ namespace NArrange.CSharp
 						}
 						else if (elementType == ElementType.Property)
 						{
-							codeElement = ParseProperty(memberName, returnType, access, memberAttributes);
+							codeElement = ParseProperty(memberName, returnType, access, memberAttributes, isExpressionBodyProperty);
 						}
 					}
 

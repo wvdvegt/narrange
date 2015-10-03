@@ -500,7 +500,10 @@ namespace NArrange.CSharp
 
 			// only inline the property if it doesn't contain braces as that means
 			// that we are definitly not using get;/set; notation
-			bool inline = !element.BodyText.Contains("{") && !element.BodyText.Contains("}");
+
+			// new in C# 6: expression properties that are implicit get-only properties, we handle those below
+			var inline = !element.IsExpressionBodyProperty &&
+						!element.BodyText.Contains("{") && !element.BodyText.Contains("}");
 			if (inline)
 			{
 				// code copied from WriteBody method; but altered to
@@ -532,12 +535,21 @@ namespace NArrange.CSharp
 			}
 			// no inline = use same methods as before
 
-			Writer.WriteLine();
-
-			WriteBody(element);
-			if (!string.IsNullOrEmpty(element.AutoPropertyInitializer))
+			if (element.IsExpressionBodyProperty)
 			{
-				WriteAutoPropertyInitializer(element);
+				Writer.Write(" => ");
+				Writer.Write(element.ExpressionBodyText);
+				Writer.Write(';');
+			}
+			else
+			{
+				Writer.WriteLine();
+
+				WriteBody(element);
+				if (!string.IsNullOrEmpty(element.AutoPropertyInitializer))
+				{
+					WriteAutoPropertyInitializer(element);
+				}
 			}
 		}
 
