@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace NArrange.Core
 {
@@ -62,6 +63,8 @@ namespace NArrange.Core
 		public int PeekAhead()
 		{
 			var c = _textReader.Read();
+			if (c == -1)
+				return -1; // don't add to peeking cache
 			_peeks.Add(c);
 			return c;
 		}
@@ -81,11 +84,21 @@ namespace NArrange.Core
 		/// <see cref="TextReader.Read(char[], int, int)" />
 		public override int Read(char[] buffer, int index, int count)
 		{
+			if (count < 0)
+				throw new ArgumentOutOfRangeException(nameof(count));
+			if (index < 0)
+				throw new ArgumentOutOfRangeException(nameof(index));
+			if (buffer == null)
+				throw new ArgumentNullException(nameof(buffer));
+
 			int read = 0;
 			if (_peeks.Count > 0)
 			{
 				var toCopy = Math.Min(count, _peeks.Count);
-				Array.Copy(_peeks.ToArray(), 0, buffer, index, toCopy);
+				char[] peeked = _peeks.Take(toCopy).Select(i => (char)i).ToArray();
+
+				Array.Copy(peeked, 0, buffer, index, toCopy);
+				_peeks.RemoveRange(0, toCopy);
 				index += toCopy;
 				count -= toCopy;
 				read += toCopy;
