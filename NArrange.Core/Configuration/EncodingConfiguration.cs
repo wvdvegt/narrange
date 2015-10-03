@@ -38,132 +38,128 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System;
-    using System.ComponentModel;
-    using System.Globalization;
-    using System.Text;
-    using System.Threading;
-    using System.Xml.Serialization;
+	using System;
+	using System.ComponentModel;
+	using System.Globalization;
+	using System.Text;
+	using System.Threading;
+	using System.Xml.Serialization;
 
-    /// <summary>
-    /// Specifies encoding configuration.
-    /// </summary>
-    [XmlType("Encoding")]
-    public class EncodingConfiguration : ICloneable
-    {
-        #region Fields
+	/// <summary>
+	/// Specifies encoding configuration.
+	/// </summary>
+	[XmlType("Encoding")]
+	public class EncodingConfiguration : ICloneable
+	{
+		#region Fields
 
-        /// <summary>
-        /// CodePage value to indicate the system ANSI default.
-        /// </summary>
-        public static string DefaultCodePage = "Default";
+		/// <summary>
+		/// CodePage value to indicate the system ANSI default.
+		/// </summary>
+		public static string DefaultCodePage = "Default";
 
-        /// <summary>
-        /// CodePage value to indicate auto-detection.
-        /// </summary>
-        public static string DetectCodePage = "Detect";
+		/// <summary>
+		/// CodePage value to indicate auto-detection.
+		/// </summary>
+		public static string DetectCodePage = "Detect";
 
-        /// <summary>
-        /// The code page configuration value.
-        /// </summary>
-        private string _codePage;
+		/// <summary>
+		/// The code page configuration value.
+		/// </summary>
+		private string _codePage;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new EncodingConfiguration instance.
-        /// </summary>
-        public EncodingConfiguration()
-        {
-            _codePage = DetectCodePage;
-        }
+		/// <summary>
+		/// Creates a new EncodingConfiguration instance.
+		/// </summary>
+		public EncodingConfiguration()
+		{
+			_codePage = DetectCodePage;
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets the CodePage.
-        /// </summary>
-        [XmlAttribute("CodePage")]
-        [Description("The code page identifier for the encoding to use for source code files.  \"Detect\" and \"Default\" are also valid.")]
-        [DisplayName("Code page")]
-        public string CodePage
-        {
-            get
-            {
-                return _codePage;
-            }
-            set
-            {
-                _codePage = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the CodePage.
+		/// </summary>
+		[XmlAttribute("CodePage")]
+		[Description(
+			"The code page identifier for the encoding to use for source code files.  \"Detect\" and \"Default\" are also valid."
+			)]
+		[DisplayName("Code page")]
+		public string CodePage
+		{
+			get { return _codePage; }
+			set { _codePage = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>
-        /// A new object that is a copy of this instance.
-        /// </returns>
-        public object Clone()
-        {
-            EncodingConfiguration clone = new EncodingConfiguration();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>
+		/// A new object that is a copy of this instance.
+		/// </returns>
+		public object Clone()
+		{
+			EncodingConfiguration clone = new EncodingConfiguration();
 
-            clone._codePage = _codePage;
+			clone._codePage = _codePage;
 
-            return clone;
-        }
+			return clone;
+		}
 
-        /// <summary>
-        /// Gets the encoding (null if Detect) specified by the configuration.
-        /// </summary>
-        /// <returns>The configured encoding if specified, otherwise null.</returns>
-        public Encoding GetEncoding()
-        {
-            Encoding encoding = null;
-            string codePage = CodePage;
-            if (!(string.IsNullOrEmpty(codePage) || codePage.Trim().Length == 0 ||
-                codePage.ToUpperInvariant() == DetectCodePage.ToUpperInvariant()))
-            {
-                if (codePage.ToUpperInvariant() == DefaultCodePage.ToUpperInvariant())
-                {
-                    encoding = Encoding.Default;
-                }
-                else
-                {
-                    int codePageInt;
-                    if (int.TryParse(codePage, out codePageInt))
-                    {
-                        encoding = Encoding.GetEncoding(codePageInt);
-                    }
-                    else
-                    {
-                        throw new FormatException(
-                            string.Format(CultureInfo.CurrentCulture, "Invalid code page '{0}'.", codePage));
-                    }
-                }
-            }
+		/// <summary>
+		/// Gets the encoding (null if Detect) specified by the configuration.
+		/// </summary>
+		/// <returns>The configured encoding if specified, otherwise null.</returns>
+		public Encoding GetEncoding()
+		{
+			Encoding encoding = null;
+			string codePage = CodePage;
+			if (!(string.IsNullOrEmpty(codePage) || codePage.Trim().Length == 0 ||
+				  codePage.ToUpperInvariant() == DetectCodePage.ToUpperInvariant()))
+			{
+				if (codePage.ToUpperInvariant() == DefaultCodePage.ToUpperInvariant())
+				{
+					encoding = Encoding.Default;
+				}
+				else
+				{
+					int codePageInt;
+					if (int.TryParse(codePage, out codePageInt))
+					{
+						encoding = Encoding.GetEncoding(codePageInt);
+					}
+					else
+					{
+						throw new FormatException(
+							string.Format(CultureInfo.CurrentCulture, "Invalid code page '{0}'.", codePage));
+					}
+				}
+			}
 
-            return encoding;
-        }
+			return encoding;
+		}
 
-        /// <summary>
-        /// Gets the string representation of this instance.
-        /// </summary>
-        /// <returns>The string representation.</returns>
-        public override string ToString()
-        {
-            return string.Format(
-                Thread.CurrentThread.CurrentCulture, "Encoding: CodePage - {0}", CodePage);
-        }
+		/// <summary>
+		/// Gets the string representation of this instance.
+		/// </summary>
+		/// <returns>The string representation.</returns>
+		public override string ToString()
+		{
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture, "Encoding: CodePage - {0}", CodePage);
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

@@ -38,159 +38,159 @@
 
 namespace NArrange.CSharp
 {
-    /// <summary>
-    /// C# character constants.
-    /// </summary>
-    public static class CSharpSymbol
-    {
-        #region Fields
+	/// <summary>
+	/// C# character constants.
+	/// </summary>
+	public static class CSharpSymbol
+	{
+		#region Fields
 
-        /// <summary>
-        /// Alias qualifier symbol.
-        /// </summary>
-        public const char AliasQualifier = '.';
+		/// <summary>
+		/// Alias qualifier symbol.
+		/// </summary>
+		public const char AliasQualifier = '.';
 
-        /// <summary>
-        /// Alias separator symbol.
-        /// </summary>
-        public const char AliasSeparator = ',';
+		/// <summary>
+		/// Alias separator symbol.
+		/// </summary>
+		public const char AliasSeparator = ',';
 
-        /// <summary>
-        /// Assignment symbol.
-        /// </summary>
-        public const char Assignment = '=';
+		/// <summary>
+		/// Assignment symbol.
+		/// </summary>
+		public const char Assignment = '=';
 
-        /// <summary>
-        /// Beginning of attribute symbol.
-        /// </summary>
-        public const char BeginAttribute = '[';
+		/// <summary>
+		/// Beginning of attribute symbol.
+		/// </summary>
+		public const char BeginAttribute = '[';
 
-        /// <summary>
-        /// Beginning of block symbol.
-        /// </summary>
-        public const char BeginBlock = '{';
+		/// <summary>
+		/// Beginning of block symbol.
+		/// </summary>
+		public const char BeginBlock = '{';
 
-        /// <summary>
-        /// Beginning of character literal symbol.
-        /// </summary>
-        public const char BeginCharLiteral = '\'';
+		/// <summary>
+		/// Beginning of character literal symbol.
+		/// </summary>
+		public const char BeginCharLiteral = '\'';
 
-        /// <summary>
-        /// Beginning of comment symbol.
-        /// </summary>
-        public const char BeginComment = '/';
+		/// <summary>
+		/// Beginning of comment symbol.
+		/// </summary>
+		public const char BeginComment = '/';
 
-        /// <summary>
-        /// End of string symbol.
-        /// </summary>
-        public const char BeginFinalizer = '~';
+		/// <summary>
+		/// End of string symbol.
+		/// </summary>
+		public const char BeginFinalizer = '~';
 
-        /// <summary>
-        /// Beginning of generic parameter symbol.
-        /// </summary>
-        public const char BeginGeneric = '<';
+		/// <summary>
+		/// Beginning of generic parameter symbol.
+		/// </summary>
+		public const char BeginGeneric = '<';
 
-        /// <summary>
-        /// Beginning of parameter list symbol.
-        /// </summary>
-        public const char BeginParameterList = '(';
+		/// <summary>
+		/// Beginning of parameter list symbol.
+		/// </summary>
+		public const char BeginParameterList = '(';
 
-        /// <summary>
-        /// Beginning of string symbol.
-        /// </summary>
-        public const char BeginString = '"';
+		/// <summary>
+		/// Beginning of string symbol.
+		/// </summary>
+		public const char BeginString = '"';
 
-        /// <summary>
-        /// Begin verbatim string symbol.
-        /// </summary>
-        public const char BeginVerbatimString = '@';
+		/// <summary>
+		/// Begin verbatim string symbol.
+		/// </summary>
+		public const char BeginVerbatimString = '@';
 
-        /// <summary>
-        /// Beginning of block comment symbol.
-        /// </summary>
-        public const char BlockCommentModifier = '*';
+		/// <summary>
+		/// Beginning of block comment symbol.
+		/// </summary>
+		public const char BlockCommentModifier = '*';
 
-        /// <summary>
-        /// End of attribute symbol.
-        /// </summary>
-        public const char EndAttribute = ']';
+		/// <summary>
+		/// End of attribute symbol.
+		/// </summary>
+		public const char EndAttribute = ']';
 
-        /// <summary>
-        /// End of block symbol.
-        /// </summary>
-        public const char EndBlock = '}';
+		/// <summary>
+		/// End of block symbol.
+		/// </summary>
+		public const char EndBlock = '}';
 
-        /// <summary>
-        /// End of generic parameter symbol.
-        /// </summary>
-        public const char EndGeneric = '>';
+		/// <summary>
+		/// End of generic parameter symbol.
+		/// </summary>
+		public const char EndGeneric = '>';
 
-        /// <summary>
-        /// End of statement symbol.
-        /// </summary>
-        public const char EndOfStatement = ';';
+		/// <summary>
+		/// End of statement symbol.
+		/// </summary>
+		public const char EndOfStatement = ';';
 
-        /// <summary>
-        /// End of parameter list symbol.
-        /// </summary>
-        public const char EndParameterList = ')';
+		/// <summary>
+		/// End of parameter list symbol.
+		/// </summary>
+		public const char EndParameterList = ')';
 
-        /// <summary>
-        /// Negate symbol.
-        /// </summary>
-        public const char Negate = '!';
+		/// <summary>
+		/// Negate symbol.
+		/// </summary>
+		public const char Negate = '!';
 
-        /// <summary>
-        /// Nullable symbol.
-        /// </summary>
-        public const char Nullable = '?';
+		/// <summary>
+		/// Nullable symbol.
+		/// </summary>
+		public const char Nullable = '?';
 
-        /// <summary>
-        /// Preprocessor symbol.
-        /// </summary>
-        public const char Preprocessor = '#';
+		/// <summary>
+		/// Preprocessor symbol.
+		/// </summary>
+		public const char Preprocessor = '#';
 
-        /// <summary>
-        /// Type inheritance symbol.
-        /// </summary>
-        public const char TypeImplements = ':';
+		/// <summary>
+		/// Type inheritance symbol.
+		/// </summary>
+		public const char TypeImplements = ':';
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Determines if the specified char is a Csharp symbol character.
-        /// </summary>
-        /// <param name="character">The character to test.</param>
-        /// <returns>True if the character is a C# symbol, otherwise false.</returns>
-        public static bool IsCSharpSymbol(char character)
-        {
-            return
-                character == AliasQualifier ||
-                character == AliasSeparator ||
-                character == Assignment ||
-                character == BeginAttribute ||
-                character == BeginBlock ||
-                character == BeginCharLiteral ||
-                character == BeginComment ||
-                character == BeginFinalizer ||
-                character == BeginGeneric ||
-                character == BeginParameterList ||
-                character == BeginString ||
-                character == BlockCommentModifier ||
-                character == EndAttribute ||
-                character == EndBlock ||
-                character == EndGeneric ||
-                character == EndOfStatement ||
-                character == EndParameterList ||
-                character == Preprocessor ||
-                character == TypeImplements ||
-                character == Negate ||
-                character == Nullable ||
-                character == BeginVerbatimString;
-        }
+		/// <summary>
+		/// Determines if the specified char is a Csharp symbol character.
+		/// </summary>
+		/// <param name="character">The character to test.</param>
+		/// <returns>True if the character is a C# symbol, otherwise false.</returns>
+		public static bool IsCSharpSymbol(char character)
+		{
+			return
+				character == AliasQualifier ||
+				character == AliasSeparator ||
+				character == Assignment ||
+				character == BeginAttribute ||
+				character == BeginBlock ||
+				character == BeginCharLiteral ||
+				character == BeginComment ||
+				character == BeginFinalizer ||
+				character == BeginGeneric ||
+				character == BeginParameterList ||
+				character == BeginString ||
+				character == BlockCommentModifier ||
+				character == EndAttribute ||
+				character == EndBlock ||
+				character == EndGeneric ||
+				character == EndOfStatement ||
+				character == EndParameterList ||
+				character == Preprocessor ||
+				character == TypeImplements ||
+				character == Negate ||
+				character == Nullable ||
+				character == BeginVerbatimString;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

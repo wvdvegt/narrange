@@ -37,60 +37,60 @@
 
 namespace NArrange.Core
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.IO;
-    using System.Xml;
+	using System;
+	using System.Collections.Generic;
+	using System.Collections.ObjectModel;
+	using System.IO;
+	using System.Xml;
 
-    /// <summary>
-    /// Parses an individual MSBuild project (e.g. .csproj, .vbproj) for 
-    /// individual source file names.
-    /// </summary>
-    public class MSBuildProjectParser : IProjectParser
-    {
-        #region Methods
+	/// <summary>
+	/// Parses an individual MSBuild project (e.g. .csproj, .vbproj) for 
+	/// individual source file names.
+	/// </summary>
+	public class MSBuildProjectParser : IProjectParser
+	{
+		#region Methods
 
-        /// <summary>
-        /// Parses source file names from a project file.
-        /// </summary>
-        /// <param name="projectFile">Project file name.</param>
-        /// <returns>A list of source code filenames</returns>
-        public virtual ReadOnlyCollection<string> Parse(string projectFile)
-        {
-            if (projectFile == null)
-            {
-                throw new ArgumentNullException("projectFile");
-            }
+		/// <summary>
+		/// Parses source file names from a project file.
+		/// </summary>
+		/// <param name="projectFile">Project file name.</param>
+		/// <returns>A list of source code filenames</returns>
+		public virtual ReadOnlyCollection<string> Parse(string projectFile)
+		{
+			if (projectFile == null)
+			{
+				throw new ArgumentNullException("projectFile");
+			}
 
-            string projectPath = Path.GetDirectoryName(projectFile);
-            List<string> sourceFiles = new List<string>();
+			string projectPath = Path.GetDirectoryName(projectFile);
+			List<string> sourceFiles = new List<string>();
 
-            XmlDocument xmlDocument = new XmlDocument();
-            xmlDocument.Load(projectFile);
+			XmlDocument xmlDocument = new XmlDocument();
+			xmlDocument.Load(projectFile);
 
-            XmlNamespaceManager namespaceManager = new XmlNamespaceManager(xmlDocument.NameTable);
-            namespaceManager.AddNamespace("ns", "http://schemas.microsoft.com/developer/msbuild/2003");
+			XmlNamespaceManager namespaceManager = new XmlNamespaceManager(xmlDocument.NameTable);
+			namespaceManager.AddNamespace("ns", "http://schemas.microsoft.com/developer/msbuild/2003");
 
-            XmlNodeList nodes = xmlDocument.SelectNodes("//ns:Compile", namespaceManager);
-            foreach (XmlNode node in nodes)
-            {
-                XmlAttribute includeAttribute = node.Attributes["Include"];
-                if (includeAttribute != null)
-                {
-                    if (node.SelectSingleNode("ns:Link", namespaceManager) == null)
-                    {
-                        string fileName = includeAttribute.Value;
+			XmlNodeList nodes = xmlDocument.SelectNodes("//ns:Compile", namespaceManager);
+			foreach (XmlNode node in nodes)
+			{
+				XmlAttribute includeAttribute = node.Attributes["Include"];
+				if (includeAttribute != null)
+				{
+					if (node.SelectSingleNode("ns:Link", namespaceManager) == null)
+					{
+						string fileName = includeAttribute.Value;
 
-                        string sourceFilePath = Path.Combine(projectPath, fileName);
-                        sourceFiles.Add(sourceFilePath);
-                    }
-                }
-            }
+						string sourceFilePath = Path.Combine(projectPath, fileName);
+						sourceFiles.Add(sourceFilePath);
+					}
+				}
+			}
 
-            return sourceFiles.AsReadOnly();
-        }
+			return sourceFiles.AsReadOnly();
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

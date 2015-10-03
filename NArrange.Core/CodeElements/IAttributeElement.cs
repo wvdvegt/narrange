@@ -37,29 +37,23 @@
 
 namespace NArrange.Core.CodeElements
 {
-    /// <summary>
-    /// Interface for attribute code elements.
-    /// </summary>
-    public interface IAttributeElement : ICodeElement
-    {
-        #region Properties
+	/// <summary>
+	/// Interface for attribute code elements.
+	/// </summary>
+	public interface IAttributeElement : ICodeElement
+	{
+		#region Properties
 
-        /// <summary>
-        /// Gets the body text.
-        /// </summary>
-        string BodyText
-        {
-            get;
-        }
+		/// <summary>
+		/// Gets the body text.
+		/// </summary>
+		string BodyText { get; }
 
-        /// <summary>
-        /// Gets the attribute target.
-        /// </summary>
-        string Target
-        {
-            get;
-        }
+		/// <summary>
+		/// Gets the attribute target.
+		/// </summary>
+		string Target { get; }
 
-        #endregion Properties
-    }
+		#endregion Properties
+	}
 }

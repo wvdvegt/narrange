@@ -37,25 +37,25 @@
 
 namespace NArrange.Core
 {
-    using NArrange.Core.CodeElements;
+	using NArrange.Core.CodeElements;
 
-    /// <summary>
-    /// Inserts an element in the code arrangement.
-    /// </summary>
-    public class DefaultElementInserter : IElementInserter
-    {
-        #region Methods
+	/// <summary>
+	/// Inserts an element in the code arrangement.
+	/// </summary>
+	public class DefaultElementInserter : IElementInserter
+	{
+		#region Methods
 
-        /// <summary>
-        /// Inserts the element in the code arrangement.
-        /// </summary>
-        /// <param name="parentElement">Parent element to insert into.</param>
-        /// <param name="codeElement">Code element to insert.</param>
-        public virtual void InsertElement(ICodeElement parentElement, ICodeElement codeElement)
-        {
-            parentElement.AddChild(codeElement);
-        }
+		/// <summary>
+		/// Inserts the element in the code arrangement.
+		/// </summary>
+		/// <param name="parentElement">Parent element to insert into.</param>
+		/// <param name="codeElement">Code element to insert.</param>
+		public virtual void InsertElement(ICodeElement parentElement, ICodeElement codeElement)
+		{
+			parentElement.AddChild(codeElement);
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

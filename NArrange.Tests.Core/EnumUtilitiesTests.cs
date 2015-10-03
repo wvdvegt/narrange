@@ -1,47 +1,45 @@
 namespace NArrange.Tests.Core
 {
-    using System;
+	using NArrange.Core;
+	using NUnit.Framework;
+	using System;
 
-    using NArrange.Core;
+	/// <summary>
+	/// Test fixture for the EnumUtilities class.
+	/// </summary>
+	[TestFixture]
+	public class EnumUtilitiesTests
+	{
+		#region Methods
 
-    using NUnit.Framework;
+		/// <summary>
+		/// Tests the ToString method.
+		/// </summary>
+		[Test]
+		public void ToStringTest()
+		{
+			string str;
 
-    /// <summary>
-    /// Test fixture for the EnumUtilities class.
-    /// </summary>
-    [TestFixture]
-    public class EnumUtilitiesTests
-    {
-        #region Methods
+			str = DayOfWeek.Friday.ToString();
+			Assert.AreEqual(str, EnumUtilities.ToString(DayOfWeek.Friday));
+			Assert.AreEqual(str, EnumUtilities.ToString(DayOfWeek.Friday));
 
-        /// <summary>
-        /// Tests the ToString method.
-        /// </summary>
-        [Test]
-        public void ToStringTest()
-        {
-            string str;
+			str = DayOfWeek.Sunday.ToString();
+			Assert.AreEqual(str, EnumUtilities.ToString(DayOfWeek.Sunday));
+			Assert.AreEqual(str, EnumUtilities.ToString(DayOfWeek.Sunday));
 
-            str = DayOfWeek.Friday.ToString();
-            Assert.AreEqual(str, EnumUtilities.ToString(DayOfWeek.Friday));
-            Assert.AreEqual(str, EnumUtilities.ToString(DayOfWeek.Friday));
+			MemberModifiers modifiers;
+			modifiers = MemberModifiers.Override | MemberModifiers.ReadOnly;
+			str = modifiers.ToString();
+			Assert.AreEqual(str, EnumUtilities.ToString(modifiers));
+			Assert.AreEqual(str, EnumUtilities.ToString(modifiers));
 
-            str = DayOfWeek.Sunday.ToString();
-            Assert.AreEqual(str, EnumUtilities.ToString(DayOfWeek.Sunday));
-            Assert.AreEqual(str, EnumUtilities.ToString(DayOfWeek.Sunday));
+			modifiers = MemberModifiers.Override | MemberModifiers.Partial;
+			str = modifiers.ToString();
+			Assert.AreEqual(str, EnumUtilities.ToString(modifiers));
+			Assert.AreEqual(str, EnumUtilities.ToString(modifiers));
+		}
 
-            MemberModifiers modifiers;
-            modifiers = MemberModifiers.Override | MemberModifiers.ReadOnly;
-            str = modifiers.ToString();
-            Assert.AreEqual(str, EnumUtilities.ToString(modifiers));
-            Assert.AreEqual(str, EnumUtilities.ToString(modifiers));
-
-            modifiers = MemberModifiers.Override | MemberModifiers.Partial;
-            str = modifiers.ToString();
-            Assert.AreEqual(str, EnumUtilities.ToString(modifiers));
-            Assert.AreEqual(str, EnumUtilities.ToString(modifiers));
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

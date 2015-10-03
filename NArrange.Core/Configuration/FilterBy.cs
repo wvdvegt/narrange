@@ -38,74 +38,68 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System;
-    using System.ComponentModel;
-    using System.Threading;
-    using System.Xml.Serialization;
+	using System;
+	using System.ComponentModel;
+	using System.Threading;
+	using System.Xml.Serialization;
 
-    /// <summary>
-    /// Specifies element filtering 
-    /// </summary>
-    [XmlType("Filter")]
-    public class FilterBy : ICloneable
-    {
-        #region Fields
+	/// <summary>
+	/// Specifies element filtering 
+	/// </summary>
+	[XmlType("Filter")]
+	public class FilterBy : ICloneable
+	{
+		#region Fields
 
-        /// <summary>
-        /// The filter condition.
-        /// </summary>
-        private string _conditionExpression;
+		/// <summary>
+		/// The filter condition.
+		/// </summary>
+		private string _conditionExpression;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets the filter expression.
-        /// </summary>
-        [XmlAttribute("Condition")]
-        [Description("The condition expression, consisting of attribute parameters, operators and strings.")]
-        public string Condition
-        {
-            get
-            {
-                return _conditionExpression;
-            }
-            set
-            {
-                _conditionExpression = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the filter expression.
+		/// </summary>
+		[XmlAttribute("Condition")]
+		[Description("The condition expression, consisting of attribute parameters, operators and strings.")]
+		public string Condition
+		{
+			get { return _conditionExpression; }
+			set { _conditionExpression = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>
-        /// A new object that is a copy of this instance.
-        /// </returns>
-        public object Clone()
-        {
-            FilterBy clone = new FilterBy();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>
+		/// A new object that is a copy of this instance.
+		/// </returns>
+		public object Clone()
+		{
+			FilterBy clone = new FilterBy();
 
-            clone._conditionExpression = _conditionExpression;
+			clone._conditionExpression = _conditionExpression;
 
-            return clone;
-        }
+			return clone;
+		}
 
-        /// <summary>
-        /// Gets the string representation.
-        /// </summary>
-        /// <returns>String representation.</returns>
-        public override string ToString()
-        {
-            return string.Format(
-                Thread.CurrentThread.CurrentCulture, "Filter by: {0}", _conditionExpression);
-        }
+		/// <summary>
+		/// Gets the string representation.
+		/// </summary>
+		/// <returns>String representation.</returns>
+		public override string ToString()
+		{
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture, "Filter by: {0}", _conditionExpression);
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

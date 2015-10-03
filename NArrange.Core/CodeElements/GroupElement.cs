@@ -37,116 +37,101 @@
 
 namespace NArrange.Core.CodeElements
 {
-    /// <summary>
-    /// Element used to logically group other elements.
-    /// </summary>
-    public sealed class GroupElement : CodeElement
-    {
-        #region Fields
+	/// <summary>
+	/// Element used to logically group other elements.
+	/// </summary>
+	public sealed class GroupElement : CodeElement
+	{
+		#region Fields
 
-        /// <summary>
-        /// Custom separator text.
-        /// </summary>
-        private string _customSeparator;
+		/// <summary>
+		/// Custom separator text.
+		/// </summary>
+		private string _customSeparator;
 
-        /// <summary>
-        /// Separator type.
-        /// </summary>
-        private GroupSeparatorType _separatorType;
+		/// <summary>
+		/// Separator type.
+		/// </summary>
+		private GroupSeparatorType _separatorType;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a group element.
-        /// </summary>
-        public GroupElement()
-        {
-        }
+		/// <summary>
+		/// Creates a group element.
+		/// </summary>
+		public GroupElement()
+		{
+		}
 
-        /// <summary>
-        /// Creates a group element with the specified name.
-        /// </summary>
-        /// <param name="name">The group name.</param>
-        public GroupElement(string name)
-            : this()
-        {
-            Name = name;
-        }
+		/// <summary>
+		/// Creates a group element with the specified name.
+		/// </summary>
+		/// <param name="name">The group name.</param>
+		public GroupElement(string name)
+			: this()
+		{
+			Name = name;
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets the custom separator string.
-        /// </summary>
-        public string CustomSeparator
-        {
-            get
-            {
-                return _customSeparator;
-            }
-            set
-            {
-                _customSeparator = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the custom separator string.
+		/// </summary>
+		public string CustomSeparator
+		{
+			get { return _customSeparator; }
+			set { _customSeparator = value; }
+		}
 
-        /// <summary>
-        /// Gets the element type.
-        /// </summary>
-        public override ElementType ElementType
-        {
-            get
-            {
-                return ElementType.NotSpecified;
-            }
-        }
+		/// <summary>
+		/// Gets the element type.
+		/// </summary>
+		public override ElementType ElementType
+		{
+			get { return ElementType.NotSpecified; }
+		}
 
-        /// <summary>
-        /// Gets or sets the separator type.
-        /// </summary>
-        public GroupSeparatorType SeparatorType
-        {
-            get
-            {
-                return _separatorType;
-            }
-            set
-            {
-                _separatorType = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the separator type.
+		/// </summary>
+		public GroupSeparatorType SeparatorType
+		{
+			get { return _separatorType; }
+			set { _separatorType = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Allows an ICodeElementVisitor to process (or visit) this element.
-        /// </summary>
-        /// <param name="visitor">Visitor to accept the code element.</param>
-        /// <remarks>See the Gang of Four Visitor design pattern.</remarks>
-        public override void Accept(ICodeElementVisitor visitor)
-        {
-            visitor.VisitGroupElement(this);
-        }
+		/// <summary>
+		/// Allows an ICodeElementVisitor to process (or visit) this element.
+		/// </summary>
+		/// <param name="visitor">Visitor to accept the code element.</param>
+		/// <remarks>See the Gang of Four Visitor design pattern.</remarks>
+		public override void Accept(ICodeElementVisitor visitor)
+		{
+			visitor.VisitGroupElement(this);
+		}
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>Clone of the code element.</returns>
-        protected override CodeElement DoClone()
-        {
-            GroupElement clone = new GroupElement();
-            clone._customSeparator = _customSeparator;
-            clone._separatorType = _separatorType;
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>Clone of the code element.</returns>
+		protected override CodeElement DoClone()
+		{
+			GroupElement clone = new GroupElement();
+			clone._customSeparator = _customSeparator;
+			clone._separatorType = _separatorType;
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

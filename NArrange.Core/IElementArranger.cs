@@ -37,43 +37,43 @@
 
 namespace NArrange.Core
 {
-    using NArrange.Core.CodeElements;
+	using NArrange.Core.CodeElements;
 
-    /// <summary>
-    /// Element arranger interface.
-    /// </summary>
-    public interface IElementArranger
-    {
-        #region Methods
+	/// <summary>
+	/// Element arranger interface.
+	/// </summary>
+	public interface IElementArranger
+	{
+		#region Methods
 
-        /// <summary>
-        /// Arranges the specified element within the parent element.
-        /// </summary>
-        /// <param name="parentElement">The parent element.</param>
-        /// <param name="codeElement">The code element.</param>
-        void ArrangeElement(ICodeElement parentElement, ICodeElement codeElement);
+		/// <summary>
+		/// Arranges the specified element within the parent element.
+		/// </summary>
+		/// <param name="parentElement">The parent element.</param>
+		/// <param name="codeElement">The code element.</param>
+		void ArrangeElement(ICodeElement parentElement, ICodeElement codeElement);
 
-        /// <summary>
-        /// Determines whether or not this arranger can handle arrangement of
-        /// the specified element.
-        /// </summary>
-        /// <param name="codeElement">The code element.</param>
-        /// <returns>
-        /// 	<c>true</c> if this instance can arrange the specified code element; otherwise, <c>false</c>.
-        /// </returns>
-        bool CanArrange(ICodeElement codeElement);
+		/// <summary>
+		/// Determines whether or not this arranger can handle arrangement of
+		/// the specified element.
+		/// </summary>
+		/// <param name="codeElement">The code element.</param>
+		/// <returns>
+		/// 	<c>true</c> if this instance can arrange the specified code element; otherwise, <c>false</c>.
+		/// </returns>
+		bool CanArrange(ICodeElement codeElement);
 
-        /// <summary>
-        /// Determines whether or not this arranger can handle arrangement of
-        /// the specified element.
-        /// </summary>
-        /// <param name="parentElement">The parent element.</param>
-        /// <param name="codeElement">The code element.</param>
-        /// <returns>
-        /// <c>true</c> if this instance can arrange the specified parent element; otherwise, <c>false</c>.
-        /// </returns>
-        bool CanArrange(ICodeElement parentElement, ICodeElement codeElement);
+		/// <summary>
+		/// Determines whether or not this arranger can handle arrangement of
+		/// the specified element.
+		/// </summary>
+		/// <param name="parentElement">The parent element.</param>
+		/// <param name="codeElement">The code element.</param>
+		/// <returns>
+		/// <c>true</c> if this instance can arrange the specified parent element; otherwise, <c>false</c>.
+		/// </returns>
+		bool CanArrange(ICodeElement parentElement, ICodeElement codeElement);
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

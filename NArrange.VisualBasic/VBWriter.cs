@@ -38,30 +38,29 @@
 
 namespace NArrange.VisualBasic
 {
-    using System.Collections.ObjectModel;
-    using System.IO;
+	using NArrange.Core;
+	using NArrange.Core.CodeElements;
+	using System.Collections.ObjectModel;
+	using System.IO;
 
-    using NArrange.Core;
-    using NArrange.Core.CodeElements;
+	/// <summary>
+	/// Writes VB code elements to a file.
+	/// </summary>
+	public sealed class VBWriter : CodeWriter
+	{
+		#region Methods
 
-    /// <summary>
-    /// Writes VB code elements to a file.
-    /// </summary>
-    public sealed class VBWriter : CodeWriter
-    {
-        #region Methods
+		/// <summary>
+		/// Writes code elements to the specified writer.
+		/// </summary>
+		/// <param name="codeElements">The collection of elements to write.</param>
+		/// <param name="writer">Writer to write to.</param>
+		protected override void DoWriteElements(ReadOnlyCollection<ICodeElement> codeElements, TextWriter writer)
+		{
+			VBWriteVisitor visitor = new VBWriteVisitor(writer, Configuration);
+			WriteVisitElements(codeElements, writer, visitor);
+		}
 
-        /// <summary>
-        /// Writes code elements to the specified writer.
-        /// </summary>
-        /// <param name="codeElements">The collection of elements to write.</param>
-        /// <param name="writer">Writer to write to.</param>
-        protected override void DoWriteElements(ReadOnlyCollection<ICodeElement> codeElements, TextWriter writer)
-        {
-            VBWriteVisitor visitor = new VBWriteVisitor(writer, Configuration);
-            WriteVisitElements(codeElements, writer, visitor);
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

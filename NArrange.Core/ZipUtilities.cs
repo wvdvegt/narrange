@@ -37,39 +37,39 @@
 
 namespace NArrange.Core
 {
-    using ICSharpCode.SharpZipLib.Zip;
+	using ICSharpCode.SharpZipLib.Zip;
 
-    /// <summary>
-    /// Utility methods for zipping and unzipping files.
-    /// </summary>
-    public static class ZipUtilities
-    {
-        #region Methods
+	/// <summary>
+	/// Utility methods for zipping and unzipping files.
+	/// </summary>
+	public static class ZipUtilities
+	{
+		#region Methods
 
-        /// <summary>
-        /// Unzips the specified zip file to the destination directory.
-        /// </summary>
-        /// <param name="zipFileName">Zip file name.</param>
-        /// <param name="targetDirectory">Target extraction directory.</param>
-        public static void Unzip(string zipFileName, string targetDirectory)
-        {
-            FastZip fastZip = new FastZip();
-            fastZip.ExtractZip(zipFileName, targetDirectory, null);
-        }
+		/// <summary>
+		/// Unzips the specified zip file to the destination directory.
+		/// </summary>
+		/// <param name="zipFileName">Zip file name.</param>
+		/// <param name="targetDirectory">Target extraction directory.</param>
+		public static void Unzip(string zipFileName, string targetDirectory)
+		{
+			FastZip fastZip = new FastZip();
+			fastZip.ExtractZip(zipFileName, targetDirectory, null);
+		}
 
-        /// <summary>
-        /// Writes the specified directory to a new zip file.
-        /// </summary>
-        /// <param name="sourceDirectory">Directory with files to add.</param>
-        /// <param name="zipFileName">Output file name.</param>
-        public static void Zip(string sourceDirectory, string zipFileName)
-        {
-            FastZip fastZip = new FastZip();
-            fastZip.RestoreAttributesOnExtract = true;
-            fastZip.RestoreDateTimeOnExtract = true;
-            fastZip.CreateZip(zipFileName, sourceDirectory, true, null);
-        }
+		/// <summary>
+		/// Writes the specified directory to a new zip file.
+		/// </summary>
+		/// <param name="sourceDirectory">Directory with files to add.</param>
+		/// <param name="zipFileName">Output file name.</param>
+		public static void Zip(string sourceDirectory, string zipFileName)
+		{
+			FastZip fastZip = new FastZip();
+			fastZip.RestoreAttributesOnExtract = true;
+			fastZip.RestoreDateTimeOnExtract = true;
+			fastZip.CreateZip(zipFileName, sourceDirectory, true, null);
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

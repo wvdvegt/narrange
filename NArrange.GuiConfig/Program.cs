@@ -37,29 +37,28 @@
 
 namespace NArrange.GuiConfig
 {
-    using System;
-    using System.Windows.Forms;
+	using NArrange.Gui.Configuration;
+	using System;
+	using System.Windows.Forms;
 
-    using NArrange.Gui.Configuration;
+	/// <summary>
+	/// NArrange configuration editor application.
+	/// </summary>
+	public static class Program
+	{
+		#region Methods
 
-    /// <summary>
-    /// NArrange configuration editor application.
-    /// </summary>
-    public static class Program
-    {
-        #region Methods
+		/// <summary>
+		/// The main entry point for the application.
+		/// </summary>
+		[STAThread]
+		public static void Main()
+		{
+			Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(false);
+			Application.Run(new ConfigurationEditorForm());
+		}
 
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        public static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ConfigurationEditorForm());
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

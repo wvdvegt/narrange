@@ -38,90 +38,84 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System;
-    using System.ComponentModel;
-    using System.Threading;
-    using System.Xml.Serialization;
+	using System;
+	using System.ComponentModel;
+	using System.Threading;
+	using System.Xml.Serialization;
 
-    /// <summary>
-    /// Specifies line spacing style configuration.
-    /// </summary>
-    [XmlType("LineSpacing")]
-    public class LineSpacingConfiguration : ICloneable
-    {
-        #region Fields
+	/// <summary>
+	/// Specifies line spacing style configuration.
+	/// </summary>
+	[XmlType("LineSpacing")]
+	public class LineSpacingConfiguration : ICloneable
+	{
+		#region Fields
 
-        /// <summary>
-        /// Remove consecutive blank lines.
-        /// </summary>
-        /// <remarks>Default is false for backwards compatibility.</remarks>
-        private bool _removeConsecutiveBlankLines = false;
+		/// <summary>
+		/// Remove consecutive blank lines.
+		/// </summary>
+		/// <remarks>Default is false for backwards compatibility.</remarks>
+		private bool _removeConsecutiveBlankLines = false;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new LineSpacingConfiguration instance.
-        /// </summary>
-        public LineSpacingConfiguration()
-        {
-        }
+		/// <summary>
+		/// Creates a new LineSpacingConfiguration instance.
+		/// </summary>
+		public LineSpacingConfiguration()
+		{
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets a value indicating whether or not consecutive blank lines
-        /// should be removed within members.
-        /// </summary>
-        [XmlAttribute("RemoveConsecutiveBlankLines")]
-        [Description("Whether or not consecutive blank lines within members should be removed.")]
-        [DisplayName("Remove Consecutive Blank Lines")]
-        public bool RemoveConsecutiveBlankLines
-        {
-            get
-            {
-                return _removeConsecutiveBlankLines;
-            }
-            set
-            {
-                _removeConsecutiveBlankLines = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets a value indicating whether or not consecutive blank lines
+		/// should be removed within members.
+		/// </summary>
+		[XmlAttribute("RemoveConsecutiveBlankLines")]
+		[Description("Whether or not consecutive blank lines within members should be removed.")]
+		[DisplayName("Remove Consecutive Blank Lines")]
+		public bool RemoveConsecutiveBlankLines
+		{
+			get { return _removeConsecutiveBlankLines; }
+			set { _removeConsecutiveBlankLines = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>
-        /// A new object that is a copy of this instance.
-        /// </returns>
-        public object Clone()
-        {
-            LineSpacingConfiguration clone = new LineSpacingConfiguration();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>
+		/// A new object that is a copy of this instance.
+		/// </returns>
+		public object Clone()
+		{
+			LineSpacingConfiguration clone = new LineSpacingConfiguration();
 
-            clone._removeConsecutiveBlankLines = _removeConsecutiveBlankLines;
+			clone._removeConsecutiveBlankLines = _removeConsecutiveBlankLines;
 
-            return clone;
-        }
+			return clone;
+		}
 
-        /// <summary>
-        /// Gets the string representation.
-        /// </summary>
-        /// <returns>The string representation.</returns>
-        public override string ToString()
-        {
-            return string.Format(
-                Thread.CurrentThread.CurrentCulture,
-                "LineSpacing: RemoveConsecutiveBlankLines - {0}",
-                RemoveConsecutiveBlankLines);
-        }
+		/// <summary>
+		/// Gets the string representation.
+		/// </summary>
+		/// <returns>The string representation.</returns>
+		public override string ToString()
+		{
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture,
+				"LineSpacing: RemoveConsecutiveBlankLines - {0}",
+				RemoveConsecutiveBlankLines);
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

@@ -1,191 +1,182 @@
 namespace NArrange.Tests.VisualBasic
 {
-    using System.CodeDom.Compiler;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Reflection;
-    using System.Text;
+	using Microsoft.VisualBasic;
+	using NArrange.Tests.Core;
+	using NUnit.Framework;
+	using System.CodeDom.Compiler;
+	using System.Collections.Generic;
+	using System.IO;
+	using System.Reflection;
+	using System.Text;
 
-    using Microsoft.VisualBasic;
+	/// <summary>
+	/// Visual Basic test file information.
+	/// </summary>
+	public class VBTestFile : ISourceCodeTestFile
+	{
+		#region Fields
 
-    using NArrange.Tests.Core;
+		/// <summary>
+		/// Cache of compiled test source files.
+		/// </summary>
+		private static Dictionary<string, Assembly> _compiledSourceFiles = new Dictionary<string, Assembly>();
 
-    using NUnit.Framework;
+		/// <summary>
+		/// Assembly for the test file.
+		/// </summary>
+		private Assembly _assembly;
 
-    /// <summary>
-    /// Visual Basic test file information.
-    /// </summary>
-    public class VBTestFile : ISourceCodeTestFile
-    {
-        #region Fields
+		/// <summary>
+		/// Test file resource name.
+		/// </summary>
+		private string _resourceName;
 
-        /// <summary>
-        /// Cache of compiled test source files.
-        /// </summary>
-        private static Dictionary<string, Assembly> _compiledSourceFiles = new Dictionary<string, Assembly>();
+		#endregion Fields
 
-        /// <summary>
-        /// Assembly for the test file.
-        /// </summary>
-        private Assembly _assembly;
+		#region Constructors
 
-        /// <summary>
-        /// Test file resource name.
-        /// </summary>
-        private string _resourceName;
+		/// <summary>
+		/// Creates a new test file using the specified resource.
+		/// </summary>
+		/// <param name="resourceName">Name of the resource.</param>
+		public VBTestFile(string resourceName)
+		{
+			_resourceName = resourceName;
+			_assembly = GetAssembly(resourceName);
+		}
 
-        #endregion Fields
+		#endregion Constructors
 
-        #region Constructors
+		#region Properties
 
-        /// <summary>
-        /// Creates a new test file using the specified resource.
-        /// </summary>
-        /// <param name="resourceName">Name of the resource.</param>
-        public VBTestFile(string resourceName)
-        {
-            _resourceName = resourceName;
-            _assembly = GetAssembly(resourceName);
-        }
+		/// <summary>
+		/// Gets the assembly associated with the test file
+		/// </summary>
+		public Assembly Assembly
+		{
+			get { return _assembly; }
+		}
 
-        #endregion Constructors
+		/// <summary>
+		/// Gets the name of the test file.
+		/// </summary>
+		public string Name
+		{
+			get { return _resourceName; }
+		}
 
-        #region Properties
+		#endregion Properties
 
-        /// <summary>
-        /// Gets the assembly associated with the test file
-        /// </summary>
-        public Assembly Assembly
-        {
-            get
-            {
-                return _assembly;
-            }
-        }
+		#region Methods
 
-        /// <summary>
-        /// Gets the name of the test file.
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return _resourceName;
-            }
-        }
+		/// <summary>
+		/// Compiles VB source code
+		/// </summary>
+		/// <param name="source">The source.</param>
+		/// <param name="name">The assembly name.</param>
+		/// <returns>Compiler results.</returns>
+		public static CompilerResults Compile(string source, string name)
+		{
+			//
+			// Compile the test source file
+			//
+			CodeDomProvider provider = VBCodeProvider.CreateProvider("VisualBasic");
 
-        #endregion Properties
+			CompilerParameters parameters = new CompilerParameters();
+			parameters.GenerateInMemory = true;
+			parameters.GenerateExecutable = false;
 
-        #region Methods
+			parameters.ReferencedAssemblies.Add("mscorlib.dll");
+			parameters.ReferencedAssemblies.Add("System.dll");
+			parameters.ReferencedAssemblies.Add("System.Data.dll");
+			parameters.ReferencedAssemblies.Add("System.Xml.dll");
 
-        /// <summary>
-        /// Compiles VB source code
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="name">The assembly name.</param>
-        /// <returns>Compiler results.</returns>
-        public static CompilerResults Compile(string source, string name)
-        {
-            //
-            // Compile the test source file
-            //
-            CodeDomProvider provider = VBCodeProvider.CreateProvider("VisualBasic");
+			CompilerResults results = provider.CompileAssemblyFromSource(parameters, source);
 
-            CompilerParameters parameters = new CompilerParameters();
-            parameters.GenerateInMemory = true;
-            parameters.GenerateExecutable = false;
+			return results;
+		}
 
-            parameters.ReferencedAssemblies.Add("mscorlib.dll");
-            parameters.ReferencedAssemblies.Add("System.dll");
-            parameters.ReferencedAssemblies.Add("System.Data.dll");
-            parameters.ReferencedAssemblies.Add("System.Xml.dll");
+		/// <summary>
+		/// Retrieves a reader for the specified resource.
+		/// </summary>
+		/// <param name="resourceName">Name of the resource.</param>
+		/// <returns>TextReader for the test file resource.</returns>
+		public static TextReader GetTestFileReader(string resourceName)
+		{
+			return new StreamReader(GetTestFileStream(resourceName), Encoding.Default);
+		}
 
-            CompilerResults results = provider.CompileAssemblyFromSource(parameters, source);
+		/// <summary>
+		/// Opens a test file resource stream.
+		/// </summary>
+		/// <param name="resourceName">Name of the resource.</param>
+		/// <returns>Stream for the test file resource.</returns>
+		public static Stream GetTestFileStream(string resourceName)
+		{
+			Assembly assembly = Assembly.GetExecutingAssembly();
+			Stream stream = assembly.GetManifestResourceStream(
+				typeof (VBTestUtilities), "TestSourceFiles." + resourceName);
 
-            return results;
-        }
+			Assert.IsNotNull(stream, "Test stream could not be retrieved.");
 
-        /// <summary>
-        /// Retrieves a reader for the specified resource.
-        /// </summary>
-        /// <param name="resourceName">Name of the resource.</param>
-        /// <returns>TextReader for the test file resource.</returns>
-        public static TextReader GetTestFileReader(string resourceName)
-        {
-            return new StreamReader(GetTestFileStream(resourceName), Encoding.Default);
-        }
+			return stream;
+		}
 
-        /// <summary>
-        /// Opens a test file resource stream.
-        /// </summary>
-        /// <param name="resourceName">Name of the resource.</param>
-        /// <returns>Stream for the test file resource.</returns>
-        public static Stream GetTestFileStream(string resourceName)
-        {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            Stream stream = assembly.GetManifestResourceStream(
-               typeof(VBTestUtilities), "TestSourceFiles." + resourceName);
+		/// <summary>
+		/// Gets a TextReader for this test file
+		/// </summary>
+		/// <returns>Text reader for the test file.</returns>
+		public TextReader GetReader()
+		{
+			return GetTestFileReader(_resourceName);
+		}
 
-            Assert.IsNotNull(stream, "Test stream could not be retrieved.");
+		/// <summary>
+		/// Gets the assembly for the specified resource.
+		/// </summary>
+		/// <param name="resourceName">Name of the resource.</param>
+		/// <returns>Assembly for the resource.</returns>
+		private static Assembly GetAssembly(string resourceName)
+		{
+			Assembly assembly = null;
+			if (!_compiledSourceFiles.TryGetValue(resourceName, out assembly))
+			{
+				using (TextReader reader = GetTestFileReader(resourceName))
+				{
+					string source = reader.ReadToEnd();
 
-            return stream;
-        }
+					CompilerResults results = Compile(source, resourceName);
 
-        /// <summary>
-        /// Gets a TextReader for this test file
-        /// </summary>
-        /// <returns>Text reader for the test file.</returns>
-        public TextReader GetReader()
-        {
-            return GetTestFileReader(_resourceName);
-        }
+					if (results.Errors.Count > 0)
+					{
+						CompilerError error = null;
 
-        /// <summary>
-        /// Gets the assembly for the specified resource.
-        /// </summary>
-        /// <param name="resourceName">Name of the resource.</param>
-        /// <returns>Assembly for the resource.</returns>
-        private static Assembly GetAssembly(string resourceName)
-        {
-            Assembly assembly = null;
-            if (!_compiledSourceFiles.TryGetValue(resourceName, out assembly))
-            {
-                using (TextReader reader = GetTestFileReader(resourceName))
-                {
-                    string source = reader.ReadToEnd();
+						error = TestUtilities.GetCompilerError(results);
 
-                    CompilerResults results = Compile(source, resourceName);
+						if (error != null)
+						{
+							Assert.Fail(
+								"Test source code should not produce compiler errors. " +
+								"Error: {0} - {1}, line {2}, column {3} ",
+								error.ErrorText,
+								resourceName,
+								error.Line,
+								error.Column);
+						}
 
-                    if (results.Errors.Count > 0)
-                    {
-                        CompilerError error = null;
+						assembly = results.CompiledAssembly;
+					}
+				}
 
-                        error = TestUtilities.GetCompilerError(results);
+				if (assembly != null)
+				{
+					_compiledSourceFiles.Add(resourceName, assembly);
+				}
+			}
 
-                        if (error != null)
-                        {
-                            Assert.Fail(
-                                "Test source code should not produce compiler errors. " +
-                                "Error: {0} - {1}, line {2}, column {3} ",
-                                error.ErrorText,
-                                resourceName,
-                                error.Line,
-                                error.Column);
-                        }
+			return assembly;
+		}
 
-                        assembly = results.CompiledAssembly;
-                    }
-                }
-
-                if (assembly != null)
-                {
-                    _compiledSourceFiles.Add(resourceName, assembly);
-                }
-            }
-
-            return assembly;
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

@@ -37,24 +37,23 @@
 
 namespace NArrange.Core
 {
-    using System.Collections.ObjectModel;
+	using NArrange.Core.CodeElements;
+	using System.Collections.ObjectModel;
 
-    using NArrange.Core.CodeElements;
+	/// <summary>
+	/// Interface for a code arranger.
+	/// </summary>
+	public interface ICodeArranger
+	{
+		#region Methods
 
-    /// <summary>
-    /// Interface for a code arranger.
-    /// </summary>
-    public interface ICodeArranger
-    {
-        #region Methods
+		/// <summary>
+		/// Arranges elements.
+		/// </summary>
+		/// <param name="originalElements">Original elements, this collection should not be modified</param>
+		/// <returns>Collection of arranged elements.</returns>
+		ReadOnlyCollection<ICodeElement> Arrange(ReadOnlyCollection<ICodeElement> originalElements);
 
-        /// <summary>
-        /// Arranges elements.
-        /// </summary>
-        /// <param name="originalElements">Original elements, this collection should not be modified</param>
-        /// <returns>Collection of arranged elements.</returns>
-        ReadOnlyCollection<ICodeElement> Arrange(ReadOnlyCollection<ICodeElement> originalElements);
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

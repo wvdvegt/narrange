@@ -37,29 +37,23 @@
 
 namespace NArrange.Core.Configuration
 {
-    /// <summary>
-    /// Interface for a filter expression.
-    /// </summary>
-    public interface IConditionExpression
-    {
-        #region Properties
+	/// <summary>
+	/// Interface for a filter expression.
+	/// </summary>
+	public interface IConditionExpression
+	{
+		#region Properties
 
-        /// <summary>
-        /// Gets the left expression.
-        /// </summary>
-        IConditionExpression Left
-        {
-            get;
-        }
+		/// <summary>
+		/// Gets the left expression.
+		/// </summary>
+		IConditionExpression Left { get; }
 
-        /// <summary>
-        /// Gets the right expression.
-        /// </summary>
-        IConditionExpression Right
-        {
-            get;
-        }
+		/// <summary>
+		/// Gets the right expression.
+		/// </summary>
+		IConditionExpression Right { get; }
 
-        #endregion Properties
-    }
+		#endregion Properties
+	}
 }

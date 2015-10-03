@@ -38,104 +38,104 @@
 
 namespace NArrange.VisualBasic
 {
-    /// <summary>
-    /// Visual Basic character constants.
-    /// </summary>
-    public static class VBSymbol
-    {
-        #region Fields
+	/// <summary>
+	/// Visual Basic character constants.
+	/// </summary>
+	public static class VBSymbol
+	{
+		#region Fields
 
-        /// <summary>
-        /// Alias separator symbol.
-        /// </summary>
-        public const char AliasSeparator = ',';
+		/// <summary>
+		/// Alias separator symbol.
+		/// </summary>
+		public const char AliasSeparator = ',';
 
-        /// <summary>
-        /// Assignment symbol.
-        /// </summary>
-        public const char Assignment = '=';
+		/// <summary>
+		/// Assignment symbol.
+		/// </summary>
+		public const char Assignment = '=';
 
-        /// <summary>
-        /// Beginning of attribute symbol.
-        /// </summary>
-        public const char BeginAttribute = '<';
+		/// <summary>
+		/// Beginning of attribute symbol.
+		/// </summary>
+		public const char BeginAttribute = '<';
 
-        /// <summary>
-        /// Beginning of comment symbol.
-        /// </summary>
-        public const char BeginComment = '\'';
+		/// <summary>
+		/// Beginning of comment symbol.
+		/// </summary>
+		public const char BeginComment = '\'';
 
-        /// <summary>
-        /// Beginning of parameter list symbol.
-        /// </summary>
-        public const char BeginParameterList = '(';
+		/// <summary>
+		/// Beginning of parameter list symbol.
+		/// </summary>
+		public const char BeginParameterList = '(';
 
-        /// <summary>
-        /// Beginning of string symbol.
-        /// </summary>
-        public const char BeginString = '"';
+		/// <summary>
+		/// Beginning of string symbol.
+		/// </summary>
+		public const char BeginString = '"';
 
-        /// <summary>
-        /// Begin type constraint list symbol.
-        /// </summary>
-        public const char BeginTypeConstraintList = '{';
+		/// <summary>
+		/// Begin type constraint list symbol.
+		/// </summary>
+		public const char BeginTypeConstraintList = '{';
 
-        /// <summary>
-        /// End of attribute symbol.
-        /// </summary>
-        public const char EndAttribute = '>';
+		/// <summary>
+		/// End of attribute symbol.
+		/// </summary>
+		public const char EndAttribute = '>';
 
-        /// <summary>
-        /// End of parameter list symbol.
-        /// </summary>
-        public const char EndParameterList = ')';
+		/// <summary>
+		/// End of parameter list symbol.
+		/// </summary>
+		public const char EndParameterList = ')';
 
-        /// <summary>
-        /// End type constraint list symbol.
-        /// </summary>
-        public const char EndTypeConstraintList = '}';
+		/// <summary>
+		/// End type constraint list symbol.
+		/// </summary>
+		public const char EndTypeConstraintList = '}';
 
-        /// <summary>
-        /// Line continuation symbol.
-        /// </summary>
-        public const char LineContinuation = '_';
+		/// <summary>
+		/// Line continuation symbol.
+		/// </summary>
+		public const char LineContinuation = '_';
 
-        /// <summary>
-        /// Line delimiter symbol.
-        /// </summary>
-        public const char LineDelimiter = ':';
+		/// <summary>
+		/// Line delimiter symbol.
+		/// </summary>
+		public const char LineDelimiter = ':';
 
-        /// <summary>
-        /// Preprocessor symbol.
-        /// </summary>
-        public const char Preprocessor = '#';
+		/// <summary>
+		/// Preprocessor symbol.
+		/// </summary>
+		public const char Preprocessor = '#';
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Determines if the specified char is a Visual Basic symbol character.
-        /// </summary>
-        /// <param name="character">The character.</param>
-        /// <returns>Whether or not the character is a VB symbol.</returns>
-        public static bool IsVBSymbol(char character)
-        {
-            return character == AliasSeparator ||
-                character == Assignment ||
-                character == BeginAttribute ||
-                character == BeginComment ||
-                character == BeginTypeConstraintList ||
-                character == EndTypeConstraintList ||
-                character == BeginParameterList ||
-                character == BeginString ||
-                character == EndAttribute ||
-                character == EndParameterList ||
-                character == Preprocessor ||
-                character == LineContinuation ||
-                character == LineDelimiter;
-        }
+		/// <summary>
+		/// Determines if the specified char is a Visual Basic symbol character.
+		/// </summary>
+		/// <param name="character">The character.</param>
+		/// <returns>Whether or not the character is a VB symbol.</returns>
+		public static bool IsVBSymbol(char character)
+		{
+			return character == AliasSeparator ||
+				   character == Assignment ||
+				   character == BeginAttribute ||
+				   character == BeginComment ||
+				   character == BeginTypeConstraintList ||
+				   character == EndTypeConstraintList ||
+				   character == BeginParameterList ||
+				   character == BeginString ||
+				   character == EndAttribute ||
+				   character == EndParameterList ||
+				   character == Preprocessor ||
+				   character == LineContinuation ||
+				   character == LineDelimiter;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

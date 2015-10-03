@@ -37,97 +37,97 @@
 
 namespace NArrange.Core.CodeElements
 {
-    /// <summary>
-    /// Interface for a code element visitor.
-    /// </summary>
-    public interface ICodeElementVisitor
-    {
-        #region Methods
+	/// <summary>
+	/// Interface for a code element visitor.
+	/// </summary>
+	public interface ICodeElementVisitor
+	{
+		#region Methods
 
-        /// <summary>
-        /// Visits an AttributeElement.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        void VisitAttributeElement(AttributeElement element);
+		/// <summary>
+		/// Visits an AttributeElement.
+		/// </summary>
+		/// <param name="element">The element.</param>
+		void VisitAttributeElement(AttributeElement element);
 
-        /// <summary>
-        /// Visits a CommentLineElement.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        void VisitCommentElement(CommentElement element);
+		/// <summary>
+		/// Visits a CommentLineElement.
+		/// </summary>
+		/// <param name="element">The element.</param>
+		void VisitCommentElement(CommentElement element);
 
-        /// <summary>
-        /// Visits a ConditionDirectiveElement.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        void VisitConditionDirectiveElement(ConditionDirectiveElement element);
+		/// <summary>
+		/// Visits a ConditionDirectiveElement.
+		/// </summary>
+		/// <param name="element">The element.</param>
+		void VisitConditionDirectiveElement(ConditionDirectiveElement element);
 
-        /// <summary>
-        /// Visits a ConstructorElement.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        void VisitConstructorElement(ConstructorElement element);
+		/// <summary>
+		/// Visits a ConstructorElement.
+		/// </summary>
+		/// <param name="element">The element.</param>
+		void VisitConstructorElement(ConstructorElement element);
 
-        /// <summary>
-        /// Visits a DelegateElement.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        void VisitDelegateElement(DelegateElement element);
+		/// <summary>
+		/// Visits a DelegateElement.
+		/// </summary>
+		/// <param name="element">The element.</param>
+		void VisitDelegateElement(DelegateElement element);
 
-        /// <summary>
-        /// Visits an EventElement.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        void VisitEventElement(EventElement element);
+		/// <summary>
+		/// Visits an EventElement.
+		/// </summary>
+		/// <param name="element">The element.</param>
+		void VisitEventElement(EventElement element);
 
-        /// <summary>
-        /// Visits a FieldElement.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        void VisitFieldElement(FieldElement element);
+		/// <summary>
+		/// Visits a FieldElement.
+		/// </summary>
+		/// <param name="element">The element.</param>
+		void VisitFieldElement(FieldElement element);
 
-        /// <summary>
-        /// Visits a GroupElement.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        void VisitGroupElement(GroupElement element);
+		/// <summary>
+		/// Visits a GroupElement.
+		/// </summary>
+		/// <param name="element">The element.</param>
+		void VisitGroupElement(GroupElement element);
 
-        /// <summary>
-        /// Visits a MethodElement.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        void VisitMethodElement(MethodElement element);
+		/// <summary>
+		/// Visits a MethodElement.
+		/// </summary>
+		/// <param name="element">The element.</param>
+		void VisitMethodElement(MethodElement element);
 
-        /// <summary>
-        /// Visits a NamespaceElement.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        void VisitNamespaceElement(NamespaceElement element);
+		/// <summary>
+		/// Visits a NamespaceElement.
+		/// </summary>
+		/// <param name="element">The element.</param>
+		void VisitNamespaceElement(NamespaceElement element);
 
-        /// <summary>
-        /// Visits a PropertyElement.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        void VisitPropertyElement(PropertyElement element);
+		/// <summary>
+		/// Visits a PropertyElement.
+		/// </summary>
+		/// <param name="element">The element.</param>
+		void VisitPropertyElement(PropertyElement element);
 
-        /// <summary>
-        /// Visits a RegionElement.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        void VisitRegionElement(RegionElement element);
+		/// <summary>
+		/// Visits a RegionElement.
+		/// </summary>
+		/// <param name="element">The element.</param>
+		void VisitRegionElement(RegionElement element);
 
-        /// <summary>
-        /// Visits a TypeElement.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        void VisitTypeElement(TypeElement element);
+		/// <summary>
+		/// Visits a TypeElement.
+		/// </summary>
+		/// <param name="element">The element.</param>
+		void VisitTypeElement(TypeElement element);
 
-        /// <summary>
-        /// Visits a UsingElement.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        void VisitUsingElement(UsingElement element);
+		/// <summary>
+		/// Visits a UsingElement.
+		/// </summary>
+		/// <param name="element">The element.</param>
+		void VisitUsingElement(UsingElement element);
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

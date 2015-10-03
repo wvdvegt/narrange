@@ -38,64 +38,61 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System.Threading;
+	using System.Threading;
 
-    /// <summary>
-    /// String expression.
-    /// </summary>
-    public class StringExpression : LeafExpression
-    {
-        #region Fields
+	/// <summary>
+	/// String expression.
+	/// </summary>
+	public class StringExpression : LeafExpression
+	{
+		#region Fields
 
-        /// <summary>
-        /// The text of the string expression.
-        /// </summary>
-        private readonly string _text;
+		/// <summary>
+		/// The text of the string expression.
+		/// </summary>
+		private readonly string _text;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new string expression.
-        /// </summary>
-        /// <param name="text">The text of the expression.</param>
-        public StringExpression(string text)
-        {
-            _text = text;
-        }
+		/// <summary>
+		/// Creates a new string expression.
+		/// </summary>
+		/// <param name="text">The text of the expression.</param>
+		public StringExpression(string text)
+		{
+			_text = text;
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the expression text.
-        /// </summary>
-        public string Text
-        {
-            get
-            {
-                return _text;
-            }
-        }
+		/// <summary>
+		/// Gets the expression text.
+		/// </summary>
+		public string Text
+		{
+			get { return _text; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Gets the string representation of this expression.
-        /// </summary>
-        /// <returns>The string representation.</returns>
-        public override string ToString()
-        {
-            return string.Format(
-                Thread.CurrentThread.CurrentCulture,
-                "'{0}'",
-                _text);
-        }
+		/// <summary>
+		/// Gets the string representation of this expression.
+		/// </summary>
+		/// <returns>The string representation.</returns>
+		public override string ToString()
+		{
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture,
+				"'{0}'",
+				_text);
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

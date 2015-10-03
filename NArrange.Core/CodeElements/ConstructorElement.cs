@@ -37,99 +37,84 @@
 
 namespace NArrange.Core.CodeElements
 {
-    /// <summary>
-    /// Constructor element.
-    /// </summary>
-    public sealed class ConstructorElement : MemberElement
-    {
-        #region Fields
+	/// <summary>
+	/// Constructor element.
+	/// </summary>
+	public sealed class ConstructorElement : MemberElement
+	{
+		#region Fields
 
-        /// <summary>
-        /// Constructor parameters.
-        /// </summary>
-        private string _params;
+		/// <summary>
+		/// Constructor parameters.
+		/// </summary>
+		private string _params;
 
-        /// <summary>
-        /// Referenced constructor name (e.g. this or base).
-        /// </summary>
-        private string _reference;
+		/// <summary>
+		/// Referenced constructor name (e.g. this or base).
+		/// </summary>
+		private string _reference;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the element type.
-        /// </summary>
-        public override ElementType ElementType
-        {
-            get
-            {
-                return ElementType.Constructor;
-            }
-        }
+		/// <summary>
+		/// Gets the element type.
+		/// </summary>
+		public override ElementType ElementType
+		{
+			get { return ElementType.Constructor; }
+		}
 
-        /// <summary>
-        /// Gets or sets the parameter list 
-        /// </summary>
-        public string Parameters
-        {
-            get
-            {
-                return _params;
-            }
-            set
-            {
-                _params = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the parameter list 
+		/// </summary>
+		public string Parameters
+		{
+			get { return _params; }
+			set { _params = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the base/class constructor reference.
-        /// </summary>
-        public string Reference
-        {
-            get
-            {
-                return _reference;
-            }
-            set
-            {
-                _reference = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the base/class constructor reference.
+		/// </summary>
+		public string Reference
+		{
+			get { return _reference; }
+			set { _reference = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Allows an ICodeElementVisitor to process (or visit) this element.
-        /// </summary>
-        /// <remarks>See the Gang of Four Visitor design pattern.</remarks>
-        /// <param name="visitor">Visitor to accept the element.</param>
-        public override void Accept(ICodeElementVisitor visitor)
-        {
-            visitor.VisitConstructorElement(this);
-        }
+		/// <summary>
+		/// Allows an ICodeElementVisitor to process (or visit) this element.
+		/// </summary>
+		/// <remarks>See the Gang of Four Visitor design pattern.</remarks>
+		/// <param name="visitor">Visitor to accept the element.</param>
+		public override void Accept(ICodeElementVisitor visitor)
+		{
+			visitor.VisitConstructorElement(this);
+		}
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>Clone with the member element state copied.</returns>
-        protected override MemberElement DoMemberClone()
-        {
-            ConstructorElement clone = new ConstructorElement();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>Clone with the member element state copied.</returns>
+		protected override MemberElement DoMemberClone()
+		{
+			ConstructorElement clone = new ConstructorElement();
 
-            //
-            // Copy state
-            //
-            clone._params = _params;
-            clone._reference = _reference;
+			//
+			// Copy state
+			//
+			clone._params = _params;
+			clone._reference = _reference;
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

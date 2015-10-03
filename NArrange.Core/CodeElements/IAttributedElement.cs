@@ -37,23 +37,20 @@
 
 namespace NArrange.Core.CodeElements
 {
-    using System.Collections.ObjectModel;
+	using System.Collections.ObjectModel;
 
-    /// <summary>
-    /// Interface for a code element with attributes.
-    /// </summary>
-    public interface IAttributedElement : ICodeElement
-    {
-        #region Properties
+	/// <summary>
+	/// Interface for a code element with attributes.
+	/// </summary>
+	public interface IAttributedElement : ICodeElement
+	{
+		#region Properties
 
-        /// <summary>
-        /// Gets the collection of attributes associated with this element.
-        /// </summary>
-        ReadOnlyCollection<IAttributeElement> Attributes
-        {
-            get;
-        }
+		/// <summary>
+		/// Gets the collection of attributes associated with this element.
+		/// </summary>
+		ReadOnlyCollection<IAttributeElement> Attributes { get; }
 
-        #endregion Properties
-    }
+		#endregion Properties
+	}
 }

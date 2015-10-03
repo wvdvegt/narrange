@@ -38,198 +38,162 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System;
-    using System.ComponentModel;
-    using System.Threading;
-    using System.Xml.Serialization;
+	using System;
+	using System.ComponentModel;
+	using System.Threading;
+	using System.Xml.Serialization;
 
-    /// <summary>
-    /// Specifies element grouping (used to group elements with line 
-    /// separation in between)
-    /// </summary>
-    [XmlType("Group")]
-    public class GroupBy : ICloneable
-    {
-        #region Fields
+	/// <summary>
+	/// Specifies element grouping (used to group elements with line 
+	/// separation in between)
+	/// </summary>
+	[XmlType("Group")]
+	public class GroupBy : ICloneable
+	{
+		#region Fields
 
-        /// <summary>
-        /// The element attribute to group by.
-        /// </summary>
-        private ElementAttributeType _by;
+		/// <summary>
+		/// The element attribute to group by.
+		/// </summary>
+		private ElementAttributeType _by;
 
-        /// <summary>
-        /// Custom separator text.
-        /// </summary>
-        private string _customSeparator;
+		/// <summary>
+		/// Custom separator text.
+		/// </summary>
+		private string _customSeparator;
 
-        /// <summary>
-        /// The sort direction for groups.
-        /// </summary>
-        private SortDirection _direction;
-        private GroupBy _innerGroupBy;
+		/// <summary>
+		/// The sort direction for groups.
+		/// </summary>
+		private SortDirection _direction;
+		private GroupBy _innerGroupBy;
 
-        /// <summary>
-        /// The regular expression text, if any, to be used to capture only a portion of the 
-        /// attribute.
-        /// </summary>
-        private string _matchCapture;
+		/// <summary>
+		/// The regular expression text, if any, to be used to capture only a portion of the 
+		/// attribute.
+		/// </summary>
+		private string _matchCapture;
 
-        /// <summary>
-        /// Separator type between elements.
-        /// </summary>
-        private GroupSeparatorType _separatorType;
+		/// <summary>
+		/// Separator type between elements.
+		/// </summary>
+		private GroupSeparatorType _separatorType;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets the regular expression that specifies which portion
-        /// of the element attribute should be used for grouping.
-        /// </summary>
-        [XmlAttribute("AttributeCapture")]
-        [Description("The regular expression specifying the text that should be captured from the element attribute.")]
-        [DisplayName("Attribute capture")]
-        public string AttributeCapture
-        {
-            get
-            {
-                return _matchCapture;
-            }
-            set
-            {
-                _matchCapture = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the regular expression that specifies which portion
+		/// of the element attribute should be used for grouping.
+		/// </summary>
+		[XmlAttribute("AttributeCapture")]
+		[Description("The regular expression specifying the text that should be captured from the element attribute.")]
+		[DisplayName("Attribute capture")]
+		public string AttributeCapture
+		{
+			get { return _matchCapture; }
+			set { _matchCapture = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the attribute elements should be grouped by.
-        /// </summary>
-        [XmlAttribute("By")]
-        [Description("The attribute elements should be grouped by.")]
-        public ElementAttributeType By
-        {
-            get
-            {
-                return _by;
-            }
-            set
-            {
-                _by = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the attribute elements should be grouped by.
+		/// </summary>
+		[XmlAttribute("By")]
+		[Description("The attribute elements should be grouped by.")]
+		public ElementAttributeType By
+		{
+			get { return _by; }
+			set { _by = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the custom separator string.
-        /// </summary>
-        [XmlAttribute("CustomSeparator")]
-        [DefaultValue(null)]
-        [Description("The text to insert between groups.")]
-        [DisplayName("Custom separator")]
-        public string CustomSeparator
-        {
-            get
-            {
-                return _customSeparator;
-            }
-            set
-            {
-                _customSeparator = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the custom separator string.
+		/// </summary>
+		[XmlAttribute("CustomSeparator")]
+		[DefaultValue(null)]
+		[Description("The text to insert between groups.")]
+		[DisplayName("Custom separator")]
+		public string CustomSeparator
+		{
+			get { return _customSeparator; }
+			set { _customSeparator = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the sort direction.
-        /// </summary>
-        [XmlAttribute("Direction")]
-        [DefaultValue(SortDirection.None)]
-        [Description("The sort direction for groups.")]
-        public SortDirection Direction
-        {
-            get
-            {
-                return _direction;
-            }
-            set
-            {
-                _direction = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the sort direction.
+		/// </summary>
+		[XmlAttribute("Direction")]
+		[DefaultValue(SortDirection.None)]
+		[Description("The sort direction for groups.")]
+		public SortDirection Direction
+		{
+			get { return _direction; }
+			set { _direction = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the inner grouping specification.
-        /// </summary>
-        [XmlElement("Group")]
-        [Description("The inner group that will also apply when grouping elements.")]
-        [DisplayName("Inner group by")]
-        public GroupBy InnerGroupBy
-        {
-            get
-            {
-                return _innerGroupBy;
-            }
-            set
-            {
-                _innerGroupBy = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the inner grouping specification.
+		/// </summary>
+		[XmlElement("Group")]
+		[Description("The inner group that will also apply when grouping elements.")]
+		[DisplayName("Inner group by")]
+		public GroupBy InnerGroupBy
+		{
+			get { return _innerGroupBy; }
+			set { _innerGroupBy = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the separator type.
-        /// </summary>
-        [XmlAttribute("SeparatorType")]
-        [Description("Specifies how groups should be separated.")]
-        [DisplayName("Separator type")]
-        public GroupSeparatorType SeparatorType
-        {
-            get
-            {
-                return _separatorType;
-            }
-            set
-            {
-                _separatorType = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the separator type.
+		/// </summary>
+		[XmlAttribute("SeparatorType")]
+		[Description("Specifies how groups should be separated.")]
+		[DisplayName("Separator type")]
+		public GroupSeparatorType SeparatorType
+		{
+			get { return _separatorType; }
+			set { _separatorType = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>
-        /// A new object that is a copy of this instance.
-        /// </returns>
-        public object Clone()
-        {
-            GroupBy clone = new GroupBy();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>
+		/// A new object that is a copy of this instance.
+		/// </returns>
+		public object Clone()
+		{
+			GroupBy clone = new GroupBy();
 
-            clone._by = _by;
-            clone._matchCapture = _matchCapture;
-            clone._customSeparator = _customSeparator;
-            clone._separatorType = _separatorType;
-            clone._direction = _direction;
+			clone._by = _by;
+			clone._matchCapture = _matchCapture;
+			clone._customSeparator = _customSeparator;
+			clone._separatorType = _separatorType;
+			clone._direction = _direction;
 
-            if (_innerGroupBy != null)
-            {
-                clone._innerGroupBy = _innerGroupBy.Clone() as GroupBy;
-            }
+			if (_innerGroupBy != null)
+			{
+				clone._innerGroupBy = _innerGroupBy.Clone() as GroupBy;
+			}
 
-            return clone;
-        }
+			return clone;
+		}
 
-        /// <summary>
-        /// Gets the string representation.
-        /// </summary>
-        /// <returns>The string representation.</returns>
-        public override string ToString()
-        {
-            return string.Format(
-               Thread.CurrentThread.CurrentCulture, "Group by: {0}", _by);
-        }
+		/// <summary>
+		/// Gets the string representation.
+		/// </summary>
+		/// <returns>The string representation.</returns>
+		public override string ToString()
+		{
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture, "Group by: {0}", _by);
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

@@ -38,90 +38,84 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System;
-    using System.ComponentModel;
-    using System.Threading;
-    using System.Xml.Serialization;
+	using System;
+	using System.ComponentModel;
+	using System.Threading;
+	using System.Xml.Serialization;
 
-    /// <summary>
-    /// Specifies using/import configuration.
-    /// </summary>
-    [XmlType("Usings")]
-    public class UsingConfiguration : ICloneable
-    {
-        #region Fields
+	/// <summary>
+	/// Specifies using/import configuration.
+	/// </summary>
+	[XmlType("Usings")]
+	public class UsingConfiguration : ICloneable
+	{
+		#region Fields
 
-        /// <summary>
-        /// Specifies if and how using directives should be moved.
-        /// </summary>
-        /// <remarks>Default is None for backwards compatibility.</remarks>
-        private CodeLevel _moveTo = CodeLevel.None;
+		/// <summary>
+		/// Specifies if and how using directives should be moved.
+		/// </summary>
+		/// <remarks>Default is None for backwards compatibility.</remarks>
+		private CodeLevel _moveTo = CodeLevel.None;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new UsingConfiguration instance.
-        /// </summary>
-        public UsingConfiguration()
-        {
-        }
+		/// <summary>
+		/// Creates a new UsingConfiguration instance.
+		/// </summary>
+		public UsingConfiguration()
+		{
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets a value indicating how using elements should be moved, if supported
-        /// by the language.
-        /// </summary>
-        [XmlAttribute("MoveTo")]
-        [Description("Specified if and how using directives should be moved.  Not supported by all languages.")]
-        [DisplayName("Move to")]
-        public CodeLevel MoveTo
-        {
-            get
-            {
-                return _moveTo;
-            }
-            set
-            {
-                _moveTo = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets a value indicating how using elements should be moved, if supported
+		/// by the language.
+		/// </summary>
+		[XmlAttribute("MoveTo")]
+		[Description("Specified if and how using directives should be moved.  Not supported by all languages.")]
+		[DisplayName("Move to")]
+		public CodeLevel MoveTo
+		{
+			get { return _moveTo; }
+			set { _moveTo = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>
-        /// A new object that is a copy of this instance.
-        /// </returns>
-        public object Clone()
-        {
-            UsingConfiguration clone = new UsingConfiguration();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>
+		/// A new object that is a copy of this instance.
+		/// </returns>
+		public object Clone()
+		{
+			UsingConfiguration clone = new UsingConfiguration();
 
-            clone._moveTo = _moveTo;
+			clone._moveTo = _moveTo;
 
-            return clone;
-        }
+			return clone;
+		}
 
-        /// <summary>
-        /// Gets the string representation.
-        /// </summary>
-        /// <returns>The string representation.</returns>
-        public override string ToString()
-        {
-            return string.Format(
-                Thread.CurrentThread.CurrentCulture,
-                "Usings: MoveTo - {0}",
-                MoveTo);
-        }
+		/// <summary>
+		/// Gets the string representation.
+		/// </summary>
+		/// <returns>The string representation.</returns>
+		public override string ToString()
+		{
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture,
+				"Usings: MoveTo - {0}",
+				MoveTo);
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

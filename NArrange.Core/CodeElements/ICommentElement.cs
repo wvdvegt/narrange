@@ -37,29 +37,23 @@
 
 namespace NArrange.Core.CodeElements
 {
-    /// <summary>
-    /// Interface for comments.
-    /// </summary>
-    public interface ICommentElement : ICodeElement
-    {
-        #region Properties
+	/// <summary>
+	/// Interface for comments.
+	/// </summary>
+	public interface ICommentElement : ICodeElement
+	{
+		#region Properties
 
-        /// <summary>
-        /// Gets the comment text.
-        /// </summary>
-        string Text
-        {
-            get;
-        }
+		/// <summary>
+		/// Gets the comment text.
+		/// </summary>
+		string Text { get; }
 
-        /// <summary>
-        /// Gets the type of comment.
-        /// </summary>
-        CommentType Type
-        {
-            get;
-        }
+		/// <summary>
+		/// Gets the type of comment.
+		/// </summary>
+		CommentType Type { get; }
 
-        #endregion Properties
-    }
+		#endregion Properties
+	}
 }

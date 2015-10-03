@@ -38,100 +38,88 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System;
-    using System.ComponentModel;
-    using System.Threading;
-    using System.Xml.Serialization;
+	using System;
+	using System.ComponentModel;
+	using System.Threading;
+	using System.Xml.Serialization;
 
-    /// <summary>
-    /// Specifies closing comments configuration.
-    /// </summary>
-    [XmlType("ClosingComments")]
-    public class ClosingCommentConfiguration : ICloneable
-    {
-        #region Fields
+	/// <summary>
+	/// Specifies closing comments configuration.
+	/// </summary>
+	[XmlType("ClosingComments")]
+	public class ClosingCommentConfiguration : ICloneable
+	{
+		#region Fields
 
-        /// <summary>
-        /// Whether or not closing comments should be written.
-        /// </summary>
-        private bool _enabled;
+		/// <summary>
+		/// Whether or not closing comments should be written.
+		/// </summary>
+		private bool _enabled;
 
-        /// <summary>
-        /// Closing comment text format.
-        /// </summary>
-        private string _format;
+		/// <summary>
+		/// Closing comment text format.
+		/// </summary>
+		private string _format;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets a value indicating whether closing comments are enabled.
-        /// </summary>
-        [XmlAttribute("Enabled")]
-        [Description("Whether or not comments will be inserted at the end of member blocks.")]
-        public bool Enabled
-        {
-            get
-            {
-                return _enabled;
-            }
-            set
-            {
-                _enabled = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets a value indicating whether closing comments are enabled.
+		/// </summary>
+		[XmlAttribute("Enabled")]
+		[Description("Whether or not comments will be inserted at the end of member blocks.")]
+		public bool Enabled
+		{
+			get { return _enabled; }
+			set { _enabled = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the format string.
-        /// </summary>
-        [XmlAttribute("Format")]
-        [Description("The format string for closing comments, consisting of attribute parameters and text.")]
-        public string Format
-        {
-            get
-            {
-                return _format;
-            }
-            set
-            {
-                _format = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the format string.
+		/// </summary>
+		[XmlAttribute("Format")]
+		[Description("The format string for closing comments, consisting of attribute parameters and text.")]
+		public string Format
+		{
+			get { return _format; }
+			set { _format = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>
-        /// A new object that is a copy of this instance.
-        /// </returns>
-        public object Clone()
-        {
-            ClosingCommentConfiguration clone = new ClosingCommentConfiguration();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>
+		/// A new object that is a copy of this instance.
+		/// </returns>
+		public object Clone()
+		{
+			ClosingCommentConfiguration clone = new ClosingCommentConfiguration();
 
-            clone._enabled = _enabled;
-            clone._format = _format;
+			clone._enabled = _enabled;
+			clone._format = _format;
 
-            return clone;
-        }
+			return clone;
+		}
 
-        /// <summary>
-        /// Gets the string representation.
-        /// </summary>
-        /// <returns>String representation.</returns>
-        public override string ToString()
-        {
-            return string.Format(
-                Thread.CurrentThread.CurrentCulture,
-                "Closing comment: {0}, {1}",
-                Enabled,
-                Format);
-        }
+		/// <summary>
+		/// Gets the string representation.
+		/// </summary>
+		/// <returns>String representation.</returns>
+		public override string ToString()
+		{
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture,
+				"Closing comment: {0}, {1}",
+				Enabled,
+				Format);
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

@@ -37,22 +37,22 @@
 
 namespace NArrange.Core
 {
-    using System.Collections.ObjectModel;
+	using System.Collections.ObjectModel;
 
-    /// <summary>
-    /// Interface for parsing individual fileNames from a project.
-    /// </summary>
-    public interface IProjectParser
-    {
-        #region Methods
+	/// <summary>
+	/// Interface for parsing individual fileNames from a project.
+	/// </summary>
+	public interface IProjectParser
+	{
+		#region Methods
 
-        /// <summary>
-        /// Parses source file names from a project file.
-        /// </summary>
-        /// <param name="projectFile">Project file name.</param>
-        /// <returns>A list of source code fileNames.</returns>
-        ReadOnlyCollection<string> Parse(string projectFile);
+		/// <summary>
+		/// Parses source file names from a project file.
+		/// </summary>
+		/// <param name="projectFile">Project file name.</param>
+		/// <returns>A list of source code fileNames.</returns>
+		ReadOnlyCollection<string> Parse(string projectFile);
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

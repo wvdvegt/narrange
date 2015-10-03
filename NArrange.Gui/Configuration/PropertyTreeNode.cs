@@ -37,194 +37,188 @@
 
 namespace NArrange.Gui.Configuration
 {
-    using System;
-    using System.ComponentModel;
-    using System.Windows.Forms;
+	using System;
+	using System.ComponentModel;
+	using System.Windows.Forms;
 
-    /// <summary>
-    /// Tree node that represents a component property.
-    /// </summary>
-    public class PropertyTreeNode : TreeNode
-    {
-        #region Fields
+	/// <summary>
+	/// Tree node that represents a component property.
+	/// </summary>
+	public class PropertyTreeNode : TreeNode
+	{
+		#region Fields
 
-        /// <summary>
-        /// Add menu item.
-        /// </summary>
-        private ToolStripMenuItem _addMenuItem;
+		/// <summary>
+		/// Add menu item.
+		/// </summary>
+		private ToolStripMenuItem _addMenuItem;
 
-        /// <summary>
-        /// Component being edited.
-        /// </summary>
-        private object _component;
+		/// <summary>
+		/// Component being edited.
+		/// </summary>
+		private object _component;
 
-        /// <summary>
-        /// Context menu.
-        /// </summary>
-        private ContextMenuStrip _contextMenu;
+		/// <summary>
+		/// Context menu.
+		/// </summary>
+		private ContextMenuStrip _contextMenu;
 
-        /// <summary>
-        /// The component property.
-        /// </summary>
-        private PropertyDescriptor _property;
+		/// <summary>
+		/// The component property.
+		/// </summary>
+		private PropertyDescriptor _property;
 
-        /// <summary>
-        /// Remove menu item.
-        /// </summary>
-        private ToolStripMenuItem _removeMenuItem;
+		/// <summary>
+		/// Remove menu item.
+		/// </summary>
+		private ToolStripMenuItem _removeMenuItem;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new PropertyTreeNode.
-        /// </summary>
-        /// <param name="property">The property.</param>
-        /// <param name="component">The component.</param>
-        public PropertyTreeNode(PropertyDescriptor property, object component)
-        {
-            _property = property;
-            this.Text = _property.DisplayName;
+		/// <summary>
+		/// Creates a new PropertyTreeNode.
+		/// </summary>
+		/// <param name="property">The property.</param>
+		/// <param name="component">The component.</param>
+		public PropertyTreeNode(PropertyDescriptor property, object component)
+		{
+			_property = property;
+			this.Text = _property.DisplayName;
 
-            _component = component;
+			_component = component;
 
-            this.Initialize();
-        }
+			this.Initialize();
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Events
+		#region Events
 
-        /// <summary>
-        /// Occurs when the PropertyValue changes.
-        /// </summary>
-        public event EventHandler PropertyValueChanged;
+		/// <summary>
+		/// Occurs when the PropertyValue changes.
+		/// </summary>
+		public event EventHandler PropertyValueChanged;
 
-        #endregion Events
+		#endregion Events
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the component that the property is associated with.
-        /// </summary>
-        public object Component
-        {
-            get
-            {
-                return _component;
-            }
-        }
+		/// <summary>
+		/// Gets the component that the property is associated with.
+		/// </summary>
+		public object Component
+		{
+			get { return _component; }
+		}
 
-        /// <summary>
-        /// Gets or sets the component property's value.
-        /// </summary>
-        public object PropertyValue
-        {
-            get
-            {
-                return _property.GetValue(_component);
-            }
-            set
-            {
-                if (value != this.PropertyValue)
-                {
-                    _property.SetValue(_component, value);
-                    if (!_property.IsReadOnly)
-                    {
-                        _addMenuItem.Enabled = value == null;
-                        _removeMenuItem.Enabled = value != null;
-                    }
+		/// <summary>
+		/// Gets or sets the component property's value.
+		/// </summary>
+		public object PropertyValue
+		{
+			get { return _property.GetValue(_component); }
+			set
+			{
+				if (value != this.PropertyValue)
+				{
+					_property.SetValue(_component, value);
+					if (!_property.IsReadOnly)
+					{
+						_addMenuItem.Enabled = value == null;
+						_removeMenuItem.Enabled = value != null;
+					}
 
-                    this.OnPropertyValueChanged();
-                }
-            }
-        }
+					this.OnPropertyValueChanged();
+				}
+			}
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Gets the string represenation of this object.
-        /// </summary>
-        /// <returns>The string representation.</returns>
-        public override string ToString()
-        {
-            return _property.DisplayName;
-        }
+		/// <summary>
+		/// Gets the string represenation of this object.
+		/// </summary>
+		/// <returns>The string representation.</returns>
+		public override string ToString()
+		{
+			return _property.DisplayName;
+		}
 
-        /// <summary>
-        /// Clears the property value.
-        /// </summary>
-        private void ClearProperty()
-        {
-            this.PropertyValue = null;
-        }
+		/// <summary>
+		/// Clears the property value.
+		/// </summary>
+		private void ClearProperty()
+		{
+			this.PropertyValue = null;
+		}
 
-        /// <summary>
-        /// Initializes the property value with a new instance.
-        /// </summary>
-        private void CreateProperty()
-        {
-            this.PropertyValue = Activator.CreateInstance(_property.PropertyType);
-        }
+		/// <summary>
+		/// Initializes the property value with a new instance.
+		/// </summary>
+		private void CreateProperty()
+		{
+			this.PropertyValue = Activator.CreateInstance(_property.PropertyType);
+		}
 
-        /// <summary>
-        /// Event handler for the Add menu item click event.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void HandleAddMenuItemClick(object sender, EventArgs e)
-        {
-            this.CreateProperty();
-        }
+		/// <summary>
+		/// Event handler for the Add menu item click event.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void HandleAddMenuItemClick(object sender, EventArgs e)
+		{
+			this.CreateProperty();
+		}
 
-        /// <summary>
-        /// Event handler for the Remove menu item click event.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void HandleRemoveMenuItemClick(object sender, EventArgs e)
-        {
-            this.ClearProperty();
-        }
+		/// <summary>
+		/// Event handler for the Remove menu item click event.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void HandleRemoveMenuItemClick(object sender, EventArgs e)
+		{
+			this.ClearProperty();
+		}
 
-        /// <summary>
-        /// Initializes the node.
-        /// </summary>
-        private void Initialize()
-        {
-            _contextMenu = new ContextMenuStrip();
+		/// <summary>
+		/// Initializes the node.
+		/// </summary>
+		private void Initialize()
+		{
+			_contextMenu = new ContextMenuStrip();
 
-            if (!_property.IsReadOnly)
-            {
-                _removeMenuItem = new ToolStripMenuItem("&Remove");
-                _removeMenuItem.Click += new EventHandler(HandleRemoveMenuItemClick);
-                _removeMenuItem.Enabled = this.PropertyValue != null;
-                _contextMenu.Items.Add(_removeMenuItem);
+			if (!_property.IsReadOnly)
+			{
+				_removeMenuItem = new ToolStripMenuItem("&Remove");
+				_removeMenuItem.Click += new EventHandler(HandleRemoveMenuItemClick);
+				_removeMenuItem.Enabled = this.PropertyValue != null;
+				_contextMenu.Items.Add(_removeMenuItem);
 
-                _addMenuItem = new ToolStripMenuItem("&New");
-                _addMenuItem.Click += new EventHandler(HandleAddMenuItemClick);
-                _addMenuItem.Enabled = this.PropertyValue == null;
-                _contextMenu.Items.Add(_addMenuItem);
-            }
+				_addMenuItem = new ToolStripMenuItem("&New");
+				_addMenuItem.Click += new EventHandler(HandleAddMenuItemClick);
+				_addMenuItem.Enabled = this.PropertyValue == null;
+				_contextMenu.Items.Add(_addMenuItem);
+			}
 
-            this.ContextMenuStrip = _contextMenu;
-        }
+			this.ContextMenuStrip = _contextMenu;
+		}
 
-        /// <summary>
-        /// Called when the property value changes.
-        /// </summary>
-        private void OnPropertyValueChanged()
-        {
-            EventHandler temp = PropertyValueChanged;
-            if (temp != null)
-            {
-                temp(this, new EventArgs());
-            }
-        }
+		/// <summary>
+		/// Called when the property value changes.
+		/// </summary>
+		private void OnPropertyValueChanged()
+		{
+			EventHandler temp = PropertyValueChanged;
+			if (temp != null)
+			{
+				temp(this, new EventArgs());
+			}
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

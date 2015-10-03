@@ -37,148 +37,133 @@
 
 namespace NArrange.Core.CodeElements
 {
-    /// <summary>
-    /// Represents a using/import statement within code.
-    /// </summary>
-    public sealed class UsingElement : CommentedElement
-    {
-        #region Fields
+	/// <summary>
+	/// Represents a using/import statement within code.
+	/// </summary>
+	public sealed class UsingElement : CommentedElement
+	{
+		#region Fields
 
-        /// <summary>
-        /// Whether or not this using element can be moved between code levels.
-        /// This should be determined by the language parser.
-        /// </summary>
-        private bool _isMovable;
+		/// <summary>
+		/// Whether or not this using element can be moved between code levels.
+		/// This should be determined by the language parser.
+		/// </summary>
+		private bool _isMovable;
 
-        /// <summary>
-        /// Import redefine.
-        /// </summary>
-        private string _redefine;
+		/// <summary>
+		/// Import redefine.
+		/// </summary>
+		private string _redefine;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new Using directive code element.
-        /// </summary>
-        public UsingElement()
-        {
-        }
+		/// <summary>
+		/// Creates a new Using directive code element.
+		/// </summary>
+		public UsingElement()
+		{
+		}
 
-        /// <summary>
-        /// Creates a new Using directive code element.
-        /// </summary>
-        /// <param name="name">Namespace or type name.</param>
-        public UsingElement(string name)
-            : this()
-        {
-            this.Name = name;
-        }
+		/// <summary>
+		/// Creates a new Using directive code element.
+		/// </summary>
+		/// <param name="name">Namespace or type name.</param>
+		public UsingElement(string name)
+			: this()
+		{
+			this.Name = name;
+		}
 
-        /// <summary>
-        /// Creates a new Using directive code element.
-        /// </summary>
-        /// <param name="name">Namespace or type name.</param>
-        /// <param name="redefine">Redefined type or namespace.</param>
-        public UsingElement(string name, string redefine)
-            : this(name)
-        {
-            this.Redefine = redefine;
-        }
+		/// <summary>
+		/// Creates a new Using directive code element.
+		/// </summary>
+		/// <param name="name">Namespace or type name.</param>
+		/// <param name="redefine">Redefined type or namespace.</param>
+		public UsingElement(string name, string redefine)
+			: this(name)
+		{
+			this.Redefine = redefine;
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the element type.
-        /// </summary>
-        public override ElementType ElementType
-        {
-            get
-            {
-                return ElementType.Using;
-            }
-        }
+		/// <summary>
+		/// Gets the element type.
+		/// </summary>
+		public override ElementType ElementType
+		{
+			get { return ElementType.Using; }
+		}
 
-        /// <summary>
-        /// Gets or sets a value indicating whether or not this using element 
-        /// can be moved between code levels (e.g. file or namespace) as 
-        /// determined by the language parser.
-        /// </summary>
-        public bool IsMovable
-        {
-            get
-            {
-                return _isMovable;
-            }
-            set
-            {
-                _isMovable = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets a value indicating whether or not this using element 
+		/// can be moved between code levels (e.g. file or namespace) as 
+		/// determined by the language parser.
+		/// </summary>
+		public bool IsMovable
+		{
+			get { return _isMovable; }
+			set { _isMovable = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the namespace to be redefined to the name of this 
-        /// UsingElement.
-        /// </summary>
-        public string Redefine
-        {
-            get
-            {
-                return _redefine;
-            }
-            set
-            {
-                _redefine = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the namespace to be redefined to the name of this 
+		/// UsingElement.
+		/// </summary>
+		public string Redefine
+		{
+			get { return _redefine; }
+			set { _redefine = value; }
+		}
 
-        /// <summary>
-        /// Gets the type of the using statement.
-        /// </summary>
-        public UsingType Type
-        {
-            get
-            {
-                UsingType usingType = UsingType.Namespace;
-                if (!string.IsNullOrEmpty(this.Redefine))
-                {
-                    usingType = UsingType.Alias;
-                }
+		/// <summary>
+		/// Gets the type of the using statement.
+		/// </summary>
+		public UsingType Type
+		{
+			get
+			{
+				UsingType usingType = UsingType.Namespace;
+				if (!string.IsNullOrEmpty(this.Redefine))
+				{
+					usingType = UsingType.Alias;
+				}
 
-                return usingType;
-            }
-        }
+				return usingType;
+			}
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Allows an ICodeElementVisitor to process (or visit) this element.
-        /// </summary>
-        /// <remarks>See the Gang of Four Visitor design pattern.</remarks>
-        /// <param name="visitor">The visitory that will accept the element.</param>
-        public override void Accept(ICodeElementVisitor visitor)
-        {
-            visitor.VisitUsingElement(this);
-        }
+		/// <summary>
+		/// Allows an ICodeElementVisitor to process (or visit) this element.
+		/// </summary>
+		/// <remarks>See the Gang of Four Visitor design pattern.</remarks>
+		/// <param name="visitor">The visitory that will accept the element.</param>
+		public override void Accept(ICodeElementVisitor visitor)
+		{
+			visitor.VisitUsingElement(this);
+		}
 
-        /// <summary>
-        /// Clones this instance.
-        /// </summary>
-        /// <returns>Clone of the code element.</returns>
-        protected override CodeElement DoClone()
-        {
-            UsingElement clone = new UsingElement();
-            clone._redefine = _redefine;
-            clone._isMovable = _isMovable;
+		/// <summary>
+		/// Clones this instance.
+		/// </summary>
+		/// <returns>Clone of the code element.</returns>
+		protected override CodeElement DoClone()
+		{
+			UsingElement clone = new UsingElement();
+			clone._redefine = _redefine;
+			clone._isMovable = _isMovable;
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

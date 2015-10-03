@@ -37,265 +37,255 @@
 
 namespace NArrange.Gui.Configuration
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
+	using NArrange.Core.Configuration;
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel;
 
-    using NArrange.Core.Configuration;
+	/// <summary>
+	/// Custom type descriptor provider for the CodeConfiguration class.
+	/// </summary>
+	public sealed class ConfigurationElementTypeDescriptionProvider : TypeDescriptionProvider
+	{
+		#region Fields
 
-    /// <summary>
-    /// Custom type descriptor provider for the CodeConfiguration class.
-    /// </summary>
-    public sealed class ConfigurationElementTypeDescriptionProvider : TypeDescriptionProvider
-    {
-        #region Fields
+		/// <summary>
+		/// Base type descriptor provider.
+		/// </summary>
+		private TypeDescriptionProvider _baseProvider;
 
-        /// <summary>
-        /// Base type descriptor provider.
-        /// </summary>
-        private TypeDescriptionProvider _baseProvider;
+		#endregion Fields
 
-        #endregion Fields
+		#region Constructors
 
-        #region Constructors
+		/// <summary>
+		/// Creates a new ConfigurationElementTypeDescriptionProvider.
+		/// </summary>
+		/// <param name="type">Type to get property descriptions for.</param>
+		public ConfigurationElementTypeDescriptionProvider(Type type)
+		{
+			_baseProvider = TypeDescriptor.GetProvider(type);
+		}
 
-        /// <summary>
-        /// Creates a new ConfigurationElementTypeDescriptionProvider.
-        /// </summary>
-        /// <param name="type">Type to get property descriptions for.</param>
-        public ConfigurationElementTypeDescriptionProvider(Type type)
-        {
-            _baseProvider = TypeDescriptor.GetProvider(type);
-        }
+		#endregion Constructors
 
-        #endregion Constructors
+		#region Methods
 
-        #region Methods
+		/// <summary>
+		/// Create and return the custom type descriptor and chain it with the original
+		/// custom type descriptor.
+		/// </summary>
+		/// <param name="objectType">The type of object for which to retrieve the type descriptor.</param>
+		/// <param name="instance">An instance of the type. Can be null if no instance was passed to the <see cref="T:System.ComponentModel.TypeDescriptor"></see>.</param>
+		/// <returns>
+		/// An <see cref="T:System.ComponentModel.ICustomTypeDescriptor"></see> that can provide metadata for the type.
+		/// </returns>
+		public override ICustomTypeDescriptor GetTypeDescriptor(Type objectType, object instance)
+		{
+			return new CodeConfigurationTypeDescriptor(_baseProvider.GetTypeDescriptor(objectType, instance));
+		}
 
-        /// <summary>
-        /// Create and return the custom type descriptor and chain it with the original
-        /// custom type descriptor.
-        /// </summary>
-        /// <param name="objectType">The type of object for which to retrieve the type descriptor.</param>
-        /// <param name="instance">An instance of the type. Can be null if no instance was passed to the <see cref="T:System.ComponentModel.TypeDescriptor"></see>.</param>
-        /// <returns>
-        /// An <see cref="T:System.ComponentModel.ICustomTypeDescriptor"></see> that can provide metadata for the type.
-        /// </returns>
-        public override ICustomTypeDescriptor GetTypeDescriptor(Type objectType, object instance)
-        {
-            return new CodeConfigurationTypeDescriptor(_baseProvider.GetTypeDescriptor(objectType, instance));
-        }
+		#endregion Methods
 
-        #endregion Methods
+		#region Nested Types
 
-        #region Nested Types
+		/// <summary>
+		/// Custom type descriptor. It creates a new property and returns it along
+		/// with the original list.
+		/// </summary>
+		private sealed class CodeConfigurationTypeDescriptor : CustomTypeDescriptor
+		{
+			#region Constructors
 
-        /// <summary>
-        /// Custom type descriptor. It creates a new property and returns it along
-        /// with the original list.
-        /// </summary>
-        private sealed class CodeConfigurationTypeDescriptor : CustomTypeDescriptor
-        {
-            #region Constructors
+			/// <summary>
+			/// Creates a new type descriptor using the specified parent.
+			/// </summary>
+			/// <param name="parent">The parent custom type descriptor.</param>
+			internal CodeConfigurationTypeDescriptor(ICustomTypeDescriptor parent)
+				: base(parent)
+			{
+			}
 
-            /// <summary>
-            /// Creates a new type descriptor using the specified parent.
-            /// </summary>
-            /// <param name="parent">The parent custom type descriptor.</param>
-            internal CodeConfigurationTypeDescriptor(ICustomTypeDescriptor parent)
-                : base(parent)
-            {
-            }
+			#endregion Constructors
 
-            #endregion Constructors
+			#region Methods
 
-            #region Methods
+			/// <summary>
+			/// Gets the PropertyDescriptors for the Type.
+			/// </summary>
+			/// <param name="attributes">An array of attributes to use as a filter. This can be null.</param>
+			/// <returns>
+			/// A <see cref="T:System.ComponentModel.PropertyDescriptorCollection"></see> containing the property descriptions for the object represented by this type descriptor. The default is <see cref="F:System.ComponentModel.PropertyDescriptorCollection.Empty"></see>.
+			/// </returns>
+			/// <remarks>
+			/// All ConfigurationElementCollection properties are overriden to specify the
+			/// collection editor.
+			/// </remarks>
+			public override PropertyDescriptorCollection GetProperties(Attribute[] attributes)
+			{
+				// Enumerate the original set of properties and create our new set with it
+				PropertyDescriptorCollection originalProperties = base.GetProperties(attributes);
+				List<PropertyDescriptor> newProperties = new List<PropertyDescriptor>();
+				foreach (PropertyDescriptor originalProperty in originalProperties)
+				{
+					if (originalProperty.PropertyType == typeof (ConfigurationElementCollection))
+					{
+						newProperties.Add(new ElementCollectionPropertyDescriptor(originalProperty));
+					}
+					else
+					{
+						newProperties.Add(originalProperty);
+					}
+				}
 
-            /// <summary>
-            /// Gets the PropertyDescriptors for the Type.
-            /// </summary>
-            /// <param name="attributes">An array of attributes to use as a filter. This can be null.</param>
-            /// <returns>
-            /// A <see cref="T:System.ComponentModel.PropertyDescriptorCollection"></see> containing the property descriptions for the object represented by this type descriptor. The default is <see cref="F:System.ComponentModel.PropertyDescriptorCollection.Empty"></see>.
-            /// </returns>
-            /// <remarks>
-            /// All ConfigurationElementCollection properties are overriden to specify the
-            /// collection editor.
-            /// </remarks>
-            public override PropertyDescriptorCollection GetProperties(Attribute[] attributes)
-            {
-                // Enumerate the original set of properties and create our new set with it
-                PropertyDescriptorCollection originalProperties = base.GetProperties(attributes);
-                List<PropertyDescriptor> newProperties = new List<PropertyDescriptor>();
-                foreach (PropertyDescriptor originalProperty in originalProperties)
-                {
-                    if (originalProperty.PropertyType == typeof(ConfigurationElementCollection))
-                    {
-                        newProperties.Add(new ElementCollectionPropertyDescriptor(originalProperty));
-                    }
-                    else
-                    {
-                        newProperties.Add(originalProperty);
-                    }
-                }
+				// Finally return the list
+				return new PropertyDescriptorCollection(newProperties.ToArray());
+			}
 
-                // Finally return the list
-                return new PropertyDescriptorCollection(newProperties.ToArray());
-            }
+			/// <summary>
+			/// This method add a new property to the original collection.
+			/// </summary>
+			/// <returns>
+			/// A <see cref="T:System.ComponentModel.PropertyDescriptorCollection"></see> containing the property descriptions for the object represented by this type descriptor. The default is <see cref="F:System.ComponentModel.PropertyDescriptorCollection.Empty"></see>.
+			/// </returns>
+			public override PropertyDescriptorCollection GetProperties()
+			{
+				return this.GetProperties(null);
+			}
 
-            /// <summary>
-            /// This method add a new property to the original collection.
-            /// </summary>
-            /// <returns>
-            /// A <see cref="T:System.ComponentModel.PropertyDescriptorCollection"></see> containing the property descriptions for the object represented by this type descriptor. The default is <see cref="F:System.ComponentModel.PropertyDescriptorCollection.Empty"></see>.
-            /// </returns>
-            public override PropertyDescriptorCollection GetProperties()
-            {
-                return this.GetProperties(null);
-            }
+			#endregion Methods
+		}
 
-            #endregion Methods
-        }
+		/// <summary>
+		/// Elements property descriptor.
+		/// </summary>
+		private class ElementCollectionPropertyDescriptor : PropertyDescriptor
+		{
+			#region Fields
 
-        /// <summary>
-        /// Elements property descriptor.
-        /// </summary>
-        private class ElementCollectionPropertyDescriptor : PropertyDescriptor
-        {
-            #region Fields
+			/// <summary>
+			/// Original, reflected property.
+			/// </summary>
+			private PropertyDescriptor _originalProperty;
 
-            /// <summary>
-            /// Original, reflected property.
-            /// </summary>
-            private PropertyDescriptor _originalProperty;
+			#endregion Fields
 
-            #endregion Fields
+			#region Constructors
 
-            #region Constructors
+			/// <summary>
+			/// Creates a new ElementCollectionPropertyDescriptor.
+			/// </summary>
+			/// <param name="originalProperty">The original property.</param>
+			public ElementCollectionPropertyDescriptor(PropertyDescriptor originalProperty)
+				: base(originalProperty, new Attribute[] {})
+			{
+				_originalProperty = originalProperty;
+			}
 
-            /// <summary>
-            /// Creates a new ElementCollectionPropertyDescriptor.
-            /// </summary>
-            /// <param name="originalProperty">The original property.</param>
-            public ElementCollectionPropertyDescriptor(PropertyDescriptor originalProperty)
-                : base(originalProperty, new Attribute[] { })
-            {
-                _originalProperty = originalProperty;
-            }
+			#endregion Constructors
 
-            #endregion Constructors
+			#region Properties
 
-            #region Properties
+			/// <summary>
+			/// Gets the type of the component for which this property belongs.
+			/// </summary>
+			public override Type ComponentType
+			{
+				get { return _originalProperty.ComponentType; }
+			}
 
-            /// <summary>
-            /// Gets the type of the component for which this property belongs.
-            /// </summary>
-            public override Type ComponentType
-            {
-                get
-                {
-                    return _originalProperty.ComponentType;
-                }
-            }
+			/// <summary>
+			/// Gets a value indicating whether or not this property is read-only.
+			/// </summary>
+			public override bool IsReadOnly
+			{
+				get { return _originalProperty.IsReadOnly; }
+			}
 
-            /// <summary>
-            /// Gets a value indicating whether or not this property is read-only.
-            /// </summary>
-            public override bool IsReadOnly
-            {
-                get
-                {
-                    return _originalProperty.IsReadOnly;
-                }
-            }
+			/// <summary>
+			/// Gets the Type of this property.
+			/// </summary>
+			public override Type PropertyType
+			{
+				get { return _originalProperty.PropertyType; }
+			}
 
-            /// <summary>
-            /// Gets the Type of this property.
-            /// </summary>
-            public override Type PropertyType
-            {
-                get
-                {
-                    return _originalProperty.PropertyType;
-                }
-            }
+			#endregion Properties
 
-            #endregion Properties
+			#region Methods
 
-            #region Methods
+			/// <summary>
+			/// Gets a value indicating whether or not the properties value can be
+			/// reset for the specified component.
+			/// </summary>
+			/// <param name="component">The component to test for reset capability.</param>
+			/// <returns>
+			/// true if resetting the component changes its value; otherwise, false.
+			/// </returns>
+			public override bool CanResetValue(object component)
+			{
+				return _originalProperty.CanResetValue(component);
+			}
 
-            /// <summary>
-            /// Gets a value indicating whether or not the properties value can be
-            /// reset for the specified component.
-            /// </summary>
-            /// <param name="component">The component to test for reset capability.</param>
-            /// <returns>
-            /// true if resetting the component changes its value; otherwise, false.
-            /// </returns>
-            public override bool CanResetValue(object component)
-            {
-                return _originalProperty.CanResetValue(component);
-            }
+			/// <summary>
+			/// Gets the editor for this property.
+			/// </summary>
+			/// <param name="editorBaseType">The base type of editor, which is used to differentiate between multiple editors that a property supports.</param>
+			/// <returns>
+			/// An instance of the requested editor type, or null if an editor cannot be found.
+			/// </returns>
+			public override object GetEditor(Type editorBaseType)
+			{
+				return new ConfigurationElementCollectionEditor(_originalProperty.PropertyType);
+			}
 
-            /// <summary>
-            /// Gets the editor for this property.
-            /// </summary>
-            /// <param name="editorBaseType">The base type of editor, which is used to differentiate between multiple editors that a property supports.</param>
-            /// <returns>
-            /// An instance of the requested editor type, or null if an editor cannot be found.
-            /// </returns>
-            public override object GetEditor(Type editorBaseType)
-            {
-                return new ConfigurationElementCollectionEditor(_originalProperty.PropertyType);
-            }
+			/// <summary>
+			/// Gets the property value for the specified component.
+			/// </summary>
+			/// <param name="component">The component with the property for which to retrieve the value.</param>
+			/// <returns>
+			/// The value of a property for a given component.
+			/// </returns>
+			public override object GetValue(object component)
+			{
+				return _originalProperty.GetValue(component);
+			}
 
-            /// <summary>
-            /// Gets the property value for the specified component.
-            /// </summary>
-            /// <param name="component">The component with the property for which to retrieve the value.</param>
-            /// <returns>
-            /// The value of a property for a given component.
-            /// </returns>
-            public override object GetValue(object component)
-            {
-                return _originalProperty.GetValue(component);
-            }
+			/// <summary>
+			/// Resets the value for this property.
+			/// </summary>
+			/// <param name="component">The component with the property value that is to be reset to the default value.</param>
+			public override void ResetValue(object component)
+			{
+				_originalProperty.ResetValue(component);
+			}
 
-            /// <summary>
-            /// Resets the value for this property.
-            /// </summary>
-            /// <param name="component">The component with the property value that is to be reset to the default value.</param>
-            public override void ResetValue(object component)
-            {
-                _originalProperty.ResetValue(component);
-            }
+			/// <summary>
+			/// Sets the value for this property.
+			/// </summary>
+			/// <param name="component">The component with the property value that is to be set.</param>
+			/// <param name="value">The new value.</param>
+			public override void SetValue(object component, object value)
+			{
+				_originalProperty.SetValue(component, value);
+			}
 
-            /// <summary>
-            /// Sets the value for this property.
-            /// </summary>
-            /// <param name="component">The component with the property value that is to be set.</param>
-            /// <param name="value">The new value.</param>
-            public override void SetValue(object component, object value)
-            {
-                _originalProperty.SetValue(component, value);
-            }
+			/// <summary>
+			/// Gets a value indicating whether the property should be
+			/// serialized by designers.
+			/// </summary>
+			/// <param name="component">The component with the property to be examined for persistence.</param>
+			/// <returns>
+			/// true if the property should be persisted; otherwise, false.
+			/// </returns>
+			public override bool ShouldSerializeValue(object component)
+			{
+				return _originalProperty.ShouldSerializeValue(component);
+			}
 
-            /// <summary>
-            /// Gets a value indicating whether the property should be
-            /// serialized by designers.
-            /// </summary>
-            /// <param name="component">The component with the property to be examined for persistence.</param>
-            /// <returns>
-            /// true if the property should be persisted; otherwise, false.
-            /// </returns>
-            public override bool ShouldSerializeValue(object component)
-            {
-                return _originalProperty.ShouldSerializeValue(component);
-            }
+			#endregion Methods
+		}
 
-            #endregion Methods
-        }
-
-        #endregion Nested Types
-    }
+		#endregion Nested Types
+	}
 }

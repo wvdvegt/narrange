@@ -37,40 +37,35 @@
 
 namespace NArrange.Core
 {
-    using System.Collections.ObjectModel;
-    using System.IO;
+	using NArrange.Core.CodeElements;
+	using NArrange.Core.Configuration;
+	using System.Collections.ObjectModel;
+	using System.IO;
 
-    using NArrange.Core.CodeElements;
-    using NArrange.Core.Configuration;
+	/// <summary>
+	/// Interface for writing NArrange code elements to 
+	/// a source file stream.
+	/// </summary>
+	public interface ICodeElementWriter
+	{
+		#region Properties
 
-    /// <summary>
-    /// Interface for writing NArrange code elements to 
-    /// a source file stream.
-    /// </summary>
-    public interface ICodeElementWriter
-    {
-        #region Properties
+		/// <summary>
+		/// Gets or sets the code configuration.
+		/// </summary>
+		CodeConfiguration Configuration { get; set; }
 
-        /// <summary>
-        /// Gets or sets the code configuration.
-        /// </summary>
-        CodeConfiguration Configuration
-        {
-            get;
-            set;
-        }
+		#endregion Properties
 
-        #endregion Properties
+		#region Methods
 
-        #region Methods
+		/// <summary>
+		/// Writes code elements to a stream.
+		/// </summary>
+		/// <param name="codeElements">Read only collection of elements</param>
+		/// <param name="writer">Code file writer</param>
+		void Write(ReadOnlyCollection<ICodeElement> codeElements, TextWriter writer);
 
-        /// <summary>
-        /// Writes code elements to a stream.
-        /// </summary>
-        /// <param name="codeElements">Read only collection of elements</param>
-        /// <param name="writer">Code file writer</param>
-        void Write(ReadOnlyCollection<ICodeElement> codeElements, TextWriter writer);
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

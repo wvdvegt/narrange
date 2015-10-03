@@ -38,60 +38,59 @@
 
 namespace NArrange.Core
 {
-    using System.IO;
+	using NArrange.Core.Configuration;
+	using System.IO;
 
-    using NArrange.Core.Configuration;
+	/// <summary>
+	/// Class for determining whether or not a file matches 
+	/// filter criteria.
+	/// </summary>
+	public class FileFilter : IFileFilter
+	{
+		#region Fields
 
-    /// <summary>
-    /// Class for determining whether or not a file matches 
-    /// filter criteria.
-    /// </summary>
-    public class FileFilter : IFileFilter
-    {
-        #region Fields
+		/// <summary>
+		/// Condition that must be met by files, if any.
+		/// </summary>
+		private readonly IConditionExpression _conditionExpression;
 
-        /// <summary>
-        /// Condition that must be met by files, if any.
-        /// </summary>
-        private readonly IConditionExpression _conditionExpression;
+		#endregion Fields
 
-        #endregion Fields
+		#region Constructors
 
-        #region Constructors
+		/// <summary>
+		/// Creates a new FileFilter.
+		/// </summary>
+		/// <param name="conditionExpression">The condition expression text.</param>
+		public FileFilter(string conditionExpression)
+		{
+			_conditionExpression = ConditionExpressionParser.Instance.Parse(conditionExpression);
+		}
 
-        /// <summary>
-        /// Creates a new FileFilter.
-        /// </summary>
-        /// <param name="conditionExpression">The condition expression text.</param>
-        public FileFilter(string conditionExpression)
-        {
-            _conditionExpression = ConditionExpressionParser.Instance.Parse(conditionExpression);
-        }
+		#endregion Constructors
 
-        #endregion Constructors
+		#region Methods
 
-        #region Methods
+		/// <summary>
+		/// Determines whether or not the specified file matches the
+		/// filter criteria.
+		/// </summary>
+		/// <param name="file">File info for the file to analyze.</param>
+		/// <returns>
+		/// True if the file matches the filter, otherwise false.
+		/// </returns>
+		public bool IsMatch(FileInfo file)
+		{
+			bool isMatch = false;
 
-        /// <summary>
-        /// Determines whether or not the specified file matches the
-        /// filter criteria.
-        /// </summary>
-        /// <param name="file">File info for the file to analyze.</param>
-        /// <returns>
-        /// True if the file matches the filter, otherwise false.
-        /// </returns>
-        public bool IsMatch(FileInfo file)
-        {
-            bool isMatch = false;
+			if (file != null)
+			{
+				isMatch = ConditionExpressionEvaluator.Instance.Evaluate(_conditionExpression, file);
+			}
 
-            if (file != null)
-            {
-                isMatch = ConditionExpressionEvaluator.Instance.Evaluate(_conditionExpression, file);
-            }
+			return isMatch;
+		}
 
-            return isMatch;
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

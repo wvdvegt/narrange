@@ -37,104 +37,101 @@
 
 namespace NArrange.Core.CodeElements
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
+	using System.Collections.Generic;
+	using System.Collections.ObjectModel;
 
-    /// <summary>
-    /// Base class for interface member elements.
-    /// </summary>
-    public abstract class InterfaceMemberElement : MemberElement
-    {
-        #region Fields
+	/// <summary>
+	/// Base class for interface member elements.
+	/// </summary>
+	public abstract class InterfaceMemberElement : MemberElement
+	{
+		#region Fields
 
-        /// <summary>
-        /// Synchronization lock for the implements collection.
-        /// </summary>
-        private readonly object _implementsLock = new object();
+		/// <summary>
+		/// Synchronization lock for the implements collection.
+		/// </summary>
+		private readonly object _implementsLock = new object();
 
-        /// <summary>
-        /// List of interfaces the member implements.
-        /// </summary>
-        private List<InterfaceReference> _implements;
+		/// <summary>
+		/// List of interfaces the member implements.
+		/// </summary>
+		private List<InterfaceReference> _implements;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the list of interface implementations.
-        /// </summary>
-        public ReadOnlyCollection<InterfaceReference> Implements
-        {
-            get
-            {
-                return ImplementsBase.AsReadOnly();
-            }
-        }
+		/// <summary>
+		/// Gets the list of interface implementations.
+		/// </summary>
+		public ReadOnlyCollection<InterfaceReference> Implements
+		{
+			get { return ImplementsBase.AsReadOnly(); }
+		}
 
-        /// <summary>
-        /// Gets the list of interface implementations.
-        /// </summary>
-        protected List<InterfaceReference> ImplementsBase
-        {
-            get
-            {
-                if (_implements == null)
-                {
-                    lock (_implementsLock)
-                    {
-                        if (_implements == null)
-                        {
-                            _implements = new List<InterfaceReference>();
-                        }
-                    }
-                }
+		/// <summary>
+		/// Gets the list of interface implementations.
+		/// </summary>
+		protected List<InterfaceReference> ImplementsBase
+		{
+			get
+			{
+				if (_implements == null)
+				{
+					lock (_implementsLock)
+					{
+						if (_implements == null)
+						{
+							_implements = new List<InterfaceReference>();
+						}
+					}
+				}
 
-                return _implements;
-            }
-        }
+				return _implements;
+			}
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Adds an item to the Implements collection.
-        /// </summary>
-        /// <param name="implementation">The implementation.</param>
-        public void AddImplementation(InterfaceReference implementation)
-        {
-            if (implementation != null)
-            {
-                ImplementsBase.Add(implementation);
-            }
-        }
+		/// <summary>
+		/// Adds an item to the Implements collection.
+		/// </summary>
+		/// <param name="implementation">The implementation.</param>
+		public void AddImplementation(InterfaceReference implementation)
+		{
+			if (implementation != null)
+			{
+				ImplementsBase.Add(implementation);
+			}
+		}
 
-        /// <summary>
-        /// Clones this instance.
-        /// </summary>
-        /// <returns> Clone of the instance with the interface member element state copied.</returns>
-        protected abstract InterfaceMemberElement DoInterfaceMemberClone();
+		/// <summary>
+		/// Clones this instance.
+		/// </summary>
+		/// <returns> Clone of the instance with the interface member element state copied.</returns>
+		protected abstract InterfaceMemberElement DoInterfaceMemberClone();
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>
-        /// Clone of the instance with the member element state copied.
-        /// </returns>
-        protected override sealed MemberElement DoMemberClone()
-        {
-            InterfaceMemberElement clone = DoInterfaceMemberClone();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>
+		/// Clone of the instance with the member element state copied.
+		/// </returns>
+		protected override sealed MemberElement DoMemberClone()
+		{
+			InterfaceMemberElement clone = DoInterfaceMemberClone();
 
-            foreach (InterfaceReference implementation in Implements)
-            {
-                InterfaceReference implementationClone = implementation.Clone() as InterfaceReference;
-                clone.ImplementsBase.Add(implementation);
-            }
+			foreach (InterfaceReference implementation in Implements)
+			{
+				InterfaceReference implementationClone = implementation.Clone() as InterfaceReference;
+				clone.ImplementsBase.Add(implementation);
+			}
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

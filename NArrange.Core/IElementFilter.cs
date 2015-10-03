@@ -37,36 +37,33 @@
 
 namespace NArrange.Core
 {
-    using NArrange.Core.CodeElements;
+	using NArrange.Core.CodeElements;
 
-    /// <summary>
-    /// Class for determining if an element meets specific
-    /// filter criteria.
-    /// </summary>
-    public interface IElementFilter
-    {
-        #region Properties
+	/// <summary>
+	/// Class for determining if an element meets specific
+	/// filter criteria.
+	/// </summary>
+	public interface IElementFilter
+	{
+		#region Properties
 
-        /// <summary>
-        /// Gets the required scope information for evaluating the condition.
-        /// </summary>
-        ElementAttributeScope RequiredScope
-        {
-            get;
-        }
+		/// <summary>
+		/// Gets the required scope information for evaluating the condition.
+		/// </summary>
+		ElementAttributeScope RequiredScope { get; }
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Determines whether or not the specified code element matches the
-        /// filter criteria.
-        /// </summary>
-        /// <param name="codeElement">Code element to analyze.</param>
-        /// <returns>True if the elemet matches the filter, otherwise false.</returns>
-        bool IsMatch(ICodeElement codeElement);
+		/// <summary>
+		/// Determines whether or not the specified code element matches the
+		/// filter criteria.
+		/// </summary>
+		/// <param name="codeElement">Code element to analyze.</param>
+		/// <returns>True if the elemet matches the filter, otherwise false.</returns>
+		bool IsMatch(ICodeElement codeElement);
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

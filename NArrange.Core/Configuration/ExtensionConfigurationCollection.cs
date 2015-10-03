@@ -37,12 +37,12 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System.ComponentModel;
+	using System.ComponentModel;
 
-    /// <summary>
-    /// Collection of ExtensionConfiguration instances.
-    /// </summary>
-    public sealed class ExtensionConfigurationCollection : BindingList<ExtensionConfiguration>
-    {
-    }
+	/// <summary>
+	/// Collection of ExtensionConfiguration instances.
+	/// </summary>
+	public sealed class ExtensionConfigurationCollection : BindingList<ExtensionConfiguration>
+	{
+	}
 }

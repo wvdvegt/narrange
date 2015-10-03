@@ -38,30 +38,29 @@
 
 namespace NArrange.CSharp
 {
-    using System.Collections.ObjectModel;
-    using System.IO;
+	using NArrange.Core;
+	using NArrange.Core.CodeElements;
+	using System.Collections.ObjectModel;
+	using System.IO;
 
-    using NArrange.Core;
-    using NArrange.Core.CodeElements;
+	/// <summary>
+	/// Writes CSharp code elements to a file.
+	/// </summary>
+	public sealed class CSharpWriter : CodeWriter
+	{
+		#region Methods
 
-    /// <summary>
-    /// Writes CSharp code elements to a file.
-    /// </summary>
-    public sealed class CSharpWriter : CodeWriter
-    {
-        #region Methods
+		/// <summary>
+		/// Writes code elements to the specified writer.
+		/// </summary>
+		/// <param name="codeElements">Code element collection to write.</param>
+		/// <param name="writer">Writer to write code elements to.</param>
+		protected override void DoWriteElements(ReadOnlyCollection<ICodeElement> codeElements, TextWriter writer)
+		{
+			CSharpWriteVisitor visitor = new CSharpWriteVisitor(writer, Configuration);
+			WriteVisitElements(codeElements, writer, visitor);
+		}
 
-        /// <summary>
-        /// Writes code elements to the specified writer.
-        /// </summary>
-        /// <param name="codeElements">Code element collection to write.</param>
-        /// <param name="writer">Writer to write code elements to.</param>
-        protected override void DoWriteElements(ReadOnlyCollection<ICodeElement> codeElements, TextWriter writer)
-        {
-            CSharpWriteVisitor visitor = new CSharpWriteVisitor(writer, Configuration);
-            WriteVisitElements(codeElements, writer, visitor);
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

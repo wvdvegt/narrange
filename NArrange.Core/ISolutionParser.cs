@@ -37,34 +37,31 @@
 
 namespace NArrange.Core
 {
-    using System.Collections.ObjectModel;
+	using System.Collections.ObjectModel;
 
-    /// <summary>
-    /// Interface for specific solution parser implementations.
-    /// </summary>
-    public interface ISolutionParser
-    {
-        #region Properties
+	/// <summary>
+	/// Interface for specific solution parser implementations.
+	/// </summary>
+	public interface ISolutionParser
+	{
+		#region Properties
 
-        /// <summary>
-        /// Gets the extensions for files that the solution parser supports.
-        /// </summary>
-        ReadOnlyCollection<string> Extensions
-        {
-            get;
-        }
+		/// <summary>
+		/// Gets the extensions for files that the solution parser supports.
+		/// </summary>
+		ReadOnlyCollection<string> Extensions { get; }
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Parses project file names from a solution file.
-        /// </summary>
-        /// <param name="solutionFile">Solution file name.</param>
-        /// <returns>A list of project file names</returns>
-        ReadOnlyCollection<string> Parse(string solutionFile);
+		/// <summary>
+		/// Parses project file names from a solution file.
+		/// </summary>
+		/// <param name="solutionFile">Solution file name.</param>
+		/// <returns>A list of project file names</returns>
+		ReadOnlyCollection<string> Parse(string solutionFile);
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

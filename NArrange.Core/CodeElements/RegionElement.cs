@@ -37,76 +37,67 @@
 
 namespace NArrange.Core.CodeElements
 {
-    /// <summary>
-    /// Region element.
-    /// </summary>
-    /// <remarks>Region elements are not parsed.</remarks>
-    public sealed class RegionElement : CodeElement
-    {
-        #region Fields
+	/// <summary>
+	/// Region element.
+	/// </summary>
+	/// <remarks>Region elements are not parsed.</remarks>
+	public sealed class RegionElement : CodeElement
+	{
+		#region Fields
 
-        /// <summary>
-        /// Whether or not directives should be written for this region.
-        /// </summary>
-        private bool _directivesEnabled = true;
+		/// <summary>
+		/// Whether or not directives should be written for this region.
+		/// </summary>
+		private bool _directivesEnabled = true;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets a value indicating whether or not directives
-        /// should be written for this region.
-        /// </summary>
-        public bool DirectivesEnabled
-        {
-            get
-            {
-                return _directivesEnabled;
-            }
-            set
-            {
-                _directivesEnabled = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets a value indicating whether or not directives
+		/// should be written for this region.
+		/// </summary>
+		public bool DirectivesEnabled
+		{
+			get { return _directivesEnabled; }
+			set { _directivesEnabled = value; }
+		}
 
-        /// <summary>
-        /// Gets the element type.
-        /// </summary>
-        public override ElementType ElementType
-        {
-            get
-            {
-                return ElementType.Region;
-            }
-        }
+		/// <summary>
+		/// Gets the element type.
+		/// </summary>
+		public override ElementType ElementType
+		{
+			get { return ElementType.Region; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Allows an ICodeElementVisitor to process (or visit) this element.
-        /// </summary>
-        /// <param name="visitor">Visitor to accept the code element.</param>
-        /// <remarks>See the Gang of Four Visitor design pattern.</remarks>
-        public override void Accept(ICodeElementVisitor visitor)
-        {
-            visitor.VisitRegionElement(this);
-        }
+		/// <summary>
+		/// Allows an ICodeElementVisitor to process (or visit) this element.
+		/// </summary>
+		/// <param name="visitor">Visitor to accept the code element.</param>
+		/// <remarks>See the Gang of Four Visitor design pattern.</remarks>
+		public override void Accept(ICodeElementVisitor visitor)
+		{
+			visitor.VisitRegionElement(this);
+		}
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>Clone of the instance.</returns>
-        protected override CodeElement DoClone()
-        {
-            RegionElement clone = new RegionElement();
-            clone._directivesEnabled = _directivesEnabled;
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>Clone of the instance.</returns>
+		protected override CodeElement DoClone()
+		{
+			RegionElement clone = new RegionElement();
+			clone._directivesEnabled = _directivesEnabled;
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

@@ -1,54 +1,52 @@
 namespace NArrange.Tests.Gui.Configuration
 {
-    using System;
-    using System.ComponentModel;
-    using System.Drawing.Design;
+	using NArrange.Core.Configuration;
+	using NArrange.Gui.Configuration;
+	using NUnit.Framework;
+	using System;
+	using System.ComponentModel;
+	using System.Drawing.Design;
 
-    using NArrange.Core.Configuration;
-    using NArrange.Gui.Configuration;
+	/// <summary>
+	/// Test fixture for the ConfigurationElementTypeDescriptionProvider
+	/// class.
+	/// </summary>
+	[TestFixture]
+	public class ConfigurationElementTypeDescriptionProviderTests
+	{
+		#region Methods
 
-    using NUnit.Framework;
+		/// <summary>
+		/// Tests the GetTypeDescriptor method.
+		/// </summary>
+		[Test]
+		public void GetTypeDescriptorTest()
+		{
+			Type configType = typeof (ElementConfiguration);
 
-    /// <summary>
-    /// Test fixture for the ConfigurationElementTypeDescriptionProvider
-    /// class.
-    /// </summary>
-    [TestFixture]
-    public class ConfigurationElementTypeDescriptionProviderTests
-    {
-        #region Methods
+			ConfigurationElementTypeDescriptionProvider typeDescriptionProvider =
+				new ConfigurationElementTypeDescriptionProvider(configType);
 
-        /// <summary>
-        /// Tests the GetTypeDescriptor method.
-        /// </summary>
-        [Test]
-        public void GetTypeDescriptorTest()
-        {
-            Type configType = typeof(ElementConfiguration);
+			ICustomTypeDescriptor typeDescriptor =
+				typeDescriptionProvider.GetTypeDescriptor(configType);
 
-            ConfigurationElementTypeDescriptionProvider typeDescriptionProvider =
-                new ConfigurationElementTypeDescriptionProvider(configType);
+			Assert.IsNotNull(
+				typeDescriptor,
+				"Expected a valid type descriptor instance to be returned from GetTypeDescriptor().");
 
-            ICustomTypeDescriptor typeDescriptor =
-                typeDescriptionProvider.GetTypeDescriptor(configType);
+			PropertyDescriptorCollection properties = typeDescriptor.GetProperties();
 
-            Assert.IsNotNull(
-                typeDescriptor,
-                "Expected a valid type descriptor instance to be returned from GetTypeDescriptor().");
+			PropertyDescriptor elementsProperty = properties["Elements"];
+			Assert.IsNotNull(elementsProperty, "Expected property 'Elements' to be present.");
 
-            PropertyDescriptorCollection properties = typeDescriptor.GetProperties();
+			object editor = elementsProperty.GetEditor(typeof (UITypeEditor));
+			Assert.IsNotNull(editor, "Expected an editor instance.");
+			Assert.AreEqual(
+				typeof (ConfigurationElementCollectionEditor),
+				editor.GetType(),
+				"Unexpected editor type for the Elements property.");
+		}
 
-            PropertyDescriptor elementsProperty = properties["Elements"];
-            Assert.IsNotNull(elementsProperty, "Expected property 'Elements' to be present.");
-
-            object editor = elementsProperty.GetEditor(typeof(UITypeEditor));
-            Assert.IsNotNull(editor, "Expected an editor instance.");
-            Assert.AreEqual(
-                typeof(ConfigurationElementCollectionEditor),
-                editor.GetType(),
-                "Unexpected editor type for the Elements property.");
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

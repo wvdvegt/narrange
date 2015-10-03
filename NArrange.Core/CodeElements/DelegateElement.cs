@@ -37,145 +37,133 @@
 
 namespace NArrange.Core.CodeElements
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
+	using System;
+	using System.Collections.Generic;
+	using System.Collections.ObjectModel;
 
-    /// <summary>
-    /// Delegate element.
-    /// </summary>
-    public sealed class DelegateElement : MemberElement, IGenericElement
-    {
-        #region Fields
+	/// <summary>
+	/// Delegate element.
+	/// </summary>
+	public sealed class DelegateElement : MemberElement, IGenericElement
+	{
+		#region Fields
 
-        /// <summary>
-        /// Type parameters synchronization lock.
-        /// </summary>
-        private readonly object _typeParametersLock = new object();
+		/// <summary>
+		/// Type parameters synchronization lock.
+		/// </summary>
+		private readonly object _typeParametersLock = new object();
 
-        /// <summary>
-        /// Parameters as a comma-separated list.
-        /// </summary>
-        private string _params;
+		/// <summary>
+		/// Parameters as a comma-separated list.
+		/// </summary>
+		private string _params;
 
-        /// <summary>
-        /// Generic type parameters list.
-        /// </summary>
-        private List<TypeParameter> _typeParameters;
+		/// <summary>
+		/// Generic type parameters list.
+		/// </summary>
+		private List<TypeParameter> _typeParameters;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the element type.
-        /// </summary>
-        public override ElementType ElementType
-        {
-            get
-            {
-                return ElementType.Delegate;
-            }
-        }
+		/// <summary>
+		/// Gets the element type.
+		/// </summary>
+		public override ElementType ElementType
+		{
+			get { return ElementType.Delegate; }
+		}
 
-        /// <summary>
-        /// Gets or sets the parameter list 
-        /// </summary>
-        public string Parameters
-        {
-            get
-            {
-                return _params;
-            }
-            set
-            {
-                _params = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the parameter list 
+		/// </summary>
+		public string Parameters
+		{
+			get { return _params; }
+			set { _params = value; }
+		}
 
-        /// <summary>
-        /// Gets the list of type parameters.
-        /// </summary>
-        public ReadOnlyCollection<TypeParameter> TypeParameters
-        {
-            get
-            {
-                return TypeParametersBase.AsReadOnly();
-            }
-        }
+		/// <summary>
+		/// Gets the list of type parameters.
+		/// </summary>
+		public ReadOnlyCollection<TypeParameter> TypeParameters
+		{
+			get { return TypeParametersBase.AsReadOnly(); }
+		}
 
-        /// <summary>
-        /// Gets the list of type parameters.
-        /// </summary>
-        private List<TypeParameter> TypeParametersBase
-        {
-            get
-            {
-                if (_typeParameters == null)
-                {
-                    lock (_typeParametersLock)
-                    {
-                        if (_typeParameters == null)
-                        {
-                            _typeParameters = new List<TypeParameter>();
-                        }
-                    }
-                }
+		/// <summary>
+		/// Gets the list of type parameters.
+		/// </summary>
+		private List<TypeParameter> TypeParametersBase
+		{
+			get
+			{
+				if (_typeParameters == null)
+				{
+					lock (_typeParametersLock)
+					{
+						if (_typeParameters == null)
+						{
+							_typeParameters = new List<TypeParameter>();
+						}
+					}
+				}
 
-                return _typeParameters;
-            }
-        }
+				return _typeParameters;
+			}
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Allows an ICodeElementVisitor to process (or visit) this element.
-        /// </summary>
-        /// <param name="visitor">Visitor to accept the code element.</param>
-        /// <remarks>See the Gang of Four Visitor design pattern.</remarks>
-        public override void Accept(ICodeElementVisitor visitor)
-        {
-            visitor.VisitDelegateElement(this);
-        }
+		/// <summary>
+		/// Allows an ICodeElementVisitor to process (or visit) this element.
+		/// </summary>
+		/// <param name="visitor">Visitor to accept the code element.</param>
+		/// <remarks>See the Gang of Four Visitor design pattern.</remarks>
+		public override void Accept(ICodeElementVisitor visitor)
+		{
+			visitor.VisitDelegateElement(this);
+		}
 
-        /// <summary>
-        /// Adds a type parameter to the type parameter list.
-        /// </summary>
-        /// <param name="typeParameter">The type parameter.</param>
-        public void AddTypeParameter(TypeParameter typeParameter)
-        {
-            if (typeParameter == null)
-            {
-                throw new ArgumentNullException("typeParameter");
-            }
+		/// <summary>
+		/// Adds a type parameter to the type parameter list.
+		/// </summary>
+		/// <param name="typeParameter">The type parameter.</param>
+		public void AddTypeParameter(TypeParameter typeParameter)
+		{
+			if (typeParameter == null)
+			{
+				throw new ArgumentNullException("typeParameter");
+			}
 
-            TypeParametersBase.Add(typeParameter);
-        }
+			TypeParametersBase.Add(typeParameter);
+		}
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>Clone of the instance with the member element state copied.</returns>
-        protected override MemberElement DoMemberClone()
-        {
-            DelegateElement clone = new DelegateElement();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>Clone of the instance with the member element state copied.</returns>
+		protected override MemberElement DoMemberClone()
+		{
+			DelegateElement clone = new DelegateElement();
 
-            //
-            // Copy state
-            //
-            clone._params = _params;
+			//
+			// Copy state
+			//
+			clone._params = _params;
 
-            foreach (TypeParameter typeParam in TypeParameters)
-            {
-                TypeParameter typeParamClone = typeParam.Clone() as TypeParameter;
-                clone.TypeParametersBase.Add(typeParamClone);
-            }
+			foreach (TypeParameter typeParam in TypeParameters)
+			{
+				TypeParameter typeParamClone = typeParam.Clone() as TypeParameter;
+				clone.TypeParametersBase.Add(typeParamClone);
+			}
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

@@ -37,146 +37,137 @@
 
 namespace NArrange.Core.CodeElements
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
+	using System;
+	using System.Collections.Generic;
+	using System.Collections.ObjectModel;
 
-    /// <summary>
-    /// Type parameter definition for generic types.
-    /// </summary>
-    public sealed class TypeParameter : ICloneable
-    {
-        #region Fields
+	/// <summary>
+	/// Type parameter definition for generic types.
+	/// </summary>
+	public sealed class TypeParameter : ICloneable
+	{
+		#region Fields
 
-        /// <summary>
-        /// Synchronization lock for the type parameter constraints.
-        /// </summary>
-        private readonly object _constraintsLock = new object();
+		/// <summary>
+		/// Synchronization lock for the type parameter constraints.
+		/// </summary>
+		private readonly object _constraintsLock = new object();
 
-        /// <summary>
-        /// Type parameter constraints.
-        /// </summary>
-        private List<string> _constraints;
+		/// <summary>
+		/// Type parameter constraints.
+		/// </summary>
+		private List<string> _constraints;
 
-        /// <summary>
-        /// Type parameter name.
-        /// </summary>
-        private string _name;
+		/// <summary>
+		/// Type parameter name.
+		/// </summary>
+		private string _name;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new TypeParameter.
-        /// </summary>
-        public TypeParameter()
-        {
-            _name = string.Empty;
-        }
+		/// <summary>
+		/// Creates a new TypeParameter.
+		/// </summary>
+		public TypeParameter()
+		{
+			_name = string.Empty;
+		}
 
-        /// <summary>
-        /// Creates a new TypeParameter.
-        /// </summary>
-        /// <param name="name">The type parameter name.</param>
-        /// <param name="constraints">The constraints.</param>
-        public TypeParameter(string name, params string[] constraints)
-            : this()
-        {
-            _name = name;
-            foreach (string constraint in constraints)
-            {
-                AddConstraint(constraint);
-            }
-        }
+		/// <summary>
+		/// Creates a new TypeParameter.
+		/// </summary>
+		/// <param name="name">The type parameter name.</param>
+		/// <param name="constraints">The constraints.</param>
+		public TypeParameter(string name, params string[] constraints)
+			: this()
+		{
+			_name = name;
+			foreach (string constraint in constraints)
+			{
+				AddConstraint(constraint);
+			}
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the collection of constraints for this type parameter.
-        /// </summary>
-        public ReadOnlyCollection<string> Constraints
-        {
-            get
-            {
-                return BaseConstraints.AsReadOnly();
-            }
-        }
+		/// <summary>
+		/// Gets the collection of constraints for this type parameter.
+		/// </summary>
+		public ReadOnlyCollection<string> Constraints
+		{
+			get { return BaseConstraints.AsReadOnly(); }
+		}
 
-        /// <summary>
-        /// Gets or sets the type parameter name.
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                _name = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the type parameter name.
+		/// </summary>
+		public string Name
+		{
+			get { return _name; }
+			set { _name = value; }
+		}
 
-        /// <summary>
-        /// Gets the list of parameter constraints.
-        /// </summary>
-        private List<string> BaseConstraints
-        {
-            get
-            {
-                if (_constraints == null)
-                {
-                    lock (_constraintsLock)
-                    {
-                        if (_constraints == null)
-                        {
-                            _constraints = new List<string>();
-                        }
-                    }
-                }
+		/// <summary>
+		/// Gets the list of parameter constraints.
+		/// </summary>
+		private List<string> BaseConstraints
+		{
+			get
+			{
+				if (_constraints == null)
+				{
+					lock (_constraintsLock)
+					{
+						if (_constraints == null)
+						{
+							_constraints = new List<string>();
+						}
+					}
+				}
 
-                return _constraints;
-            }
-        }
+				return _constraints;
+			}
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Adds a constraint for the type parameter.
-        /// </summary>
-        /// <param name="constraint">The constraint.</param>
-        public void AddConstraint(string constraint)
-        {
-            BaseConstraints.Add(constraint);
-        }
+		/// <summary>
+		/// Adds a constraint for the type parameter.
+		/// </summary>
+		/// <param name="constraint">The constraint.</param>
+		public void AddConstraint(string constraint)
+		{
+			BaseConstraints.Add(constraint);
+		}
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>
-        /// A new object that is a copy of this instance.
-        /// </returns>
-        public object Clone()
-        {
-            TypeParameter clone = new TypeParameter();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>
+		/// A new object that is a copy of this instance.
+		/// </returns>
+		public object Clone()
+		{
+			TypeParameter clone = new TypeParameter();
 
-            //
-            // Copy state
-            //
-            clone._name = _name;
-            foreach (string constraint in Constraints)
-            {
-                clone.AddConstraint(constraint);
-            }
+			//
+			// Copy state
+			//
+			clone._name = _name;
+			foreach (string constraint in Constraints)
+			{
+				clone.AddConstraint(constraint);
+			}
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

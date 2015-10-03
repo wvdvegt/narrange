@@ -37,74 +37,65 @@
 
 namespace NArrange.Core.CodeElements
 {
-    /// <summary>
-    /// Event element.
-    /// </summary>
-    public sealed class EventElement : InterfaceMemberElement
-    {
-        #region Fields
+	/// <summary>
+	/// Event element.
+	/// </summary>
+	public sealed class EventElement : InterfaceMemberElement
+	{
+		#region Fields
 
-        /// <summary>
-        /// Event parameters as a comma-separate list with attributes.
-        /// </summary>
-        private string _params;
+		/// <summary>
+		/// Event parameters as a comma-separate list with attributes.
+		/// </summary>
+		private string _params;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the element type.
-        /// </summary>
-        public override ElementType ElementType
-        {
-            get
-            {
-                return ElementType.Event;
-            }
-        }
+		/// <summary>
+		/// Gets the element type.
+		/// </summary>
+		public override ElementType ElementType
+		{
+			get { return ElementType.Event; }
+		}
 
-        /// <summary>
-        /// Gets or sets the parameter list 
-        /// </summary>
-        public string Parameters
-        {
-            get
-            {
-                return _params;
-            }
-            set
-            {
-                _params = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the parameter list 
+		/// </summary>
+		public string Parameters
+		{
+			get { return _params; }
+			set { _params = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Allows an ICodeElementVisitor to process (or visit) this element.
-        /// </summary>
-        /// <param name="visitor">Visitor to accept the code element.</param>
-        /// <remarks>See the Gang of Four Visitor design pattern.</remarks>
-        public override void Accept(ICodeElementVisitor visitor)
-        {
-            visitor.VisitEventElement(this);
-        }
+		/// <summary>
+		/// Allows an ICodeElementVisitor to process (or visit) this element.
+		/// </summary>
+		/// <param name="visitor">Visitor to accept the code element.</param>
+		/// <remarks>See the Gang of Four Visitor design pattern.</remarks>
+		public override void Accept(ICodeElementVisitor visitor)
+		{
+			visitor.VisitEventElement(this);
+		}
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>Clone of the element with the interface member state copied.</returns>
-        protected override InterfaceMemberElement DoInterfaceMemberClone()
-        {
-            EventElement clone = new EventElement();
-            clone._params = _params;
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>Clone of the element with the interface member state copied.</returns>
+		protected override InterfaceMemberElement DoInterfaceMemberClone()
+		{
+			EventElement clone = new EventElement();
+			clone._params = _params;
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

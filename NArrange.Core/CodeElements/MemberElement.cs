@@ -37,161 +37,128 @@
 
 namespace NArrange.Core.CodeElements
 {
-    /// <summary>
-    /// Member code element.
-    /// </summary>
-    public abstract class MemberElement : AttributedElement
-    {
-        #region Fields
+	/// <summary>
+	/// Member code element.
+	/// </summary>
+	public abstract class MemberElement : AttributedElement
+	{
+		#region Fields
 
-        /// <summary>
-        /// Modifiers for the member.
-        /// </summary>
-        private MemberModifiers _memberModifiers;
+		/// <summary>
+		/// Modifiers for the member.
+		/// </summary>
+		private MemberModifiers _memberModifiers;
 
-        /// <summary>
-        /// The return type of the member.
-        /// </summary>
-        private string _type;
+		/// <summary>
+		/// The return type of the member.
+		/// </summary>
+		private string _type;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets a value indicating whether or not the member is abstract.
-        /// </summary>
-        public bool IsAbstract
-        {
-            get
-            {
-                return (_memberModifiers & MemberModifiers.Abstract) == MemberModifiers.Abstract;
-            }
-        }
+		/// <summary>
+		/// Gets a value indicating whether or not the member is abstract.
+		/// </summary>
+		public bool IsAbstract
+		{
+			get { return (_memberModifiers & MemberModifiers.Abstract) == MemberModifiers.Abstract; }
+		}
 
-        /// <summary>
-        /// Gets a value indicating whether or not the member is new.
-        /// </summary>
-        public bool IsNew
-        {
-            get
-            {
-                return (_memberModifiers & MemberModifiers.New) == MemberModifiers.New;
-            }
-        }
+		/// <summary>
+		/// Gets a value indicating whether or not the member is new.
+		/// </summary>
+		public bool IsNew
+		{
+			get { return (_memberModifiers & MemberModifiers.New) == MemberModifiers.New; }
+		}
 
-        /// <summary>
-        /// Gets a value indicating whether or not the member is an override.
-        /// </summary>
-        public bool IsOverride
-        {
-            get
-            {
-                return (_memberModifiers & MemberModifiers.Override) == MemberModifiers.Override;
-            }
-        }
+		/// <summary>
+		/// Gets a value indicating whether or not the member is an override.
+		/// </summary>
+		public bool IsOverride
+		{
+			get { return (_memberModifiers & MemberModifiers.Override) == MemberModifiers.Override; }
+		}
 
-        /// <summary>
-        /// Gets a value indicating whether or not the member is sealed.
-        /// </summary>
-        public bool IsSealed
-        {
-            get
-            {
-                return (_memberModifiers & MemberModifiers.Sealed) == MemberModifiers.Sealed;
-            }
-        }
+		/// <summary>
+		/// Gets a value indicating whether or not the member is sealed.
+		/// </summary>
+		public bool IsSealed
+		{
+			get { return (_memberModifiers & MemberModifiers.Sealed) == MemberModifiers.Sealed; }
+		}
 
-        /// <summary>
-        /// Gets a value indicating whether or not the member is static.
-        /// </summary>
-        public bool IsStatic
-        {
-            get
-            {
-                return (_memberModifiers & MemberModifiers.Static) == MemberModifiers.Static;
-            }
-        }
+		/// <summary>
+		/// Gets a value indicating whether or not the member is static.
+		/// </summary>
+		public bool IsStatic
+		{
+			get { return (_memberModifiers & MemberModifiers.Static) == MemberModifiers.Static; }
+		}
 
-        /// <summary>
-        /// Gets a value indicating whether or not the member is unsafe.
-        /// </summary>
-        public bool IsUnsafe
-        {
-            get
-            {
-                return (_memberModifiers & MemberModifiers.Unsafe) == MemberModifiers.Unsafe;
-            }
-        }
+		/// <summary>
+		/// Gets a value indicating whether or not the member is unsafe.
+		/// </summary>
+		public bool IsUnsafe
+		{
+			get { return (_memberModifiers & MemberModifiers.Unsafe) == MemberModifiers.Unsafe; }
+		}
 
-        /// <summary>
-        /// Gets a value indicating whether or not the member is virtual.
-        /// </summary>
-        public bool IsVirtual
-        {
-            get
-            {
-                return (_memberModifiers & MemberModifiers.Virtual) == MemberModifiers.Virtual;
-            }
-        }
+		/// <summary>
+		/// Gets a value indicating whether or not the member is virtual.
+		/// </summary>
+		public bool IsVirtual
+		{
+			get { return (_memberModifiers & MemberModifiers.Virtual) == MemberModifiers.Virtual; }
+		}
 
-        /// <summary>
-        /// Gets or sets the member attributes.
-        /// </summary>
-        public MemberModifiers MemberModifiers
-        {
-            get
-            {
-                return _memberModifiers;
-            }
-            set
-            {
-                _memberModifiers = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the member attributes.
+		/// </summary>
+		public MemberModifiers MemberModifiers
+		{
+			get { return _memberModifiers; }
+			set { _memberModifiers = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the type of the member.
-        /// </summary>
-        public string Type
-        {
-            get
-            {
-                return _type;
-            }
-            set
-            {
-                _type = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the type of the member.
+		/// </summary>
+		public string Type
+		{
+			get { return _type; }
+			set { _type = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>Cloned attribute element state.</returns>
-        protected override sealed AttributedElement DoAttributedClone()
-        {
-            MemberElement clone = DoMemberClone();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>Cloned attribute element state.</returns>
+		protected override sealed AttributedElement DoAttributedClone()
+		{
+			MemberElement clone = DoMemberClone();
 
-            //
-            // Copy state
-            //
-            clone._memberModifiers = _memberModifiers;
-            clone._type = _type;
+			//
+			// Copy state
+			//
+			clone._memberModifiers = _memberModifiers;
+			clone._type = _type;
 
-            return clone;
-        }
+			return clone;
+		}
 
-        /// <summary>
-        /// Clones this instance.
-        /// </summary>
-        /// <returns>Clone of the instance with the member element state copied.</returns>
-        protected abstract MemberElement DoMemberClone();
+		/// <summary>
+		/// Clones this instance.
+		/// </summary>
+		/// <returns>Clone of the instance with the member element state copied.</returns>
+		protected abstract MemberElement DoMemberClone();
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

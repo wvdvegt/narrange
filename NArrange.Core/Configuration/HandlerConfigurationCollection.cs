@@ -37,12 +37,12 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System.ComponentModel;
+	using System.ComponentModel;
 
-    /// <summary>
-    /// Collection of HandlerConfiguration instances.
-    /// </summary>
-    public sealed class HandlerConfigurationCollection : BindingList<HandlerConfiguration>
-    {
-    }
+	/// <summary>
+	/// Collection of HandlerConfiguration instances.
+	/// </summary>
+	public sealed class HandlerConfigurationCollection : BindingList<HandlerConfiguration>
+	{
+	}
 }

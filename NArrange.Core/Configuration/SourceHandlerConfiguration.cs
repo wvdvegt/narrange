@@ -38,154 +38,145 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System.ComponentModel;
-    using System.Threading;
-    using System.Xml.Serialization;
+	using System.ComponentModel;
+	using System.Threading;
+	using System.Xml.Serialization;
 
-    /// <summary>
-    /// Specifies source code extension handler assembly.
-    /// </summary>
-    [XmlType("SourceHandler")]
-    [DisplayName("Source Handler")]
-    public class SourceHandlerConfiguration : HandlerConfiguration
-    {
-        #region Fields
+	/// <summary>
+	/// Specifies source code extension handler assembly.
+	/// </summary>
+	[XmlType("SourceHandler")]
+	[DisplayName("Source Handler")]
+	public class SourceHandlerConfiguration : HandlerConfiguration
+	{
+		#region Fields
 
-        /// <summary>
-        /// Code language name.
-        /// </summary>
-        private string _language;
+		/// <summary>
+		/// Code language name.
+		/// </summary>
+		private string _language;
 
-        /// <summary>
-        /// Project extensions associated with the language.
-        /// </summary>
-        private ExtensionConfigurationCollection _projectExtensions;
+		/// <summary>
+		/// Project extensions associated with the language.
+		/// </summary>
+		private ExtensionConfigurationCollection _projectExtensions;
 
-        /// <summary>
-        /// Source file extensions associated with the language.
-        /// </summary>
-        private ExtensionConfigurationCollection _sourceExtensions;
+		/// <summary>
+		/// Source file extensions associated with the language.
+		/// </summary>
+		private ExtensionConfigurationCollection _sourceExtensions;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the handler type.
-        /// </summary>
-        public override HandlerType HandlerType
-        {
-            get
-            {
-                return HandlerType.Source;
-            }
-        }
+		/// <summary>
+		/// Gets the handler type.
+		/// </summary>
+		public override HandlerType HandlerType
+		{
+			get { return HandlerType.Source; }
+		}
 
-        /// <summary>
-        /// Gets or sets the language name.
-        /// </summary>
-        [XmlAttribute("Language")]
-        [Description("The key for the language.")]
-        public string Language
-        {
-            get
-            {
-                return _language;
-            }
-            set
-            {
-                _language = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the language name.
+		/// </summary>
+		[XmlAttribute("Language")]
+		[Description("The key for the language.")]
+		public string Language
+		{
+			get { return _language; }
+			set { _language = value; }
+		}
 
-        /// <summary>
-        /// Gets the collection of project extensions (Obsolete).
-        /// </summary>
-        [XmlArrayItem(typeof(ExtensionConfiguration))]
-        [Description("The list of project file extensions recognized for the language " +
-            "(Obsolete, this should now be specified in the project handler configuration).")]
-        [DisplayName("Project extensions (Obsolete)")]
-        [ReadOnly(true)]
-        [Browsable(false)]
-        public ExtensionConfigurationCollection ProjectExtensions
-        {
-            get
-            {
-                if (_projectExtensions == null)
-                {
-                    lock (this)
-                    {
-                        if (_projectExtensions == null)
-                        {
-                            _projectExtensions = new ExtensionConfigurationCollection();
-                        }
-                    }
-                }
+		/// <summary>
+		/// Gets the collection of project extensions (Obsolete).
+		/// </summary>
+		[XmlArrayItem(typeof (ExtensionConfiguration))]
+		[Description("The list of project file extensions recognized for the language " +
+		             "(Obsolete, this should now be specified in the project handler configuration).")]
+		[DisplayName("Project extensions (Obsolete)")]
+		[ReadOnly(true)]
+		[Browsable(false)]
+		public ExtensionConfigurationCollection ProjectExtensions
+		{
+			get
+			{
+				if (_projectExtensions == null)
+				{
+					lock (this)
+					{
+						if (_projectExtensions == null)
+						{
+							_projectExtensions = new ExtensionConfigurationCollection();
+						}
+					}
+				}
 
-                return _projectExtensions;
-            }
-        }
+				return _projectExtensions;
+			}
+		}
 
-        /// <summary>
-        /// Gets the collection of source extensions.
-        /// </summary>
-        [XmlArrayItem(typeof(ExtensionConfiguration))]
-        [Description("The list of source code file extensions recognized for the language.")]
-        [DisplayName("Source extensions")]
-        public ExtensionConfigurationCollection SourceExtensions
-        {
-            get
-            {
-                if (_sourceExtensions == null)
-                {
-                    lock (this)
-                    {
-                        if (_sourceExtensions == null)
-                        {
-                            _sourceExtensions = new ExtensionConfigurationCollection();
-                        }
-                    }
-                }
+		/// <summary>
+		/// Gets the collection of source extensions.
+		/// </summary>
+		[XmlArrayItem(typeof (ExtensionConfiguration))]
+		[Description("The list of source code file extensions recognized for the language.")]
+		[DisplayName("Source extensions")]
+		public ExtensionConfigurationCollection SourceExtensions
+		{
+			get
+			{
+				if (_sourceExtensions == null)
+				{
+					lock (this)
+					{
+						if (_sourceExtensions == null)
+						{
+							_sourceExtensions = new ExtensionConfigurationCollection();
+						}
+					}
+				}
 
-                return _sourceExtensions;
-            }
-        }
+				return _sourceExtensions;
+			}
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Gets the string representation.
-        /// </summary>
-        /// <returns>The string representation.</returns>
-        public override string ToString()
-        {
-            return string.Format(
-                Thread.CurrentThread.CurrentCulture,
-                "Source Handler: {0}",
-                _language);
-        }
+		/// <summary>
+		/// Gets the string representation.
+		/// </summary>
+		/// <returns>The string representation.</returns>
+		public override string ToString()
+		{
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture,
+				"Source Handler: {0}",
+				_language);
+		}
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>Clone of the instance.</returns>
-        protected override HandlerConfiguration DoClone()
-        {
-            SourceHandlerConfiguration clone = new SourceHandlerConfiguration();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>Clone of the instance.</returns>
+		protected override HandlerConfiguration DoClone()
+		{
+			SourceHandlerConfiguration clone = new SourceHandlerConfiguration();
 
-            clone._language = _language;
+			clone._language = _language;
 
-            foreach (ExtensionConfiguration extension in SourceExtensions)
-            {
-                ExtensionConfiguration extensionClone = extension.Clone() as ExtensionConfiguration;
-                clone.SourceExtensions.Add(extensionClone);
-            }
+			foreach (ExtensionConfiguration extension in SourceExtensions)
+			{
+				ExtensionConfiguration extensionClone = extension.Clone() as ExtensionConfiguration;
+				clone.SourceExtensions.Add(extensionClone);
+			}
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

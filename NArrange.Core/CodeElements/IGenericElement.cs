@@ -37,33 +37,30 @@
 
 namespace NArrange.Core.CodeElements
 {
-    using System.Collections.ObjectModel;
+	using System.Collections.ObjectModel;
 
-    /// <summary>
-    /// Interface for generic elements.
-    /// </summary>
-    public interface IGenericElement
-    {
-        #region Properties
+	/// <summary>
+	/// Interface for generic elements.
+	/// </summary>
+	public interface IGenericElement
+	{
+		#region Properties
 
-        /// <summary>
-        /// Gets the list of type parameters.
-        /// </summary>
-        ReadOnlyCollection<TypeParameter> TypeParameters
-        {
-            get;
-        }
+		/// <summary>
+		/// Gets the list of type parameters.
+		/// </summary>
+		ReadOnlyCollection<TypeParameter> TypeParameters { get; }
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Adds a type parameter to the element.
-        /// </summary>
-        /// <param name="typeParameter">The type parameter.</param>
-        void AddTypeParameter(TypeParameter typeParameter);
+		/// <summary>
+		/// Adds a type parameter to the element.
+		/// </summary>
+		/// <param name="typeParameter">The type parameter.</param>
+		void AddTypeParameter(TypeParameter typeParameter);
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

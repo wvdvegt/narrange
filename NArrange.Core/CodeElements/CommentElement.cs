@@ -37,134 +37,125 @@
 
 namespace NArrange.Core.CodeElements
 {
-    /// <summary>
-    /// Comment line implementation.
-    /// </summary>
-    public sealed class CommentElement : CodeElement, ICommentElement
-    {
-        #region Fields
+	/// <summary>
+	/// Comment line implementation.
+	/// </summary>
+	public sealed class CommentElement : CodeElement, ICommentElement
+	{
+		#region Fields
 
-        /// <summary>
-        /// Comment type (e.g. line or XML).
-        /// </summary>
-        private readonly CommentType _commentType;
+		/// <summary>
+		/// Comment type (e.g. line or XML).
+		/// </summary>
+		private readonly CommentType _commentType;
 
-        /// <summary>
-        /// The comment text.
-        /// </summary>
-        private readonly string _text;
+		/// <summary>
+		/// The comment text.
+		/// </summary>
+		private readonly string _text;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new comment line.
-        /// </summary>
-        public CommentElement()
-        {
-        }
+		/// <summary>
+		/// Creates a new comment line.
+		/// </summary>
+		public CommentElement()
+		{
+		}
 
-        /// <summary>
-        /// Creates a new comment line.
-        /// </summary>
-        /// <param name="text">Comment text</param>
-        public CommentElement(string text)
-        {
-            _text = text;
-        }
+		/// <summary>
+		/// Creates a new comment line.
+		/// </summary>
+		/// <param name="text">Comment text</param>
+		public CommentElement(string text)
+		{
+			_text = text;
+		}
 
-        /// <summary>
-        /// Creates a new comment line.
-        /// </summary>
-        /// <param name="commentType">Whether or not this is an XML comment or block comment</param>
-        public CommentElement(CommentType commentType)
-        {
-            _commentType = commentType;
-        }
+		/// <summary>
+		/// Creates a new comment line.
+		/// </summary>
+		/// <param name="commentType">Whether or not this is an XML comment or block comment</param>
+		public CommentElement(CommentType commentType)
+		{
+			_commentType = commentType;
+		}
 
-        /// <summary>
-        /// Creates a new comment line.
-        /// </summary>
-        /// <param name="text">Comment text</param>
-        /// <param name="commentType">Whether or not this is an XML comment or block comment</param>
-        public CommentElement(string text, CommentType commentType)
-            : this(text)
-        {
-            _commentType = commentType;
-        }
+		/// <summary>
+		/// Creates a new comment line.
+		/// </summary>
+		/// <param name="text">Comment text</param>
+		/// <param name="commentType">Whether or not this is an XML comment or block comment</param>
+		public CommentElement(string text, CommentType commentType)
+			: this(text)
+		{
+			_commentType = commentType;
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the code element type.
-        /// </summary>
-        public override ElementType ElementType
-        {
-            get
-            {
-                return ElementType.Comment;
-            }
-        }
+		/// <summary>
+		/// Gets the code element type.
+		/// </summary>
+		public override ElementType ElementType
+		{
+			get { return ElementType.Comment; }
+		}
 
-        /// <summary>
-        /// Gets the comment text.
-        /// </summary>
-        public string Text
-        {
-            get
-            {
-                return _text;
-            }
-        }
+		/// <summary>
+		/// Gets the comment text.
+		/// </summary>
+		public string Text
+		{
+			get { return _text; }
+		}
 
-        /// <summary>
-        /// Gets the type of the comment.
-        /// </summary>
-        public CommentType Type
-        {
-            get
-            {
-                return _commentType;
-            }
-        }
+		/// <summary>
+		/// Gets the type of the comment.
+		/// </summary>
+		public CommentType Type
+		{
+			get { return _commentType; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Allows an ICodeElementVisitor to process (or visit) this element.
-        /// </summary>
-        /// <param name="visitor">Visitor to accept the code element.</param>
-        /// <remarks>See the Gang of Four Visitor design pattern.</remarks>
-        public override void Accept(ICodeElementVisitor visitor)
-        {
-            visitor.VisitCommentElement(this);
-        }
+		/// <summary>
+		/// Allows an ICodeElementVisitor to process (or visit) this element.
+		/// </summary>
+		/// <param name="visitor">Visitor to accept the code element.</param>
+		/// <remarks>See the Gang of Four Visitor design pattern.</remarks>
+		public override void Accept(ICodeElementVisitor visitor)
+		{
+			visitor.VisitCommentElement(this);
+		}
 
-        /// <summary>
-        /// Gets the string representation of this object.
-        /// </summary>
-        /// <returns>String representation.</returns>
-        public override string ToString()
-        {
-            return _text;
-        }
+		/// <summary>
+		/// Gets the string representation of this object.
+		/// </summary>
+		/// <returns>String representation.</returns>
+		public override string ToString()
+		{
+			return _text;
+		}
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>Clone of the code element.</returns>
-        protected override CodeElement DoClone()
-        {
-            CommentElement clone = new CommentElement(_text, _commentType);
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>Clone of the code element.</returns>
+		protected override CodeElement DoClone()
+		{
+			CommentElement clone = new CommentElement(_text, _commentType);
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

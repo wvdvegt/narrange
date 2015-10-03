@@ -37,129 +37,123 @@
 
 namespace NArrange.Gui.Configuration
 {
-    using System;
-    using System.Collections;
-    using System.ComponentModel;
-    using System.Windows.Forms;
+	using System;
+	using System.Collections;
+	using System.ComponentModel;
+	using System.Windows.Forms;
 
-    /// <summary>
-    /// Tree node for a list component property.
-    /// </summary>
-    public sealed class ListPropertyTreeNode : PropertyTreeNode
-    {
-        #region Fields
+	/// <summary>
+	/// Tree node for a list component property.
+	/// </summary>
+	public sealed class ListPropertyTreeNode : PropertyTreeNode
+	{
+		#region Fields
 
-        /// <summary>
-        /// Add menu item.
-        /// </summary>
-        private ToolStripMenuItem _addMenuItem;
+		/// <summary>
+		/// Add menu item.
+		/// </summary>
+		private ToolStripMenuItem _addMenuItem;
 
-        /// <summary>
-        /// Context menu.
-        /// </summary>
-        private ContextMenuStrip _contextMenu;
+		/// <summary>
+		/// Context menu.
+		/// </summary>
+		private ContextMenuStrip _contextMenu;
 
-        /// <summary>
-        /// Types valid for the list.
-        /// </summary>
-        private Type[] _newItemTypes;
+		/// <summary>
+		/// Types valid for the list.
+		/// </summary>
+		private Type[] _newItemTypes;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new ListPropertyTreeNode.
-        /// </summary>
-        /// <param name="property">The property.</param>
-        /// <param name="component">The component.</param>
-        /// <param name="newItemTypes">The new item types.</param>
-        public ListPropertyTreeNode(
-            PropertyDescriptor property, object component, Type[] newItemTypes)
-            : base(property, component)
-        {
-            _newItemTypes = newItemTypes;
+		/// <summary>
+		/// Creates a new ListPropertyTreeNode.
+		/// </summary>
+		/// <param name="property">The property.</param>
+		/// <param name="component">The component.</param>
+		/// <param name="newItemTypes">The new item types.</param>
+		public ListPropertyTreeNode(
+			PropertyDescriptor property, object component, Type[] newItemTypes)
+			: base(property, component)
+		{
+			_newItemTypes = newItemTypes;
 
-            Initialize();
-        }
+			Initialize();
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Gets the display name for a type.
-        /// </summary>
-        /// <param name="type">The type to get the display name for.</param>
-        /// <returns>The dispaly name.</returns>
-        private static string GetDisplayName(Type type)
-        {
-            string displayName = type.Name;
+		/// <summary>
+		/// Gets the display name for a type.
+		/// </summary>
+		/// <param name="type">The type to get the display name for.</param>
+		/// <returns>The dispaly name.</returns>
+		private static string GetDisplayName(Type type)
+		{
+			string displayName = type.Name;
 
-            object[] displayNameAttributes = type.GetCustomAttributes(typeof(DisplayNameAttribute), true);
-            if (displayNameAttributes.Length > 0)
-            {
-                DisplayNameAttribute displayNameAttribute = (DisplayNameAttribute)displayNameAttributes[0];
-                displayName = displayNameAttribute.DisplayName;
-            }
+			object[] displayNameAttributes = type.GetCustomAttributes(typeof (DisplayNameAttribute), true);
+			if (displayNameAttributes.Length > 0)
+			{
+				DisplayNameAttribute displayNameAttribute = (DisplayNameAttribute) displayNameAttributes[0];
+				displayName = displayNameAttribute.DisplayName;
+			}
 
-            return displayName;
-        }
+			return displayName;
+		}
 
-        /// <summary>
-        /// Adds a new item to the list of the specified type.
-        /// </summary>
-        /// <param name="type">The type to add.</param>
-        private void AddItem(Type type)
-        {
-            object instance = Activator.CreateInstance(type);
-            IList list = this.PropertyValue as IList;
-            if (list != null)
-            {
-                list.Add(instance);
-            }
-        }
+		/// <summary>
+		/// Adds a new item to the list of the specified type.
+		/// </summary>
+		/// <param name="type">The type to add.</param>
+		private void AddItem(Type type)
+		{
+			object instance = Activator.CreateInstance(type);
+			IList list = this.PropertyValue as IList;
+			if (list != null)
+			{
+				list.Add(instance);
+			}
+		}
 
-        /// <summary>
-        /// Initializes this tree node.
-        /// </summary>
-        private void Initialize()
-        {
-            _contextMenu = new ContextMenuStrip();
+		/// <summary>
+		/// Initializes this tree node.
+		/// </summary>
+		private void Initialize()
+		{
+			_contextMenu = new ContextMenuStrip();
 
-            if (_newItemTypes != null && _newItemTypes.Length > 0)
-            {
-                _addMenuItem = new ToolStripMenuItem("&Add");
+			if (_newItemTypes != null && _newItemTypes.Length > 0)
+			{
+				_addMenuItem = new ToolStripMenuItem("&Add");
 
-                if (_newItemTypes.Length == 1)
-                {
-                    _addMenuItem.Click += delegate(object sender, EventArgs e)
-                    {
-                        this.AddItem(_newItemTypes[0]);
-                    };
-                }
-                else
-                {
-                    for (int typeIndex = 0; typeIndex < _newItemTypes.Length; typeIndex++)
-                    {
-                        Type type = _newItemTypes[typeIndex];
-                        string typeName = GetDisplayName(type);
-                        ToolStripMenuItem addTypeMenuItem = new ToolStripMenuItem(typeName);
-                        addTypeMenuItem.Click += delegate(object sender, EventArgs e)
-                       {
-                           this.AddItem(type);
-                       };
+				if (_newItemTypes.Length == 1)
+				{
+					_addMenuItem.Click += delegate(object sender, EventArgs e) { this.AddItem(_newItemTypes[0]); };
+				}
+				else
+				{
+					for (int typeIndex = 0; typeIndex < _newItemTypes.Length; typeIndex++)
+					{
+						Type type = _newItemTypes[typeIndex];
+						string typeName = GetDisplayName(type);
+						ToolStripMenuItem addTypeMenuItem = new ToolStripMenuItem(typeName);
+						addTypeMenuItem.Click += delegate(object sender, EventArgs e) { this.AddItem(type); };
 
-                        _addMenuItem.DropDownItems.Add(addTypeMenuItem);
-                    }
-                }
+						_addMenuItem.DropDownItems.Add(addTypeMenuItem);
+					}
+				}
 
-                _contextMenu.Items.Add(_addMenuItem);
-            }
+				_contextMenu.Items.Add(_addMenuItem);
+			}
 
-            this.ContextMenuStrip = _contextMenu;
-        }
+			this.ContextMenuStrip = _contextMenu;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

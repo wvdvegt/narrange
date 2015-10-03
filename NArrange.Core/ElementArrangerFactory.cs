@@ -37,92 +37,91 @@
 
 namespace NArrange.Core
 {
-    using System;
-    using System.Collections.Generic;
+	using NArrange.Core.Configuration;
+	using System;
+	using System.Collections.Generic;
 
-    using NArrange.Core.Configuration;
+	/// <summary>
+	/// Class for creating ElementArranger instances based on configuration
+	/// information.
+	/// </summary>
+	public static class ElementArrangerFactory
+	{
+		#region Methods
 
-    /// <summary>
-    /// Class for creating ElementArranger instances based on configuration
-    /// information.
-    /// </summary>
-    public static class ElementArrangerFactory
-    {
-        #region Methods
+		/// <summary>
+		/// Creates an element arranger using the specified configuration information.
+		/// </summary>
+		/// <param name="configuration">The configuration.</param>
+		/// <param name="parentConfiguration">The parent configuration.</param>
+		/// <returns>
+		/// Returns an IElementArranger if succesful, otherwise null.
+		/// </returns>
+		public static IElementArranger CreateElementArranger(
+			ConfigurationElement configuration,
+			ConfigurationElement parentConfiguration)
+		{
+			IElementArranger arranger = null;
 
-        /// <summary>
-        /// Creates an element arranger using the specified configuration information.
-        /// </summary>
-        /// <param name="configuration">The configuration.</param>
-        /// <param name="parentConfiguration">The parent configuration.</param>
-        /// <returns>
-        /// Returns an IElementArranger if succesful, otherwise null.
-        /// </returns>
-        public static IElementArranger CreateElementArranger(
-            ConfigurationElement configuration,
-            ConfigurationElement parentConfiguration)
-        {
-            IElementArranger arranger = null;
+			if (configuration == null)
+			{
+				throw new ArgumentNullException("configuration");
+			}
 
-            if (configuration == null)
-            {
-                throw new ArgumentNullException("configuration");
-            }
+			//
+			// If this is an element reference, build the arranger using the referenced
+			// element configuration instead.
+			//
+			ElementReferenceConfiguration elementReference = configuration as ElementReferenceConfiguration;
+			if (elementReference != null && elementReference.ReferencedElement != null)
+			{
+				configuration = elementReference.ReferencedElement;
+			}
 
-            //
-            // If this is an element reference, build the arranger using the referenced
-            // element configuration instead.
-            //
-            ElementReferenceConfiguration elementReference = configuration as ElementReferenceConfiguration;
-            if (elementReference != null && elementReference.ReferencedElement != null)
-            {
-                configuration = elementReference.ReferencedElement;
-            }
+			ElementConfiguration elementConfiguration = configuration as ElementConfiguration;
+			if (elementConfiguration != null)
+			{
+				arranger = new ElementArranger(elementConfiguration, parentConfiguration);
+			}
+			else
+			{
+				RegionConfiguration regionConfiguration = configuration as RegionConfiguration;
+				if (regionConfiguration != null)
+				{
+					arranger = new RegionArranger(regionConfiguration, parentConfiguration);
+				}
+				else
+				{
+					arranger = CreateChildrenArranger(configuration);
+				}
+			}
 
-            ElementConfiguration elementConfiguration = configuration as ElementConfiguration;
-            if (elementConfiguration != null)
-            {
-                arranger = new ElementArranger(elementConfiguration, parentConfiguration);
-            }
-            else
-            {
-                RegionConfiguration regionConfiguration = configuration as RegionConfiguration;
-                if (regionConfiguration != null)
-                {
-                    arranger = new RegionArranger(regionConfiguration, parentConfiguration);
-                }
-                else
-                {
-                    arranger = CreateChildrenArranger(configuration);
-                }
-            }
+			return arranger;
+		}
 
-            return arranger;
-        }
+		/// <summary>
+		/// Creates an arranger for the children of elements associated with the 
+		/// specified cofiguration.
+		/// </summary>
+		/// <param name="parentConfiguration">Parent configuration.</param>
+		/// <returns>Element arranger for children.</returns>
+		internal static IElementArranger CreateChildrenArranger(ConfigurationElement parentConfiguration)
+		{
+			ChainElementArranger childrenArranger = new ChainElementArranger();
+			foreach (ConfigurationElement childConfiguration in parentConfiguration.Elements)
+			{
+				IElementArranger childElementArranger = CreateElementArranger(
+					childConfiguration, parentConfiguration);
 
-        /// <summary>
-        /// Creates an arranger for the children of elements associated with the 
-        /// specified cofiguration.
-        /// </summary>
-        /// <param name="parentConfiguration">Parent configuration.</param>
-        /// <returns>Element arranger for children.</returns>
-        internal static IElementArranger CreateChildrenArranger(ConfigurationElement parentConfiguration)
-        {
-            ChainElementArranger childrenArranger = new ChainElementArranger();
-            foreach (ConfigurationElement childConfiguration in parentConfiguration.Elements)
-            {
-                IElementArranger childElementArranger = CreateElementArranger(
-                        childConfiguration, parentConfiguration);
+				if (childElementArranger != null)
+				{
+					childrenArranger.AddArranger(childElementArranger);
+				}
+			}
 
-                if (childElementArranger != null)
-                {
-                    childrenArranger.AddArranger(childElementArranger);
-                }
-            }
+			return childrenArranger;
+		}
 
-            return childrenArranger;
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

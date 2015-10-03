@@ -37,211 +37,207 @@
 
 namespace NArrange.Gui.Configuration
 {
-    using System;
-    using System.Globalization;
-    using System.Text;
-    using System.Windows.Forms;
+	using NArrange.Core.Configuration;
+	using System;
+	using System.Globalization;
+	using System.Text;
+	using System.Windows.Forms;
 
-    using NArrange.Core.Configuration;
+	/// <summary>
+	/// Form for editing a code configuration.
+	/// </summary>
+	public partial class ConfigurationEditorForm : BaseForm
+	{
+		#region Fields
 
-    /// <summary>
-    /// Form for editing a code configuration.
-    /// </summary>
-    public partial class ConfigurationEditorForm : BaseForm
-    {
-        #region Fields
+		/// <summary>
+		/// Whether or not a configuration can be selected for editing.
+		/// </summary>
+		private bool _canSelectConfig = true;
 
-        /// <summary>
-        /// Whether or not a configuration can be selected for editing.
-        /// </summary>
-        private bool _canSelectConfig = true;
+		#endregion Fields
 
-        #endregion Fields
+		#region Constructors
 
-        #region Constructors
+		/// <summary>
+		/// Creates a new ConfigurationEditorForm.
+		/// </summary>
+		public ConfigurationEditorForm()
+		{
+			InitializeComponent();
+		}
 
-        /// <summary>
-        /// Creates a new ConfigurationEditorForm.
-        /// </summary>
-        public ConfigurationEditorForm()
-        {
-            InitializeComponent();
-        }
+		#endregion Constructors
 
-        #endregion Constructors
+		#region Properties
 
-        #region Properties
+		/// <summary>
+		/// Gets or sets a value indicating whether a configuration can currently be selected.
+		/// </summary>
+		private bool CanSelectConfig
+		{
+			get { return _canSelectConfig; }
+			set
+			{
+				_canSelectConfig = value;
 
-        /// <summary>
-        /// Gets or sets a value indicating whether a configuration can currently be selected.
-        /// </summary>
-        private bool CanSelectConfig
-        {
-            get
-            {
-                return _canSelectConfig;
-            }
-            set
-            {
-                _canSelectConfig = value;
+				_buttonCancel.Enabled = !value;
+				_buttonSave.Enabled = !value;
+				_configurationEditorControl.Enabled = !value;
+				_configurationPicker.Enabled = value;
+			}
+		}
 
-                _buttonCancel.Enabled = !value;
-                _buttonSave.Enabled = !value;
-                _configurationEditorControl.Enabled = !value;
-                _configurationPicker.Enabled = value;
-            }
-        }
+		#endregion Properties
 
-        #endregion Properties
+		#region Methods
 
-        #region Methods
+		/// <summary>
+		/// Creates a new configuration using the specified filename and updates
+		/// the UI.
+		/// </summary>
+		/// <param name="filename">The filename.</param>
+		private void CreateConfiguration(string filename)
+		{
+			try
+			{
+				CodeConfiguration configuration = CodeConfiguration.Default.Clone() as CodeConfiguration;
+				configuration.Save(filename);
 
-        /// <summary>
-        /// Creates a new configuration using the specified filename and updates
-        /// the UI.
-        /// </summary>
-        /// <param name="filename">The filename.</param>
-        private void CreateConfiguration(string filename)
-        {
-            try
-            {
-                CodeConfiguration configuration = CodeConfiguration.Default.Clone() as CodeConfiguration;
-                configuration.Save(filename);
+				_configurationEditorControl.Configuration = configuration;
+				this.CanSelectConfig = false;
+			}
+			catch
+			{
+				string message = string.Format(
+					CultureInfo.CurrentUICulture,
+					"Unable to create configuration file {0}.",
+					filename);
 
-                _configurationEditorControl.Configuration = configuration;
-                this.CanSelectConfig = false;
-            }
-            catch
-            {
-                string message = string.Format(
-                    CultureInfo.CurrentUICulture,
-                    "Unable to create configuration file {0}.",
-                    filename);
+				MessageBox.Show(this, message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
 
-                MessageBox.Show(this, message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+		/// <summary>
+		/// Event handler for the Cancel button click event.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void HandleButtonCancelClick(object sender, EventArgs e)
+		{
+			this.CanSelectConfig = true;
+			this._configurationEditorControl.Configuration = null;
+			this._configurationPicker.Refresh();
+		}
 
-        /// <summary>
-        /// Event handler for the Cancel button click event.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void HandleButtonCancelClick(object sender, EventArgs e)
-        {
-            this.CanSelectConfig = true;
-            this._configurationEditorControl.Configuration = null;
-            this._configurationPicker.Refresh();
-        }
+		/// <summary>
+		/// Event handler for the Create button click event.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void HandleButtonCreateClick(object sender, EventArgs e)
+		{
+			this.CreateConfiguration(_configurationPicker.SelectedFile);
+		}
 
-        /// <summary>
-        /// Event handler for the Create button click event.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void HandleButtonCreateClick(object sender, EventArgs e)
-        {
-            this.CreateConfiguration(_configurationPicker.SelectedFile);
-        }
+		/// <summary>
+		/// Event handler for the Save button click event.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void HandleButtonSaveClick(object sender, EventArgs e)
+		{
+			this.CanSelectConfig = true;
+			this.SaveConfiguration(_configurationPicker.SelectedFile);
+			this._configurationPicker.Refresh();
+		}
 
-        /// <summary>
-        /// Event handler for the Save button click event.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void HandleButtonSaveClick(object sender, EventArgs e)
-        {
-            this.CanSelectConfig = true;
-            this.SaveConfiguration(_configurationPicker.SelectedFile);
-            this._configurationPicker.Refresh();
-        }
+		/// <summary>
+		/// Event handler for the configuration picker EditClick event.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void HandleConfigurationPickerEditClick(object sender, EventArgs e)
+		{
+			this.LoadConfiguration(_configurationPicker.SelectedFile);
+		}
 
-        /// <summary>
-        /// Event handler for the configuration picker EditClick event.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void HandleConfigurationPickerEditClick(object sender, EventArgs e)
-        {
-            this.LoadConfiguration(_configurationPicker.SelectedFile);
-        }
+		/// <summary>
+		/// Loads the configuration file into the editor and updates the UI state.
+		/// </summary>
+		/// <param name="filename">The filename.</param>
+		private void LoadConfiguration(string filename)
+		{
+			if (filename.Length == 0)
+			{
+				MessageBox.Show(this, "Please select a configuration to load.", this.Text);
+			}
+			else
+			{
+				try
+				{
+					CodeConfiguration configuration = CodeConfiguration.Load(filename, false);
+					_configurationEditorControl.Configuration = configuration;
+					this.CanSelectConfig = false;
+				}
+				catch (Exception ex)
+				{
+					StringBuilder messageBuilder = new StringBuilder(
+						string.Format(
+							CultureInfo.CurrentUICulture,
+							"Unable to load configuration file {0}: {1}",
+							filename,
+							ex.Message));
+					if (ex.InnerException != null)
+					{
+						messageBuilder.AppendFormat(" {0}", ex.InnerException.Message);
+					}
 
-        /// <summary>
-        /// Loads the configuration file into the editor and updates the UI state.
-        /// </summary>
-        /// <param name="filename">The filename.</param>
-        private void LoadConfiguration(string filename)
-        {
-            if (filename.Length == 0)
-            {
-                MessageBox.Show(this, "Please select a configuration to load.", this.Text);
-            }
-            else
-            {
-                try
-                {
-                    CodeConfiguration configuration = CodeConfiguration.Load(filename, false);
-                    _configurationEditorControl.Configuration = configuration;
-                    this.CanSelectConfig = false;
-                }
-                catch (Exception ex)
-                {
-                    StringBuilder messageBuilder = new StringBuilder(
-                         string.Format(
-                         CultureInfo.CurrentUICulture,
-                        "Unable to load configuration file {0}: {1}",
-                        filename,
-                        ex.Message));
-                    if (ex.InnerException != null)
-                    {
-                        messageBuilder.AppendFormat(" {0}", ex.InnerException.Message);
-                    }
+					MessageBox.Show(
+						this,
+						messageBuilder.ToString(),
+						this.Text,
+						MessageBoxButtons.OK,
+						MessageBoxIcon.Error);
+				}
+			}
+		}
 
-                    MessageBox.Show(
-                        this,
-                        messageBuilder.ToString(),
-                        this.Text,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                }
-            }
-        }
+		/// <summary>
+		/// Saves the current configuration to the specified file and
+		/// updates the UI.
+		/// </summary>
+		/// <param name="filename">The filename.</param>
+		private void SaveConfiguration(string filename)
+		{
+			try
+			{
+				_configurationEditorControl.Configuration.Save(filename);
+				this.CanSelectConfig = true;
+				this._configurationEditorControl.Configuration = null;
+			}
+			catch (Exception ex)
+			{
+				StringBuilder messageBuilder = new StringBuilder(
+					string.Format(
+						CultureInfo.CurrentUICulture,
+						"Unable to save configuration file {0}: {1}",
+						filename,
+						ex.Message));
+				if (ex.InnerException != null)
+				{
+					messageBuilder.AppendFormat(" {0}", ex.InnerException.Message);
+				}
 
-        /// <summary>
-        /// Saves the current configuration to the specified file and
-        /// updates the UI.
-        /// </summary>
-        /// <param name="filename">The filename.</param>
-        private void SaveConfiguration(string filename)
-        {
-            try
-            {
-                _configurationEditorControl.Configuration.Save(filename);
-                this.CanSelectConfig = true;
-                this._configurationEditorControl.Configuration = null;
-            }
-            catch (Exception ex)
-            {
-                StringBuilder messageBuilder = new StringBuilder(
-                        string.Format(
-                        CultureInfo.CurrentUICulture,
-                        "Unable to save configuration file {0}: {1}",
-                        filename,
-                        ex.Message));
-                if (ex.InnerException != null)
-                {
-                    messageBuilder.AppendFormat(" {0}", ex.InnerException.Message);
-                }
+				MessageBox.Show(
+					this,
+					messageBuilder.ToString(),
+					this.Text,
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
+			}
+		}
 
-                MessageBox.Show(
-                    this,
-                    messageBuilder.ToString(),
-                    this.Text,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

@@ -38,119 +38,107 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System.Threading;
+	using System.Threading;
 
-    /// <summary>
-    /// Unary operator expression.
-    /// </summary>
-    public class UnaryOperatorExpression : IConditionExpression
-    {
-        #region Fields
+	/// <summary>
+	/// Unary operator expression.
+	/// </summary>
+	public class UnaryOperatorExpression : IConditionExpression
+	{
+		#region Fields
 
-        /// <summary>
-        /// Inner expression.
-        /// </summary>
-        private readonly IConditionExpression _innerExpression;
+		/// <summary>
+		/// Inner expression.
+		/// </summary>
+		private readonly IConditionExpression _innerExpression;
 
-        /// <summary>
-        /// Operator type.
-        /// </summary>
-        private readonly UnaryExpressionOperator _operatorType;
+		/// <summary>
+		/// Operator type.
+		/// </summary>
+		private readonly UnaryExpressionOperator _operatorType;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new unary operator expression.
-        /// </summary>
-        /// <param name="operatorType">Type of the operator.</param>
-        /// <param name="innerExpression">The inner expression.</param>
-        public UnaryOperatorExpression(
-            UnaryExpressionOperator operatorType, IConditionExpression innerExpression)
-        {
-            _operatorType = operatorType;
-            _innerExpression = innerExpression;
-        }
+		/// <summary>
+		/// Creates a new unary operator expression.
+		/// </summary>
+		/// <param name="operatorType">Type of the operator.</param>
+		/// <param name="innerExpression">The inner expression.</param>
+		public UnaryOperatorExpression(
+			UnaryExpressionOperator operatorType, IConditionExpression innerExpression)
+		{
+			_operatorType = operatorType;
+			_innerExpression = innerExpression;
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the inner expression.
-        /// </summary>
-        public IConditionExpression InnerExpression
-        {
-            get
-            {
-                return _innerExpression;
-            }
-        }
+		/// <summary>
+		/// Gets the inner expression.
+		/// </summary>
+		public IConditionExpression InnerExpression
+		{
+			get { return _innerExpression; }
+		}
 
-        /// <summary>
-        /// Gets the expression operator.
-        /// </summary>
-        public UnaryExpressionOperator Operator
-        {
-            get
-            {
-                return _operatorType;
-            }
-        }
+		/// <summary>
+		/// Gets the expression operator.
+		/// </summary>
+		public UnaryExpressionOperator Operator
+		{
+			get { return _operatorType; }
+		}
 
-        /// <summary>
-        /// Gets the left expression.
-        /// </summary>
-        IConditionExpression IConditionExpression.Left
-        {
-            get
-            {
-                return _innerExpression;
-            }
-        }
+		/// <summary>
+		/// Gets the left expression.
+		/// </summary>
+		IConditionExpression IConditionExpression.Left
+		{
+			get { return _innerExpression; }
+		}
 
-        /// <summary>
-        /// Gets the right expression.
-        /// </summary>
-        IConditionExpression IConditionExpression.Right
-        {
-            get
-            {
-                return null;
-            }
-        }
+		/// <summary>
+		/// Gets the right expression.
+		/// </summary>
+		IConditionExpression IConditionExpression.Right
+		{
+			get { return null; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Gets the string representation of this expression.
-        /// </summary>
-        /// <returns>The string representation.</returns>
-        public override string ToString()
-        {
-            string preOperatorString = string.Empty;
+		/// <summary>
+		/// Gets the string representation of this expression.
+		/// </summary>
+		/// <returns>The string representation.</returns>
+		public override string ToString()
+		{
+			string preOperatorString = string.Empty;
 
-            switch (_operatorType)
-            {
-                case UnaryExpressionOperator.Negate:
-                    preOperatorString = "!";
-                    break;
+			switch (_operatorType)
+			{
+				case UnaryExpressionOperator.Negate:
+					preOperatorString = "!";
+					break;
 
-                default:
-                    preOperatorString = EnumUtilities.ToString(_operatorType);
-                    break;
-            }
+				default:
+					preOperatorString = EnumUtilities.ToString(_operatorType);
+					break;
+			}
 
-            return string.Format(
-                Thread.CurrentThread.CurrentCulture,
-                "{0}({1})",
-                preOperatorString,
-                InnerExpression);
-        }
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture,
+				"{0}({1})",
+				preOperatorString,
+				InnerExpression);
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

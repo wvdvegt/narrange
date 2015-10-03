@@ -1,131 +1,126 @@
 namespace NArrange.Tests.Core
 {
-    using System;
-    using System.CodeDom.Compiler;
-    using System.Collections.ObjectModel;
-    using System.IO;
+	using NArrange.Core;
+	using NArrange.Core.CodeElements;
+	using NArrange.Core.Configuration;
+	using NUnit.Framework;
+	using System;
+	using System.CodeDom.Compiler;
+	using System.Collections.ObjectModel;
+	using System.IO;
 
-    using NArrange.Core;
-    using NArrange.Core.CodeElements;
-    using NArrange.Core.Configuration;
+	/// <summary>
+	/// Base test fixture for writing arranged code elements.
+	/// </summary>
+	/// <typeparam name="TCodeParser">Parser type.</typeparam>
+	/// <typeparam name="TCodeWriter">Code writer type.</typeparam>
+	public abstract class WriteArrangedTests<TCodeParser, TCodeWriter>
+		where TCodeParser : ICodeElementParser, new()
+		where TCodeWriter : ICodeElementWriter, new()
+	{
+		#region Properties
 
-    using NUnit.Framework;
+		/// <summary>
+		/// Gets an array of valid test files.
+		/// </summary>
+		public abstract ISourceCodeTestFile[] ValidTestFiles { get; }
 
-    /// <summary>
-    /// Base test fixture for writing arranged code elements.
-    /// </summary>
-    /// <typeparam name="TCodeParser">Parser type.</typeparam>
-    /// <typeparam name="TCodeWriter">Code writer type.</typeparam>
-    public abstract class WriteArrangedTests<TCodeParser, TCodeWriter>
-        where TCodeParser : ICodeElementParser, new()
-        where TCodeWriter : ICodeElementWriter, new()
-    {
-        #region Properties
+		#endregion Properties
 
-        /// <summary>
-        /// Gets an array of valid test files.
-        /// </summary>
-        public abstract ISourceCodeTestFile[] ValidTestFiles
-        {
-            get;
-        }
+		#region Methods
 
-        #endregion Properties
+		/// <summary>
+		/// Tests writing a tree of arranged elements.
+		/// </summary>
+		[Test]
+		public void WriteArrangedElementTest()
+		{
+			string outputDirectory = "Arranged";
+			if (Directory.Exists(outputDirectory))
+			{
+				try
+				{
+					Directory.Delete(outputDirectory, true);
+				}
+				catch
+				{
+				}
+			}
 
-        #region Methods
+			ReadOnlyCollection<ICodeElement> testElements;
 
-        /// <summary>
-        /// Tests writing a tree of arranged elements.
-        /// </summary>
-        [Test]
-        public void WriteArrangedElementTest()
-        {
-            string outputDirectory = "Arranged";
-            if (Directory.Exists(outputDirectory))
-            {
-                try
-                {
-                    Directory.Delete(outputDirectory, true);
-                }
-                catch
-                {
-                }
-            }
+			ISourceCodeTestFile[] testFiles = ValidTestFiles;
+			foreach (ISourceCodeTestFile testFile in testFiles)
+			{
+				using (TextReader reader = testFile.GetReader())
+				{
+					TCodeParser parser = new TCodeParser();
+					testElements = parser.Parse(reader);
 
-            ReadOnlyCollection<ICodeElement> testElements;
+					Assert.IsTrue(testElements.Count > 0, "Test file does not contain any elements.");
+				}
 
-            ISourceCodeTestFile[] testFiles = ValidTestFiles;
-            foreach (ISourceCodeTestFile testFile in testFiles)
-            {
-                using (TextReader reader = testFile.GetReader())
-                {
-                    TCodeParser parser = new TCodeParser();
-                    testElements = parser.Parse(reader);
+				foreach (FileInfo configFile in TestUtilities.TestConfigurationFiles)
+				{
+					try
+					{
+						CodeConfiguration configuration = CodeConfiguration.Load(configFile.FullName);
+						CodeArranger arranger = new CodeArranger(configuration);
 
-                    Assert.IsTrue(testElements.Count > 0, "Test file does not contain any elements.");
-                }
+						ReadOnlyCollection<ICodeElement> arranged = arranger.Arrange(testElements);
 
-                foreach (FileInfo configFile in TestUtilities.TestConfigurationFiles)
-                {
-                    try
-                    {
-                        CodeConfiguration configuration = CodeConfiguration.Load(configFile.FullName);
-                        CodeArranger arranger = new CodeArranger(configuration);
+						//
+						// Write the arranged elements
+						//
+						StringWriter writer = new StringWriter();
+						TCodeWriter codeWriter = new TCodeWriter();
+						codeWriter.Configuration = configuration;
+						codeWriter.Write(arranged, writer);
 
-                        ReadOnlyCollection<ICodeElement> arranged = arranger.Arrange(testElements);
+						string text = writer.ToString();
 
-                        //
-                        // Write the arranged elements
-                        //
-                        StringWriter writer = new StringWriter();
-                        TCodeWriter codeWriter = new TCodeWriter();
-                        codeWriter.Configuration = configuration;
-                        codeWriter.Write(arranged, writer);
+						// Write the file to the output directory for further analysis
+						Directory.CreateDirectory(outputDirectory);
 
-                        string text = writer.ToString();
+						string configurationDirectory = Path.Combine(
+							outputDirectory,
+							Path.GetFileNameWithoutExtension(configFile.FullName));
+						Directory.CreateDirectory(configurationDirectory);
 
-                        // Write the file to the output directory for further analysis
-                        Directory.CreateDirectory(outputDirectory);
+						File.WriteAllText(Path.Combine(configurationDirectory, testFile.Name), text);
 
-                        string configurationDirectory = Path.Combine(
-                            outputDirectory,
-                            Path.GetFileNameWithoutExtension(configFile.FullName));
-                        Directory.CreateDirectory(configurationDirectory);
+						//
+						// Verify that the arranged file still compiles sucessfully.
+						//
+						CompilerResults results = Compile(text, testFile.Name);
+						CompilerError error = TestUtilities.GetCompilerError(results);
+						if (error != null)
+						{
+							Assert.Fail(
+								"Arranged source code should not produce compiler errors. " +
+								"Error: {0} - {1}, line {2}, column {3} ",
+								error.ErrorText,
+								testFile.Name,
+								error.Line,
+								error.Column);
+						}
+					}
+					catch (Exception ex)
+					{
+						Assert.Fail("Configuration " + configFile + ": " + ex.ToString());
+					}
+				}
+			}
+		}
 
-                        File.WriteAllText(Path.Combine(configurationDirectory, testFile.Name), text);
+		/// <summary>
+		/// Compiles source code text to an assembly with the specified name.
+		/// </summary>
+		/// <param name="text">Text to compile.</param>
+		/// <param name="assemblyName">Output assembly name.</param>
+		/// <returns>Compiler results.</returns>
+		protected abstract CompilerResults Compile(string text, string assemblyName);
 
-                        //
-                        // Verify that the arranged file still compiles sucessfully.
-                        //
-                        CompilerResults results = Compile(text, testFile.Name);
-                        CompilerError error = TestUtilities.GetCompilerError(results);
-                        if (error != null)
-                        {
-                            Assert.Fail(
-                                "Arranged source code should not produce compiler errors. " +
-                                "Error: {0} - {1}, line {2}, column {3} ",
-                                error.ErrorText,
-                                testFile.Name,
-                                error.Line,
-                                error.Column);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Assert.Fail("Configuration " + configFile + ": " + ex.ToString());
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Compiles source code text to an assembly with the specified name.
-        /// </summary>
-        /// <param name="text">Text to compile.</param>
-        /// <param name="assemblyName">Output assembly name.</param>
-        /// <returns>Compiler results.</returns>
-        protected abstract CompilerResults Compile(string text, string assemblyName);
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

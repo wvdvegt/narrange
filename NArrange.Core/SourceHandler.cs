@@ -38,121 +38,111 @@
 
 namespace NArrange.Core
 {
-    using System;
-    using System.Reflection;
+	using NArrange.Core.Configuration;
+	using System;
+	using System.Reflection;
 
-    using NArrange.Core.Configuration;
+	/// <summary>
+	/// This class provides instances for handling language specific requests 
+	/// based on file extension.
+	/// </summary>
+	public sealed class SourceHandler
+	{
+		#region Fields
 
-    /// <summary>
-    /// This class provides instances for handling language specific requests 
-    /// based on file extension.
-    /// </summary>
-    public sealed class SourceHandler
-    {
-        #region Fields
+		/// <summary>
+		/// Source handler configuration.
+		/// </summary>
+		private readonly SourceHandlerConfiguration _configuration;
 
-        /// <summary>
-        /// Source handler configuration.
-        /// </summary>
-        private readonly SourceHandlerConfiguration _configuration;
+		/// <summary>
+		/// Assembly the handler is loaded from.
+		/// </summary>
+		private Assembly _assembly;
 
-        /// <summary>
-        /// Assembly the handler is loaded from.
-        /// </summary>
-        private Assembly _assembly;
+		/// <summary>
+		/// Code parser.
+		/// </summary>
+		private ICodeElementParser _codeParser;
 
-        /// <summary>
-        /// Code parser.
-        /// </summary>
-        private ICodeElementParser _codeParser;
+		/// <summary>
+		/// Code writer.
+		/// </summary>
+		private ICodeElementWriter _codeWriter;
 
-        /// <summary>
-        /// Code writer.
-        /// </summary>
-        private ICodeElementWriter _codeWriter;
+		#endregion Fields
 
-        #endregion Fields
+		#region Constructors
 
-        #region Constructors
+		/// <summary>
+		/// Creates a new SourceHandler.
+		/// </summary>
+		/// <param name="configuration">Source handler configuration.</param>
+		public SourceHandler(SourceHandlerConfiguration configuration)
+		{
+			if (configuration == null)
+			{
+				throw new ArgumentNullException("configuration");
+			}
 
-        /// <summary>
-        /// Creates a new SourceHandler.
-        /// </summary>
-        /// <param name="configuration">Source handler configuration.</param>
-        public SourceHandler(SourceHandlerConfiguration configuration)
-        {
-            if (configuration == null)
-            {
-                throw new ArgumentNullException("configuration");
-            }
+			_configuration = configuration;
 
-            _configuration = configuration;
+			Initialize();
+		}
 
-            Initialize();
-        }
+		#endregion Constructors
 
-        #endregion Constructors
+		#region Properties
 
-        #region Properties
+		/// <summary>
+		/// Gets the code parser associated with the extension.
+		/// </summary>
+		public ICodeElementParser CodeParser
+		{
+			get { return _codeParser; }
+		}
 
-        /// <summary>
-        /// Gets the code parser associated with the extension.
-        /// </summary>
-        public ICodeElementParser CodeParser
-        {
-            get
-            {
-                return _codeParser;
-            }
-        }
+		/// <summary>
+		/// Gets the code writer associated with the extension.
+		/// </summary>
+		public ICodeElementWriter CodeWriter
+		{
+			get { return _codeWriter; }
+		}
 
-        /// <summary>
-        /// Gets the code writer associated with the extension.
-        /// </summary>
-        public ICodeElementWriter CodeWriter
-        {
-            get
-            {
-                return _codeWriter;
-            }
-        }
+		/// <summary>
+		/// Gets the handler configuration used to create this SourceHandler.
+		/// </summary>
+		public SourceHandlerConfiguration Configuration
+		{
+			get { return _configuration; }
+		}
 
-        /// <summary>
-        /// Gets the handler configuration used to create this SourceHandler.
-        /// </summary>
-        public SourceHandlerConfiguration Configuration
-        {
-            get
-            {
-                return _configuration;
-            }
-        }
+		#endregion Properties
 
-        #endregion Properties
+		#region Methods
 
-        #region Methods
+		/// <summary>
+		/// Initializes the extension handler.
+		/// </summary>
+		private void Initialize()
+		{
+			_assembly = Assembly.Load(_configuration.AssemblyName);
 
-        /// <summary>
-        /// Initializes the extension handler.
-        /// </summary>
-        private void Initialize()
-        {
-            _assembly = Assembly.Load(_configuration.AssemblyName);
+			Type[] types = _assembly.GetTypes();
+			foreach (Type type in types)
+			{
+				if (_codeParser == null && type.GetInterface(typeof (ICodeElementParser).ToString()) != null)
+				{
+					_codeParser = Activator.CreateInstance(type) as ICodeElementParser;
+				}
+				else if (_codeWriter == null && type.GetInterface(typeof (ICodeElementWriter).ToString()) != null)
+				{
+					_codeWriter = Activator.CreateInstance(type) as ICodeElementWriter;
+				}
+			}
+		}
 
-            Type[] types = _assembly.GetTypes();
-            foreach (Type type in types)
-            {
-                if (_codeParser == null && type.GetInterface(typeof(ICodeElementParser).ToString()) != null)
-                {
-                    _codeParser = Activator.CreateInstance(type) as ICodeElementParser;
-                }
-                else if (_codeWriter == null && type.GetInterface(typeof(ICodeElementWriter).ToString()) != null)
-                {
-                    _codeWriter = Activator.CreateInstance(type) as ICodeElementWriter;
-                }
-            }
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

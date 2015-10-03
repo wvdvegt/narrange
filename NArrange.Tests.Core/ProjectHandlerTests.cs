@@ -1,75 +1,73 @@
 namespace NArrange.Tests.Core
 {
-    using System;
+	using NArrange.Core;
+	using NArrange.Core.Configuration;
+	using NUnit.Framework;
+	using System;
 
-    using NArrange.Core;
-    using NArrange.Core.Configuration;
+	/// <summary>
+	/// Test fixture for the ProjectHandler class.
+	/// </summary>
+	[TestFixture]
+	public class ProjectHandlerTests
+	{
+		#region Methods
 
-    using NUnit.Framework;
+		/// <summary>
+		/// Tests creating a new project handler.
+		/// </summary>
+		[Test]
+		public void CreateTest()
+		{
+			ProjectHandlerConfiguration configuration = new ProjectHandlerConfiguration();
+			configuration.ParserType = "NArrange.Core.MonoDevelopProjectParser";
 
-    /// <summary>
-    /// Test fixture for the ProjectHandler class.
-    /// </summary>
-    [TestFixture]
-    public class ProjectHandlerTests
-    {
-        #region Methods
+			ProjectHandler handler = new ProjectHandler(configuration);
 
-        /// <summary>
-        /// Tests creating a new project handler.
-        /// </summary>
-        [Test]
-        public void CreateTest()
-        {
-            ProjectHandlerConfiguration configuration = new ProjectHandlerConfiguration();
-            configuration.ParserType = "NArrange.Core.MonoDevelopProjectParser";
+			Assert.IsNotNull(handler.ProjectParser, "Project parser was not created.");
+			Assert.IsInstanceOfType(typeof (MonoDevelopProjectParser), handler.ProjectParser);
+		}
 
-            ProjectHandler handler = new ProjectHandler(configuration);
+		/// <summary>
+		/// Tests creating a new project handler.
+		/// </summary>
+		[Test]
+		public void CreateWithAssemblyTest()
+		{
+			string assemblyName = "NArrange.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
+			ProjectHandlerConfiguration configuration = new ProjectHandlerConfiguration();
+			configuration.AssemblyName = assemblyName;
+			configuration.ParserType = "NArrange.Core.MSBuildProjectParser";
 
-            Assert.IsNotNull(handler.ProjectParser, "Project parser was not created.");
-            Assert.IsInstanceOfType(typeof(MonoDevelopProjectParser), handler.ProjectParser);
-        }
+			ProjectHandler handler = new ProjectHandler(configuration);
 
-        /// <summary>
-        /// Tests creating a new project handler.
-        /// </summary>
-        [Test]
-        public void CreateWithAssemblyTest()
-        {
-            string assemblyName = "NArrange.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
-            ProjectHandlerConfiguration configuration = new ProjectHandlerConfiguration();
-            configuration.AssemblyName = assemblyName;
-            configuration.ParserType = "NArrange.Core.MSBuildProjectParser";
+			Assert.IsNotNull(handler.ProjectParser, "Project parser was not created.");
+			Assert.IsInstanceOfType(typeof (MSBuildProjectParser), handler.ProjectParser);
+		}
 
-            ProjectHandler handler = new ProjectHandler(configuration);
+		/// <summary>
+		/// Tests creating a project handler with a default configuration.
+		/// </summary>
+		[Test]
+		public void CreateWithDefaultConfigurationTest()
+		{
+			ProjectHandlerConfiguration configuration = new ProjectHandlerConfiguration();
+			ProjectHandler projectHandler = new ProjectHandler(configuration);
 
-            Assert.IsNotNull(handler.ProjectParser, "Project parser was not created.");
-            Assert.IsInstanceOfType(typeof(MSBuildProjectParser), handler.ProjectParser);
-        }
+			Assert.IsNotNull(projectHandler.ProjectParser, "Expected a project parser instance.");
+			Assert.IsInstanceOfType(typeof (MSBuildProjectParser), projectHandler.ProjectParser);
+		}
 
-        /// <summary>
-        /// Tests creating a project handler with a default configuration.
-        /// </summary>
-        [Test]
-        public void CreateWithDefaultConfigurationTest()
-        {
-            ProjectHandlerConfiguration configuration = new ProjectHandlerConfiguration();
-            ProjectHandler projectHandler = new ProjectHandler(configuration);
+		/// <summary>
+		/// Tests creating with a null configuration.
+		/// </summary>
+		[Test]
+		[ExpectedException(typeof (ArgumentNullException))]
+		public void CreateWithNullConfigurationTest()
+		{
+			new ProjectHandler(null);
+		}
 
-            Assert.IsNotNull(projectHandler.ProjectParser, "Expected a project parser instance.");
-            Assert.IsInstanceOfType(typeof(MSBuildProjectParser), projectHandler.ProjectParser);
-        }
-
-        /// <summary>
-        /// Tests creating with a null configuration.
-        /// </summary>
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void CreateWithNullConfigurationTest()
-        {
-            new ProjectHandler(null);
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

@@ -37,23 +37,23 @@
 
 namespace NArrange.Gui
 {
-    using System.Windows.Forms;
+	using System.Windows.Forms;
 
-    /// <summary>
-    /// Base Form for NArrange application forms.
-    /// </summary>
-    public partial class BaseForm : Form
-    {
-        #region Constructors
+	/// <summary>
+	/// Base Form for NArrange application forms.
+	/// </summary>
+	public partial class BaseForm : Form
+	{
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new BaseForm.
-        /// </summary>
-        public BaseForm()
-        {
-            InitializeComponent();
-        }
+		/// <summary>
+		/// Creates a new BaseForm.
+		/// </summary>
+		public BaseForm()
+		{
+			InitializeComponent();
+		}
 
-        #endregion Constructors
-    }
+		#endregion Constructors
+	}
 }

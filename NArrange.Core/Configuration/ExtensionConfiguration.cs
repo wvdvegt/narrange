@@ -38,103 +38,91 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System;
-    using System.ComponentModel;
-    using System.Threading;
-    using System.Xml.Serialization;
+	using System;
+	using System.ComponentModel;
+	using System.Threading;
+	using System.Xml.Serialization;
 
-    /// <summary>
-    /// Specifies a source code or project extension.
-    /// </summary>
-    [XmlType("Extension")]
-    public class ExtensionConfiguration : ICloneable
-    {
-        #region Fields
+	/// <summary>
+	/// Specifies a source code or project extension.
+	/// </summary>
+	[XmlType("Extension")]
+	public class ExtensionConfiguration : ICloneable
+	{
+		#region Fields
 
-        /// <summary>
-        /// Filter for files matching the extension.
-        /// </summary>
-        private FilterBy _filterBy;
+		/// <summary>
+		/// Filter for files matching the extension.
+		/// </summary>
+		private FilterBy _filterBy;
 
-        /// <summary>
-        /// File extension name.
-        /// </summary>
-        private string _name;
+		/// <summary>
+		/// File extension name.
+		/// </summary>
+		private string _name;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets the filter specification.
-        /// </summary>
-        [XmlElement("Filter")]
-        [Description("The filter for this file extension.")]
-        [DisplayName("Filter by")]
-        public FilterBy FilterBy
-        {
-            get
-            {
-                return _filterBy;
-            }
-            set
-            {
-                _filterBy = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the filter specification.
+		/// </summary>
+		[XmlElement("Filter")]
+		[Description("The filter for this file extension.")]
+		[DisplayName("Filter by")]
+		public FilterBy FilterBy
+		{
+			get { return _filterBy; }
+			set { _filterBy = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the extension name.
-        /// </summary>
-        [XmlAttribute("Name")]
-        [Description("The file extension name.")]
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                _name = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the extension name.
+		/// </summary>
+		[XmlAttribute("Name")]
+		[Description("The file extension name.")]
+		public string Name
+		{
+			get { return _name; }
+			set { _name = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>
-        /// A new object that is a copy of this instance.
-        /// </returns>
-        public object Clone()
-        {
-            ExtensionConfiguration clone = new ExtensionConfiguration();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>
+		/// A new object that is a copy of this instance.
+		/// </returns>
+		public object Clone()
+		{
+			ExtensionConfiguration clone = new ExtensionConfiguration();
 
-            clone._name = _name;
+			clone._name = _name;
 
-            if (_filterBy != null)
-            {
-                FilterBy filterByClone = _filterBy.Clone() as FilterBy;
-                clone._filterBy = filterByClone;
-            }
+			if (_filterBy != null)
+			{
+				FilterBy filterByClone = _filterBy.Clone() as FilterBy;
+				clone._filterBy = filterByClone;
+			}
 
-            return clone;
-        }
+			return clone;
+		}
 
-        /// <summary>
-        /// Gets the string representation.
-        /// </summary>
-        /// <returns>String representation.</returns>
-        public override string ToString()
-        {
-            return string.Format(
-                Thread.CurrentThread.CurrentCulture, "Extension: {0}", _name);
-        }
+		/// <summary>
+		/// Gets the string representation.
+		/// </summary>
+		/// <returns>String representation.</returns>
+		public override string ToString()
+		{
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture, "Extension: {0}", _name);
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

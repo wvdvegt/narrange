@@ -38,97 +38,97 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System;
-    using System.ComponentModel;
-    using System.Xml.Serialization;
+	using System;
+	using System.ComponentModel;
+	using System.Xml.Serialization;
 
-    /// <summary>
-    /// Base configuration element class.
-    /// </summary>
-    public abstract class ConfigurationElement : ICloneable
-    {
-        #region Fields
+	/// <summary>
+	/// Base configuration element class.
+	/// </summary>
+	public abstract class ConfigurationElement : ICloneable
+	{
+		#region Fields
 
-        /// <summary>
-        /// Child element collection.
-        /// </summary>
-        private ConfigurationElementCollection _elements;
+		/// <summary>
+		/// Child element collection.
+		/// </summary>
+		private ConfigurationElementCollection _elements;
 
-        /// <summary>
-        /// Child element collection sychronization lock object.
-        /// </summary>
-        private object _elementsSynchLock = new object();
+		/// <summary>
+		/// Child element collection sychronization lock object.
+		/// </summary>
+		private object _elementsSynchLock = new object();
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the collection of child elements.
-        /// </summary>
-        [XmlArrayItem(typeof(ElementConfiguration))]
-        [XmlArrayItem(typeof(RegionConfiguration))]
-        [XmlArrayItem(typeof(ElementReferenceConfiguration))]
-        [Description("The list of child element configurations.")]
-        public virtual ConfigurationElementCollection Elements
-        {
-            get
-            {
-                if (_elements == null)
-                {
-                    lock (_elementsSynchLock)
-                    {
-                        if (_elements == null)
-                        {
-                            _elements = new ConfigurationElementCollection();
-                        }
-                    }
-                }
+		/// <summary>
+		/// Gets the collection of child elements.
+		/// </summary>
+		[XmlArrayItem(typeof (ElementConfiguration))]
+		[XmlArrayItem(typeof (RegionConfiguration))]
+		[XmlArrayItem(typeof (ElementReferenceConfiguration))]
+		[Description("The list of child element configurations.")]
+		public virtual ConfigurationElementCollection Elements
+		{
+			get
+			{
+				if (_elements == null)
+				{
+					lock (_elementsSynchLock)
+					{
+						if (_elements == null)
+						{
+							_elements = new ConfigurationElementCollection();
+						}
+					}
+				}
 
-                return _elements;
-            }
-        }
+				return _elements;
+			}
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>
-        /// A new object that is a copy of this instance.
-        /// </returns>
-        public virtual object Clone()
-        {
-            ConfigurationElement configurationElement = BaseClone();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>
+		/// A new object that is a copy of this instance.
+		/// </returns>
+		public virtual object Clone()
+		{
+			ConfigurationElement configurationElement = BaseClone();
 
-            return configurationElement;
-        }
+			return configurationElement;
+		}
 
-        /// <summary>
-        /// Creates a new instance and copies state.
-        /// </summary>
-        /// <returns>Creates an clone of the instance with the base state copied.</returns>
-        protected ConfigurationElement BaseClone()
-        {
-            ConfigurationElement clone = DoClone();
+		/// <summary>
+		/// Creates a new instance and copies state.
+		/// </summary>
+		/// <returns>Creates an clone of the instance with the base state copied.</returns>
+		protected ConfigurationElement BaseClone()
+		{
+			ConfigurationElement clone = DoClone();
 
-            foreach (ConfigurationElement child in Elements)
-            {
-                ConfigurationElement childClone = child.Clone() as ConfigurationElement;
-                clone.Elements.Add(childClone);
-            }
+			foreach (ConfigurationElement child in Elements)
+			{
+				ConfigurationElement childClone = child.Clone() as ConfigurationElement;
+				clone.Elements.Add(childClone);
+			}
 
-            return clone;
-        }
+			return clone;
+		}
 
-        /// <summary>
-        /// Creates a new instance of this type and copies state.
-        /// </summary>
-        /// <returns>Clone of this instance.</returns>
-        protected abstract ConfigurationElement DoClone();
+		/// <summary>
+		/// Creates a new instance of this type and copies state.
+		/// </summary>
+		/// <returns>Clone of this instance.</returns>
+		protected abstract ConfigurationElement DoClone();
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

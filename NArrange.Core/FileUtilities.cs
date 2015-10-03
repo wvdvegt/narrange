@@ -37,168 +37,169 @@
 
 namespace NArrange.Core.CodeElements
 {
-    using System.IO;
-    using System.Text;
+	using System.IO;
+	using System.Text;
 
-    /// <summary>
-    /// File utility methods.
-    /// </summary>
-    public static class FileUtilities
-    {
-        #region Methods
+	/// <summary>
+	/// File utility methods.
+	/// </summary>
+	public static class FileUtilities
+	{
+		#region Methods
 
-        /// <summary>
-        /// Gets the string representation of a file attribute.
-        /// </summary>
-        /// <param name="attributeType">Type of the attribute.</param>
-        /// <param name="file">The file to get the attribute for.</param>
-        /// <returns>The file attribute as text.</returns>
-        public static string GetAttribute(FileAttributeType attributeType, FileInfo file)
-        {
-            string attributeString = null;
+		/// <summary>
+		/// Gets the string representation of a file attribute.
+		/// </summary>
+		/// <param name="attributeType">Type of the attribute.</param>
+		/// <param name="file">The file to get the attribute for.</param>
+		/// <returns>The file attribute as text.</returns>
+		public static string GetAttribute(FileAttributeType attributeType, FileInfo file)
+		{
+			string attributeString = null;
 
-            if (file != null)
-            {
-                switch (attributeType)
-                {
-                    case FileAttributeType.Name:
-                        attributeString = file.Name;
-                        break;
+			if (file != null)
+			{
+				switch (attributeType)
+				{
+					case FileAttributeType.Name:
+						attributeString = file.Name;
+						break;
 
-                    case FileAttributeType.Path:
-                        attributeString = file.FullName;
-                        break;
+					case FileAttributeType.Path:
+						attributeString = file.FullName;
+						break;
 
-                    case FileAttributeType.Attributes:
-                        attributeString = EnumUtilities.ToString(file.Attributes);
-                        break;
+					case FileAttributeType.Attributes:
+						attributeString = EnumUtilities.ToString(file.Attributes);
+						break;
 
-                    default:
-                        attributeString = string.Empty;
-                        break;
-                }
-            }
+					default:
+						attributeString = string.Empty;
+						break;
+				}
+			}
 
-            if (attributeString == null)
-            {
-                attributeString = string.Empty;
-            }
+			if (attributeString == null)
+			{
+				attributeString = string.Empty;
+			}
 
-            return attributeString;
-        }
+			return attributeString;
+		}
 
-        /// <summary>
-        /// Reads a file to determine its encoding.
-        /// </summary>
-        /// <param name="filename">The filename.</param>
-        /// <returns>The detected encoding.</returns>
-        public static Encoding GetEncoding(string filename)
-        {
-            // Byte Order Marks(BOMs) - from writing U+FEFF
-            // 00 00 FE FF      UTF-32, big-endian
-            // FF FE 00 00      UTF-32, little-endian
-            // FE FF            UTF-16, big-endian
-            // FF FE            UTF-16, little-endian
-            // EF BB BF         UTF-8
-            byte[][] bomMap = new byte[][]
-            {
-                // new byte[]{ 0x00, 0x00, 0xFE, 0xFF },
-                new byte[] { 0xFF, 0xFE, 0x00, 0x00 },
-                new byte[] { 0xFE, 0xFF },
-                new byte[] { 0xFF, 0xFE },
-                new byte[] { 0xEF, 0xBB, 0xBF }
-            };
+		/// <summary>
+		/// Reads a file to determine its encoding.
+		/// </summary>
+		/// <param name="filename">The filename.</param>
+		/// <returns>The detected encoding.</returns>
+		public static Encoding GetEncoding(string filename)
+		{
+			// Byte Order Marks(BOMs) - from writing U+FEFF
+			// 00 00 FE FF      UTF-32, big-endian
+			// FF FE 00 00      UTF-32, little-endian
+			// FE FF            UTF-16, big-endian
+			// FF FE            UTF-16, little-endian
+			// EF BB BF         UTF-8
+			byte[][] bomMap = new byte[][]
+			{
+				// new byte[]{ 0x00, 0x00, 0xFE, 0xFF },
+				new byte[] {0xFF, 0xFE, 0x00, 0x00},
+				new byte[] {0xFE, 0xFF},
+				new byte[] {0xFF, 0xFE},
+				new byte[] {0xEF, 0xBB, 0xBF}
+			};
 
-            Encoding[] bomEncodings = new Encoding[]
-            {
-                // null,
-                Encoding.UTF32,
-                Encoding.BigEndianUnicode,
-                Encoding.Unicode,
-                Encoding.UTF8
-            };
+			Encoding[] bomEncodings = new Encoding[]
+			{
+				// null,
+				Encoding.UTF32,
+				Encoding.BigEndianUnicode,
+				Encoding.Unicode,
+				Encoding.UTF8
+			};
 
-            Encoding encoding = null;
-            byte[] bom = new byte[4] { 0xFF, 0xFF, 0xFF, 0xFF };
+			Encoding encoding = null;
+			byte[] bom = new byte[4] {0xFF, 0xFF, 0xFF, 0xFF};
 
-            using (Stream fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read))
-            {
-                int unicodeCount = 0;
-                bool ansi = true;
-                byte[] data = new byte[1];
+			using (Stream fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read))
+			{
+				int unicodeCount = 0;
+				bool ansi = true;
+				byte[] data = new byte[1];
 
-                while (fileStream.Read(data, 0, 1) > 0)
-                {
-                    if (fileStream.Position < 4)
-                    {
-                        bom[fileStream.Position - 1] = data[0];
-                    }
-                    else if (fileStream.Position == 4)
-                    {
-                        for (int bomMapIndex = 0; bomMapIndex < bomMap.Length; bomMapIndex++)
-                        {
-                            byte[] bomCandidate = bomMap[bomMapIndex];
+				while (fileStream.Read(data, 0, 1) > 0)
+				{
+					if (fileStream.Position < 4)
+					{
+						bom[fileStream.Position - 1] = data[0];
+					}
+					else if (fileStream.Position == 4)
+					{
+						for (int bomMapIndex = 0; bomMapIndex < bomMap.Length; bomMapIndex++)
+						{
+							byte[] bomCandidate = bomMap[bomMapIndex];
 
-                            bool isMatch = true;
-                            for (int bomTestIndex = 0; bomTestIndex < bomCandidate.Length && isMatch;
-                                bomTestIndex++)
-                            {
-                                if (bom[bomTestIndex] != bomCandidate[bomTestIndex])
-                                {
-                                    isMatch = false;
-                                }
-                            }
+							bool isMatch = true;
+							for (int bomTestIndex = 0;
+								bomTestIndex < bomCandidate.Length && isMatch;
+								bomTestIndex++)
+							{
+								if (bom[bomTestIndex] != bomCandidate[bomTestIndex])
+								{
+									isMatch = false;
+								}
+							}
 
-                            if (isMatch)
-                            {
-                                encoding = bomEncodings[bomMapIndex];
-                                break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        break;
-                    }
+							if (isMatch)
+							{
+								encoding = bomEncodings[bomMapIndex];
+								break;
+							}
+						}
+					}
+					else
+					{
+						break;
+					}
 
-                    //
-                    // Just to be safe, also check for a non-ansi byte
-                    // in the first few bytes.  This should trigger Unicode detection
-                    // with the StreamReader below.
-                    //
-                    if (data[0] < 32)
-                    {
-                        unicodeCount++;
-                        if (unicodeCount > 2)
-                        {
-                            ansi = false;
-                            break;
-                        }
-                    }
-                }
+					//
+					// Just to be safe, also check for a non-ansi byte
+					// in the first few bytes.  This should trigger Unicode detection
+					// with the StreamReader below.
+					//
+					if (data[0] < 32)
+					{
+						unicodeCount++;
+						if (unicodeCount > 2)
+						{
+							ansi = false;
+							break;
+						}
+					}
+				}
 
-                if (encoding == null)
-                {
-                    fileStream.Position = 0;
-                    string text = string.Empty;
-                    long length = 0;
-                    using (StreamReader reader = new StreamReader(fileStream, true))
-                    {
-                        length = fileStream.Length;
-                        text = reader.ReadToEnd();
-                        encoding = reader.CurrentEncoding;
-                    }
+				if (encoding == null)
+				{
+					fileStream.Position = 0;
+					string text = string.Empty;
+					long length = 0;
+					using (StreamReader reader = new StreamReader(fileStream, true))
+					{
+						length = fileStream.Length;
+						text = reader.ReadToEnd();
+						encoding = reader.CurrentEncoding;
+					}
 
-                    if (ansi && text.Length == length)
-                    {
-                        encoding = Encoding.Default;
-                    }
-                }
-            }
+					if (ansi && text.Length == length)
+					{
+						encoding = Encoding.Default;
+					}
+				}
+			}
 
-            return encoding;
-        }
+			return encoding;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

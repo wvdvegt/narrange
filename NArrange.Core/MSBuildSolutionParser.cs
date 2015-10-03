@@ -38,83 +38,80 @@
 
 namespace NArrange.Core
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.IO;
+	using System;
+	using System.Collections.Generic;
+	using System.Collections.ObjectModel;
+	using System.IO;
 
-    /// <summary>
-    /// MSBuild solution file parser.
-    /// </summary>
-    public sealed class MSBuildSolutionParser : ISolutionParser
-    {
-        #region Fields
+	/// <summary>
+	/// MSBuild solution file parser.
+	/// </summary>
+	public sealed class MSBuildSolutionParser : ISolutionParser
+	{
+		#region Fields
 
-        /// <summary>
-        /// File extensions handled by this solution parser.
-        /// </summary>
-        private readonly List<string> _extensions = new List<string>(new string[] { "sln" });
+		/// <summary>
+		/// File extensions handled by this solution parser.
+		/// </summary>
+		private readonly List<string> _extensions = new List<string>(new string[] {"sln"});
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets a list of extensions supported by this solution parser.
-        /// </summary>
-        public ReadOnlyCollection<string> Extensions
-        {
-            get
-            {
-                return _extensions.AsReadOnly();
-            }
-        }
+		/// <summary>
+		/// Gets a list of extensions supported by this solution parser.
+		/// </summary>
+		public ReadOnlyCollection<string> Extensions
+		{
+			get { return _extensions.AsReadOnly(); }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Parses project file names from a solution file.
-        /// </summary>
-        /// <param name="solutionFile">Solution file name.</param>
-        /// <returns>A list of project file names</returns>
-        public ReadOnlyCollection<string> Parse(string solutionFile)
-        {
-            if (solutionFile == null)
-            {
-                throw new ArgumentNullException("solutionFile");
-            }
+		/// <summary>
+		/// Parses project file names from a solution file.
+		/// </summary>
+		/// <param name="solutionFile">Solution file name.</param>
+		/// <returns>A list of project file names</returns>
+		public ReadOnlyCollection<string> Parse(string solutionFile)
+		{
+			if (solutionFile == null)
+			{
+				throw new ArgumentNullException("solutionFile");
+			}
 
-            string solutionPath = Path.GetDirectoryName(solutionFile);
+			string solutionPath = Path.GetDirectoryName(solutionFile);
 
-            List<string> projectFiles = new List<string>();
+			List<string> projectFiles = new List<string>();
 
-            using (StreamReader reader = new StreamReader(solutionFile, true))
-            {
-                while (!reader.EndOfStream)
-                {
-                    //
-                    // Find lines like the following:
-                    // Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NArrange.Core", "NArrange.Core\NArrange.Core.csproj", "{CD74EA33-223D-4CD9-9028-AADD4E929613}"
-                    //
-                    string line = reader.ReadLine().TrimStart();
-                    if (line.StartsWith("Project(", StringComparison.OrdinalIgnoreCase))
-                    {
-                        string[] projectData = line.Split(',');
-                        string projectFile = projectData[1].Trim().Trim('"');
-                        string projectPath = Path.Combine(solutionPath, projectFile);
-                        if (!string.IsNullOrEmpty(Path.GetExtension(projectPath)))
-                        {
-                            projectFiles.Add(projectPath);
-                        }
-                    }
-                }
-            }
+			using (StreamReader reader = new StreamReader(solutionFile, true))
+			{
+				while (!reader.EndOfStream)
+				{
+					//
+					// Find lines like the following:
+					// Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NArrange.Core", "NArrange.Core\NArrange.Core.csproj", "{CD74EA33-223D-4CD9-9028-AADD4E929613}"
+					//
+					string line = reader.ReadLine().TrimStart();
+					if (line.StartsWith("Project(", StringComparison.OrdinalIgnoreCase))
+					{
+						string[] projectData = line.Split(',');
+						string projectFile = projectData[1].Trim().Trim('"');
+						string projectPath = Path.Combine(solutionPath, projectFile);
+						if (!string.IsNullOrEmpty(Path.GetExtension(projectPath)))
+						{
+							projectFiles.Add(projectPath);
+						}
+					}
+				}
+			}
 
-            return projectFiles.AsReadOnly();
-        }
+			return projectFiles.AsReadOnly();
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

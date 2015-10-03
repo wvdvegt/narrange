@@ -38,80 +38,77 @@
 
 namespace NArrange.Core
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.IO;
-    using System.Xml;
+	using System;
+	using System.Collections.Generic;
+	using System.Collections.ObjectModel;
+	using System.IO;
+	using System.Xml;
 
-    /// <summary>
-    /// MonoDevelop solution file parser.
-    /// </summary>
-    public sealed class MonoDevelopSolutionParser : ISolutionParser
-    {
-        #region Fields
+	/// <summary>
+	/// MonoDevelop solution file parser.
+	/// </summary>
+	public sealed class MonoDevelopSolutionParser : ISolutionParser
+	{
+		#region Fields
 
-        /// <summary>
-        /// File extensions handled by this solution parser.
-        /// </summary>
-        private readonly List<string> _extensions = new List<string>(new string[] { "mds" });
+		/// <summary>
+		/// File extensions handled by this solution parser.
+		/// </summary>
+		private readonly List<string> _extensions = new List<string>(new string[] {"mds"});
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets a list of extensions supported by this solution parser.
-        /// </summary>
-        public ReadOnlyCollection<string> Extensions
-        {
-            get
-            {
-                return _extensions.AsReadOnly();
-            }
-        }
+		/// <summary>
+		/// Gets a list of extensions supported by this solution parser.
+		/// </summary>
+		public ReadOnlyCollection<string> Extensions
+		{
+			get { return _extensions.AsReadOnly(); }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Parses project file names from a solution file.
-        /// </summary>
-        /// <param name="solutionFile">Solution file name.</param>
-        /// <returns>A list of project file names</returns>
-        public ReadOnlyCollection<string> Parse(string solutionFile)
-        {
-            if (solutionFile == null)
-            {
-                throw new ArgumentNullException("solutionFile");
-            }
+		/// <summary>
+		/// Parses project file names from a solution file.
+		/// </summary>
+		/// <param name="solutionFile">Solution file name.</param>
+		/// <returns>A list of project file names</returns>
+		public ReadOnlyCollection<string> Parse(string solutionFile)
+		{
+			if (solutionFile == null)
+			{
+				throw new ArgumentNullException("solutionFile");
+			}
 
-            string solutionPath = Path.GetDirectoryName(solutionFile);
+			string solutionPath = Path.GetDirectoryName(solutionFile);
 
-            List<string> projectFiles = new List<string>();
+			List<string> projectFiles = new List<string>();
 
-            XmlDocument xmlDocument = new XmlDocument();
-            xmlDocument.Load(solutionFile);
+			XmlDocument xmlDocument = new XmlDocument();
+			xmlDocument.Load(solutionFile);
 
-            XmlNodeList nodes = xmlDocument.SelectNodes("//Entry");
-            foreach (XmlNode node in nodes)
-            {
-                XmlAttribute nameAttribute = node.Attributes["filename"];
-                if (nameAttribute != null)
-                {
-                    string projectFile = nameAttribute.Value;
-                    string projectPath = Path.Combine(solutionPath, projectFile);
-                    if (!string.IsNullOrEmpty(Path.GetExtension(projectPath)))
-                    {
-                        projectFiles.Add(projectPath);
-                    }
-                }
-            }
+			XmlNodeList nodes = xmlDocument.SelectNodes("//Entry");
+			foreach (XmlNode node in nodes)
+			{
+				XmlAttribute nameAttribute = node.Attributes["filename"];
+				if (nameAttribute != null)
+				{
+					string projectFile = nameAttribute.Value;
+					string projectPath = Path.Combine(solutionPath, projectFile);
+					if (!string.IsNullOrEmpty(Path.GetExtension(projectPath)))
+					{
+						projectFiles.Add(projectPath);
+					}
+				}
+			}
 
-            return projectFiles.AsReadOnly();
-        }
+			return projectFiles.AsReadOnly();
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

@@ -37,68 +37,62 @@
 
 namespace NArrange.Core.CodeElements
 {
-    /// <summary>
-    /// Code element base class with text.
-    /// </summary>
-    public abstract class TextCodeElement : CommentedElement
-    {
-        #region Fields
+	/// <summary>
+	/// Code element base class with text.
+	/// </summary>
+	public abstract class TextCodeElement : CommentedElement
+	{
+		#region Fields
 
-        /// <summary>
-        /// Body/block text.
-        /// </summary>
-        private string _bodyText;
+		/// <summary>
+		/// Body/block text.
+		/// </summary>
+		private string _bodyText;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        protected TextCodeElement()
-        {
-        }
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		protected TextCodeElement()
+		{
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets the body text.
-        /// </summary>
-        public virtual string BodyText
-        {
-            get
-            {
-                return _bodyText;
-            }
-            set
-            {
-                _bodyText = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the body text.
+		/// </summary>
+		public virtual string BodyText
+		{
+			get { return _bodyText; }
+			set { _bodyText = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Creates a clone of the instance and assigns any state.
-        /// </summary>
-        /// <returns>Clone of this instance.</returns>
-        public override object Clone()
-        {
-            TextCodeElement clone = base.Clone() as TextCodeElement;
+		/// <summary>
+		/// Creates a clone of the instance and assigns any state.
+		/// </summary>
+		/// <returns>Clone of this instance.</returns>
+		public override object Clone()
+		{
+			TextCodeElement clone = base.Clone() as TextCodeElement;
 
-            //
-            // Copy state
-            //
-            clone._bodyText = _bodyText;
+			//
+			// Copy state
+			//
+			clone._bodyText = _bodyText;
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

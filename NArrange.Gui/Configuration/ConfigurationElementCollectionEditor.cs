@@ -37,82 +37,81 @@
 
 namespace NArrange.Gui.Configuration
 {
-    using System;
-    using System.ComponentModel.Design;
+	using NArrange.Core.Configuration;
+	using System;
+	using System.ComponentModel.Design;
 
-    using NArrange.Core.Configuration;
+	/// <summary>
+	/// Collection editor for configuration element collections.
+	/// </summary>
+	public sealed class ConfigurationElementCollectionEditor : CollectionEditor
+	{
+		#region Fields
 
-    /// <summary>
-    /// Collection editor for configuration element collections.
-    /// </summary>
-    public sealed class ConfigurationElementCollectionEditor : CollectionEditor
-    {
-        #region Fields
+		/// <summary>
+		/// Item types supported by the editor.
+		/// </summary>
+		public static readonly Type[] ItemTypes = new Type[]
+		{
+			typeof (ElementConfiguration),
+			typeof (ElementReferenceConfiguration),
+			typeof (RegionConfiguration)
+		};
 
-        /// <summary>
-        /// Item types supported by the editor.
-        /// </summary>
-        public static readonly Type[] ItemTypes = new Type[]
-            {
-                typeof(ElementConfiguration),
-                typeof(ElementReferenceConfiguration),
-                typeof(RegionConfiguration)
-            };
+		#endregion Fields
 
-        #endregion Fields
+		#region Constructors
 
-        #region Constructors
+		/// <summary>
+		/// Creates a new ConfigurationElementCollectionEditor.
+		/// </summary>
+		/// <param name="type">The type of the collection for this editor to edit.</param>
+		public ConfigurationElementCollectionEditor(Type type)
+			: base(type)
+		{
+		}
 
-        /// <summary>
-        /// Creates a new ConfigurationElementCollectionEditor.
-        /// </summary>
-        /// <param name="type">The type of the collection for this editor to edit.</param>
-        public ConfigurationElementCollectionEditor(Type type)
-            : base(type)
-        {
-        }
+		#endregion Constructors
 
-        #endregion Constructors
+		#region Methods
 
-        #region Methods
+		/// <summary>
+		/// Creates a new instance of the specified type.
+		/// </summary>
+		/// <param name="itemType">The type of item to create.</param>
+		/// <returns>A new instance of the specified object.</returns>
+		protected override object CreateInstance(Type itemType)
+		{
+			//
+			// Create a new instance of the specified type.
+			//
+			if (itemType == typeof (ElementConfiguration))
+			{
+				return new ElementConfiguration();
+			}
+			else if (itemType == typeof (RegionConfiguration))
+			{
+				return new RegionConfiguration();
+			}
+			else if (itemType == typeof (ElementReferenceConfiguration))
+			{
+				return new ElementReferenceConfiguration();
+			}
+			else
+			{
+				return base.CreateInstance(itemType);
+			}
+		}
 
-        /// <summary>
-        /// Creates a new instance of the specified type.
-        /// </summary>
-        /// <param name="itemType">The type of item to create.</param>
-        /// <returns>A new instance of the specified object.</returns>
-        protected override object CreateInstance(Type itemType)
-        {
-            //
-            // Create a new instance of the specified type.
-            //
-            if (itemType == typeof(ElementConfiguration))
-            {
-                return new ElementConfiguration();
-            }
-            else if (itemType == typeof(RegionConfiguration))
-            {
-                return new RegionConfiguration();
-            }
-            else if (itemType == typeof(ElementReferenceConfiguration))
-            {
-                return new ElementReferenceConfiguration();
-            }
-            else
-            {
-                return base.CreateInstance(itemType);
-            }
-        }
+		/// <summary>
+		/// Gets the list of types that can be created for the collection.
+		/// </summary>
+		/// <returns>Types that the editor can create.</returns>
+		protected override Type[] CreateNewItemTypes()
+		{
+			return ItemTypes;
+		}
 
-        /// <summary>
-        /// Gets the list of types that can be created for the collection.
-        /// </summary>
-        /// <returns>Types that the editor can create.</returns>
-        protected override Type[] CreateNewItemTypes()
-        {
-            return ItemTypes;
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

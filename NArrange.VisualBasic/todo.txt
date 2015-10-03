@@ -2,4 +2,4 @@ Feature TODO list:
 
 Handle parsing of the following VB keywords:
 --------------------------------------------
-Declare, Lib
+eclare, Lib

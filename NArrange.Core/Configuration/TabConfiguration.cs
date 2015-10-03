@@ -38,114 +38,102 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System;
-    using System.ComponentModel;
-    using System.Threading;
-    using System.Xml.Serialization;
+	using System;
+	using System.ComponentModel;
+	using System.Threading;
+	using System.Xml.Serialization;
 
-    /// <summary>
-    /// Specifies tab style configuration.
-    /// </summary>
-    [XmlType("Tabs")]
-    public class TabConfiguration : ICloneable
-    {
-        #region Fields
+	/// <summary>
+	/// Specifies tab style configuration.
+	/// </summary>
+	[XmlType("Tabs")]
+	public class TabConfiguration : ICloneable
+	{
+		#region Fields
 
-        /// <summary>
-        /// Spaces per tab.
-        /// </summary>
-        private int _spacesPerTab;
+		/// <summary>
+		/// Spaces per tab.
+		/// </summary>
+		private int _spacesPerTab;
 
-        /// <summary>
-        /// Tab style (e.g. tabs or spaces)
-        /// </summary>
-        private TabStyle _tabStyle;
+		/// <summary>
+		/// Tab style (e.g. tabs or spaces)
+		/// </summary>
+		private TabStyle _tabStyle;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new TabConfiguration instance.
-        /// </summary>
-        public TabConfiguration()
-        {
-            _tabStyle = TabStyle.Spaces;
-            _spacesPerTab = 4;
-        }
+		/// <summary>
+		/// Creates a new TabConfiguration instance.
+		/// </summary>
+		public TabConfiguration()
+		{
+			_tabStyle = TabStyle.Spaces;
+			_spacesPerTab = 4;
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets the number of spaces per tab.
-        /// </summary>
-        [XmlAttribute("SpacesPerTab")]
-        [Description("The number of spaces per tab. Used for conversion between spaces and tabs.")]
-        [DisplayName("Spaces per tab")]
-        public int SpacesPerTab
-        {
-            get
-            {
-                return _spacesPerTab;
-            }
-            set
-            {
-                _spacesPerTab = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the number of spaces per tab.
+		/// </summary>
+		[XmlAttribute("SpacesPerTab")]
+		[Description("The number of spaces per tab. Used for conversion between spaces and tabs.")]
+		[DisplayName("Spaces per tab")]
+		public int SpacesPerTab
+		{
+			get { return _spacesPerTab; }
+			set { _spacesPerTab = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the tab style.
-        /// </summary>
-        [XmlAttribute("Style")]
-        [Description("The indentation style.")]
-        public TabStyle TabStyle
-        {
-            get
-            {
-                return _tabStyle;
-            }
-            set
-            {
-                _tabStyle = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the tab style.
+		/// </summary>
+		[XmlAttribute("Style")]
+		[Description("The indentation style.")]
+		public TabStyle TabStyle
+		{
+			get { return _tabStyle; }
+			set { _tabStyle = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>
-        /// A new object that is a copy of this instance.
-        /// </returns>
-        public object Clone()
-        {
-            TabConfiguration clone = new TabConfiguration();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>
+		/// A new object that is a copy of this instance.
+		/// </returns>
+		public object Clone()
+		{
+			TabConfiguration clone = new TabConfiguration();
 
-            clone._tabStyle = _tabStyle;
-            clone._spacesPerTab = _spacesPerTab;
+			clone._tabStyle = _tabStyle;
+			clone._spacesPerTab = _spacesPerTab;
 
-            return clone;
-        }
+			return clone;
+		}
 
-        /// <summary>
-        /// Gets the string representation.
-        /// </summary>
-        /// <returns>The string representation.</returns>
-        public override string ToString()
-        {
-            return string.Format(
-                Thread.CurrentThread.CurrentCulture,
-                "Tabs: {0}, {1}",
-                TabStyle,
-                SpacesPerTab);
-        }
+		/// <summary>
+		/// Gets the string representation.
+		/// </summary>
+		/// <returns>The string representation.</returns>
+		public override string ToString()
+		{
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture,
+				"Tabs: {0}, {1}",
+				TabStyle,
+				SpacesPerTab);
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

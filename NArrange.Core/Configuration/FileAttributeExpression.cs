@@ -38,65 +38,62 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System.Threading;
+	using System.Threading;
 
-    /// <summary>
-    /// File attribute expression.
-    /// </summary>
-    public class FileAttributeExpression : LeafExpression
-    {
-        #region Fields
+	/// <summary>
+	/// File attribute expression.
+	/// </summary>
+	public class FileAttributeExpression : LeafExpression
+	{
+		#region Fields
 
-        /// <summary>
-        /// The file attribute.
-        /// </summary>
-        private readonly FileAttributeType _fileAttributeType;
+		/// <summary>
+		/// The file attribute.
+		/// </summary>
+		private readonly FileAttributeType _fileAttributeType;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new element attribute expression.
-        /// </summary>
-        /// <param name="fileAttribute">The file attribute.</param>
-        public FileAttributeExpression(FileAttributeType fileAttribute)
-        {
-            _fileAttributeType = fileAttribute;
-        }
+		/// <summary>
+		/// Creates a new element attribute expression.
+		/// </summary>
+		/// <param name="fileAttribute">The file attribute.</param>
+		public FileAttributeExpression(FileAttributeType fileAttribute)
+		{
+			_fileAttributeType = fileAttribute;
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the file attribute specified by the expression.
-        /// </summary>
-        public FileAttributeType FileAttribute
-        {
-            get
-            {
-                return _fileAttributeType;
-            }
-        }
+		/// <summary>
+		/// Gets the file attribute specified by the expression.
+		/// </summary>
+		public FileAttributeType FileAttribute
+		{
+			get { return _fileAttributeType; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Gets the string representation of this expression.
-        /// </summary>
-        /// <returns>String representation.</returns>
-        public override string ToString()
-        {
-            return string.Format(
-                Thread.CurrentThread.CurrentCulture,
-                "$({0}.{1})",
-                ConditionExpressionParser.FileAttributeScope,
-                _fileAttributeType);
-        }
+		/// <summary>
+		/// Gets the string representation of this expression.
+		/// </summary>
+		/// <returns>String representation.</returns>
+		public override string ToString()
+		{
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture,
+				"$({0}.{1})",
+				ConditionExpressionParser.FileAttributeScope,
+				_fileAttributeType);
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

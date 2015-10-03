@@ -38,169 +38,165 @@
 
 namespace NArrange.Gui.Configuration
 {
-    using System;
-    using System.IO;
-    using System.Windows.Forms;
+	using NArrange.Core;
+	using System;
+	using System.IO;
+	using System.Windows.Forms;
 
-    using NArrange.Core;
+	/// <summary>
+	/// Control that allows the user to select, create or edit a configuration.
+	/// </summary>
+	public partial class ConfigurationPicker : UserControl
+	{
+		#region Constructors
 
-    /// <summary>
-    /// Control that allows the user to select, create or edit a configuration.
-    /// </summary>
-    public partial class ConfigurationPicker : UserControl
-    {
-        #region Constructors
+		/// <summary>
+		/// Creates a new ConfigurationPicker.
+		/// </summary>
+		public ConfigurationPicker()
+		{
+			InitializeComponent();
+		}
 
-        /// <summary>
-        /// Creates a new ConfigurationPicker.
-        /// </summary>
-        public ConfigurationPicker()
-        {
-            InitializeComponent();
-        }
+		#endregion Constructors
 
-        #endregion Constructors
+		#region Events
 
-        #region Events
+		/// <summary>
+		/// Occurs when the create button is clicked.
+		/// </summary>
+		public event EventHandler CreateClick;
 
-        /// <summary>
-        /// Occurs when the create button is clicked.
-        /// </summary>
-        public event EventHandler CreateClick;
+		/// <summary>
+		/// Occurs when the edit button is clicked.
+		/// </summary>
+		public event EventHandler EditClick;
 
-        /// <summary>
-        /// Occurs when the edit button is clicked.
-        /// </summary>
-        public event EventHandler EditClick;
+		#endregion Events
 
-        #endregion Events
+		#region Properties
 
-        #region Properties
+		/// <summary>
+		/// Gets or sets the selected configuration file.
+		/// </summary>
+		public string SelectedFile
+		{
+			get { return this._textBoxFile.Text; }
+			set
+			{
+				this._textBoxFile.Text = value;
+				this.UpdateButtons();
+			}
+		}
 
-        /// <summary>
-        /// Gets or sets the selected configuration file.
-        /// </summary>
-        public string SelectedFile
-        {
-            get
-            {
-                return this._textBoxFile.Text;
-            }
-            set
-            {
-                this._textBoxFile.Text = value;
-                this.UpdateButtons();
-            }
-        }
+		#endregion Properties
 
-        #endregion Properties
+		#region Methods
 
-        #region Methods
+		/// <summary>
+		/// Refreshes this control.
+		/// </summary>
+		public override void Refresh()
+		{
+			this.UpdateButtons();
+			base.Refresh();
+		}
 
-        /// <summary>
-        /// Refreshes this control.
-        /// </summary>
-        public override void Refresh()
-        {
-            this.UpdateButtons();
-            base.Refresh();
-        }
+		/// <summary>
+		/// Event handler for the Browse button click event.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void HandleButtonBrowseClick(object sender, EventArgs e)
+		{
+			_openFileDialog.FileName = _textBoxFile.Text;
+			DialogResult result = _openFileDialog.ShowDialog();
+			if (result == DialogResult.OK)
+			{
+				string filename = _openFileDialog.FileName;
+				_textBoxFile.Text = filename;
 
-        /// <summary>
-        /// Event handler for the Browse button click event.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void HandleButtonBrowseClick(object sender, EventArgs e)
-        {
-            _openFileDialog.FileName = _textBoxFile.Text;
-            DialogResult result = _openFileDialog.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                string filename = _openFileDialog.FileName;
-                _textBoxFile.Text = filename;
+				this.OnEditClick();
+			}
+		}
 
-                this.OnEditClick();
-            }
-        }
+		/// <summary>
+		/// Event handler for the Create button click event.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void HandleButtonCreateClick(object sender, EventArgs e)
+		{
+			this.OnCreateClick();
+		}
 
-        /// <summary>
-        /// Event handler for the Create button click event.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void HandleButtonCreateClick(object sender, EventArgs e)
-        {
-            this.OnCreateClick();
-        }
+		/// <summary>
+		/// Event handler for the Edit button click event.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void HandleButtonEditClick(object sender, EventArgs e)
+		{
+			this.OnEditClick();
+		}
 
-        /// <summary>
-        /// Event handler for the Edit button click event.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void HandleButtonEditClick(object sender, EventArgs e)
-        {
-            this.OnEditClick();
-        }
+		/// <summary>
+		/// Event handler for the file textbox TextChanged event.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void HandleTextBoxFileTextChanged(object sender, EventArgs e)
+		{
+			UpdateButtons();
+		}
 
-        /// <summary>
-        /// Event handler for the file textbox TextChanged event.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void HandleTextBoxFileTextChanged(object sender, EventArgs e)
-        {
-            UpdateButtons();
-        }
+		/// <summary>
+		/// Called when the Create button is clicked.
+		/// </summary>
+		private void OnCreateClick()
+		{
+			EventHandler temp = CreateClick;
+			if (temp != null)
+			{
+				temp(this, new EventArgs());
+			}
+		}
 
-        /// <summary>
-        /// Called when the Create button is clicked.
-        /// </summary>
-        private void OnCreateClick()
-        {
-            EventHandler temp = CreateClick;
-            if (temp != null)
-            {
-                temp(this, new EventArgs());
-            }
-        }
+		/// <summary>
+		/// Called when the Edit button is clicked.
+		/// </summary>
+		private void OnEditClick()
+		{
+			EventHandler temp = EditClick;
+			if (temp != null)
+			{
+				temp(this, new EventArgs());
+			}
+		}
 
-        /// <summary>
-        /// Called when the Edit button is clicked.
-        /// </summary>
-        private void OnEditClick()
-        {
-            EventHandler temp = EditClick;
-            if (temp != null)
-            {
-                temp(this, new EventArgs());
-            }
-        }
+		/// <summary>
+		/// Updates the button state when the selected file changes.
+		/// </summary>
+		private void UpdateButtons()
+		{
+			string filename = _textBoxFile.Text.Trim();
+			bool fileEntered = filename.Length > 0;
+			_buttonEdit.Enabled = fileEntered;
+			_buttonCreate.Enabled = fileEntered;
 
-        /// <summary>
-        /// Updates the button state when the selected file changes.
-        /// </summary>
-        private void UpdateButtons()
-        {
-            string filename = _textBoxFile.Text.Trim();
-            bool fileEntered = filename.Length > 0;
-            _buttonEdit.Enabled = fileEntered;
-            _buttonCreate.Enabled = fileEntered;
+			bool fileExists = fileEntered && File.Exists(filename);
+			_buttonCreate.Visible = !fileExists;
+			_buttonEdit.Visible = fileExists;
 
-            bool fileExists = fileEntered && File.Exists(filename);
-            _buttonCreate.Visible = !fileExists;
-            _buttonEdit.Visible = fileExists;
+			if (MonoUtilities.IsMonoRuntime)
+			{
+				// Not sure why in Mono, but the edit button shifts when it becomes
+				// visible.  Let's just reallign it to the position of the hidden
+				// create button.
+				_buttonEdit.Location = _buttonCreate.Location;
+			}
+		}
 
-            if (MonoUtilities.IsMonoRuntime)
-            {
-                // Not sure why in Mono, but the edit button shifts when it becomes
-                // visible.  Let's just reallign it to the position of the hidden
-                // create button.
-                _buttonEdit.Location = _buttonCreate.Location;
-            }
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

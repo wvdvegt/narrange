@@ -37,24 +37,24 @@
 
 namespace NArrange.Core
 {
-    using System.IO;
+	using System.IO;
 
-    /// <summary>
-    /// Class for determining if a file meets specific
-    /// filter criteria.
-    /// </summary>
-    public interface IFileFilter
-    {
-        #region Methods
+	/// <summary>
+	/// Class for determining if a file meets specific
+	/// filter criteria.
+	/// </summary>
+	public interface IFileFilter
+	{
+		#region Methods
 
-        /// <summary>
-        /// Determines whether or not the specified file matches the
-        /// filter criteria.
-        /// </summary>
-        /// <param name="file">File info for the file to analyze.</param>
-        /// <returns>True if the file matches the filter, otherwise false.</returns>
-        bool IsMatch(FileInfo file);
+		/// <summary>
+		/// Determines whether or not the specified file matches the
+		/// filter criteria.
+		/// </summary>
+		/// <param name="file">File info for the file to analyze.</param>
+		/// <returns>True if the file matches the filter, otherwise false.</returns>
+		bool IsMatch(FileInfo file);
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

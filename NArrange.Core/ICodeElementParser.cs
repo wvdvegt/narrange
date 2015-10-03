@@ -37,40 +37,35 @@
 
 namespace NArrange.Core
 {
-    using System.Collections.ObjectModel;
-    using System.IO;
+	using NArrange.Core.CodeElements;
+	using NArrange.Core.Configuration;
+	using System.Collections.ObjectModel;
+	using System.IO;
 
-    using NArrange.Core.CodeElements;
-    using NArrange.Core.Configuration;
+	/// <summary>
+	/// Interface for parsing NArrange code elements from 
+	/// a source file stream.
+	/// </summary>
+	public interface ICodeElementParser
+	{
+		#region Properties
 
-    /// <summary>
-    /// Interface for parsing NArrange code elements from 
-    /// a source file stream.
-    /// </summary>
-    public interface ICodeElementParser
-    {
-        #region Properties
+		/// <summary>
+		/// Gets or sets the code configuration.
+		/// </summary>
+		CodeConfiguration Configuration { get; set; }
 
-        /// <summary>
-        /// Gets or sets the code configuration.
-        /// </summary>
-        CodeConfiguration Configuration
-        {
-            get;
-            set;
-        }
+		#endregion Properties
 
-        #endregion Properties
+		#region Methods
 
-        #region Methods
+		/// <summary>
+		/// Parses code elements from a stream.
+		/// </summary>
+		/// <param name="reader">Code file reader</param>
+		/// <returns>A read-only collection of code elements.</returns>
+		ReadOnlyCollection<ICodeElement> Parse(TextReader reader);
 
-        /// <summary>
-        /// Parses code elements from a stream.
-        /// </summary>
-        /// <param name="reader">Code file reader</param>
-        /// <returns>A read-only collection of code elements.</returns>
-        ReadOnlyCollection<ICodeElement> Parse(TextReader reader);
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

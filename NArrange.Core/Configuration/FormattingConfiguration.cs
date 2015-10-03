@@ -37,246 +37,231 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Text;
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel;
+	using System.Text;
 
-    /// <summary>
-    /// Formatting configuration.
-    /// </summary>
-    public class FormattingConfiguration : ICloneable
-    {
-        #region Fields
+	/// <summary>
+	/// Formatting configuration.
+	/// </summary>
+	public class FormattingConfiguration : ICloneable
+	{
+		#region Fields
 
-        /// <summary>
-        /// Closing comment configuration.
-        /// </summary>
-        private ClosingCommentConfiguration _closingComments;
+		/// <summary>
+		/// Closing comment configuration.
+		/// </summary>
+		private ClosingCommentConfiguration _closingComments;
 
-        /// <summary>
-        /// Line spacing configuration.
-        /// </summary>
-        private LineSpacingConfiguration _lineSpacing;
+		/// <summary>
+		/// Line spacing configuration.
+		/// </summary>
+		private LineSpacingConfiguration _lineSpacing;
 
-        /// <summary>
-        /// Region formatting configuration.
-        /// </summary>
-        private RegionFormatConfiguration _regions;
+		/// <summary>
+		/// Region formatting configuration.
+		/// </summary>
+		private RegionFormatConfiguration _regions;
 
-        /// <summary>
-        /// Tab configuration.
-        /// </summary>
-        private TabConfiguration _tabs;
+		/// <summary>
+		/// Tab configuration.
+		/// </summary>
+		private TabConfiguration _tabs;
 
-        /// <summary>
-        /// Using/import directive configuration.
-        /// </summary>
-        private UsingConfiguration _usings;
+		/// <summary>
+		/// Using/import directive configuration.
+		/// </summary>
+		private UsingConfiguration _usings;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets the closing comment configuration.
-        /// </summary>
-        [Description("The settings for closing comments.")]
-        [DisplayName("Closing comments")]
-        [ReadOnly(true)]
-        public ClosingCommentConfiguration ClosingComments
-        {
-            get
-            {
-                if (_closingComments == null)
-                {
-                    lock (this)
-                    {
-                        if (_closingComments == null)
-                        {
-                            //
-                            // Default closing comment configuration
-                            //
-                            _closingComments = new ClosingCommentConfiguration();
-                        }
-                    }
-                }
+		/// <summary>
+		/// Gets or sets the closing comment configuration.
+		/// </summary>
+		[Description("The settings for closing comments.")]
+		[DisplayName("Closing comments")]
+		[ReadOnly(true)]
+		public ClosingCommentConfiguration ClosingComments
+		{
+			get
+			{
+				if (_closingComments == null)
+				{
+					lock (this)
+					{
+						if (_closingComments == null)
+						{
+							//
+							// Default closing comment configuration
+							//
+							_closingComments = new ClosingCommentConfiguration();
+						}
+					}
+				}
 
-                return _closingComments;
-            }
-            set
-            {
-                _closingComments = value;
-            }
-        }
+				return _closingComments;
+			}
+			set { _closingComments = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the line spacing configuration.
-        /// </summary>
-        [Description("The settings for line spacing.")]
-        [ReadOnly(true)]
-        public LineSpacingConfiguration LineSpacing
-        {
-            get
-            {
-                if (_lineSpacing == null)
-                {
-                    lock (this)
-                    {
-                        if (_lineSpacing == null)
-                        {
-                            //
-                            // Default line spacing configuration
-                            //
-                            _lineSpacing = new LineSpacingConfiguration();
-                        }
-                    }
-                }
+		/// <summary>
+		/// Gets or sets the line spacing configuration.
+		/// </summary>
+		[Description("The settings for line spacing.")]
+		[ReadOnly(true)]
+		public LineSpacingConfiguration LineSpacing
+		{
+			get
+			{
+				if (_lineSpacing == null)
+				{
+					lock (this)
+					{
+						if (_lineSpacing == null)
+						{
+							//
+							// Default line spacing configuration
+							//
+							_lineSpacing = new LineSpacingConfiguration();
+						}
+					}
+				}
 
-                return _lineSpacing;
-            }
-            set
-            {
-                _lineSpacing = value;
-            }
-        }
+				return _lineSpacing;
+			}
+			set { _lineSpacing = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the regions configuration.
-        /// </summary>
-        [Description("The settings for all regions.")]
-        [ReadOnly(true)]
-        public RegionFormatConfiguration Regions
-        {
-            get
-            {
-                if (_regions == null)
-                {
-                    lock (this)
-                    {
-                        if (_regions == null)
-                        {
-                            //
-                            // Default regions configuration
-                            //
-                            _regions = new RegionFormatConfiguration();
-                        }
-                    }
-                }
+		/// <summary>
+		/// Gets or sets the regions configuration.
+		/// </summary>
+		[Description("The settings for all regions.")]
+		[ReadOnly(true)]
+		public RegionFormatConfiguration Regions
+		{
+			get
+			{
+				if (_regions == null)
+				{
+					lock (this)
+					{
+						if (_regions == null)
+						{
+							//
+							// Default regions configuration
+							//
+							_regions = new RegionFormatConfiguration();
+						}
+					}
+				}
 
-                return _regions;
-            }
-            set
-            {
-                _regions = value;
-            }
-        }
+				return _regions;
+			}
+			set { _regions = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the tab configuration.
-        /// </summary>
-        [Description("The settings for indentation.")]
-        [ReadOnly(true)]
-        public TabConfiguration Tabs
-        {
-            get
-            {
-                if (_tabs == null)
-                {
-                    lock (this)
-                    {
-                        if (_tabs == null)
-                        {
-                            //
-                            // Default tab configuration
-                            //
-                            _tabs = new TabConfiguration();
-                        }
-                    }
-                }
+		/// <summary>
+		/// Gets or sets the tab configuration.
+		/// </summary>
+		[Description("The settings for indentation.")]
+		[ReadOnly(true)]
+		public TabConfiguration Tabs
+		{
+			get
+			{
+				if (_tabs == null)
+				{
+					lock (this)
+					{
+						if (_tabs == null)
+						{
+							//
+							// Default tab configuration
+							//
+							_tabs = new TabConfiguration();
+						}
+					}
+				}
 
-                return _tabs;
-            }
-            set
-            {
-                _tabs = value;
-            }
-        }
+				return _tabs;
+			}
+			set { _tabs = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the using directive configuration.
-        /// </summary>
-        [Description("The settings for using/import directives.")]
-        [DisplayName("Using directives")]
-        [ReadOnly(true)]
-        public UsingConfiguration Usings
-        {
-            get
-            {
-                if (_usings == null)
-                {
-                    lock (this)
-                    {
-                        if (_usings == null)
-                        {
-                            //
-                            // Default using configuration
-                            //
-                            _usings = new UsingConfiguration();
-                        }
-                    }
-                }
+		/// <summary>
+		/// Gets or sets the using directive configuration.
+		/// </summary>
+		[Description("The settings for using/import directives.")]
+		[DisplayName("Using directives")]
+		[ReadOnly(true)]
+		public UsingConfiguration Usings
+		{
+			get
+			{
+				if (_usings == null)
+				{
+					lock (this)
+					{
+						if (_usings == null)
+						{
+							//
+							// Default using configuration
+							//
+							_usings = new UsingConfiguration();
+						}
+					}
+				}
 
-                return _usings;
-            }
-            set
-            {
-                _usings = value;
-            }
-        }
+				return _usings;
+			}
+			set { _usings = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>
-        /// A new object that is a copy of this instance.
-        /// </returns>
-        public object Clone()
-        {
-            FormattingConfiguration clone = new FormattingConfiguration();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>
+		/// A new object that is a copy of this instance.
+		/// </returns>
+		public object Clone()
+		{
+			FormattingConfiguration clone = new FormattingConfiguration();
 
-            if (_closingComments != null)
-            {
-                clone._closingComments = _closingComments.Clone() as ClosingCommentConfiguration;
-            }
+			if (_closingComments != null)
+			{
+				clone._closingComments = _closingComments.Clone() as ClosingCommentConfiguration;
+			}
 
-            if (_regions != null)
-            {
-                clone._regions = _regions.Clone() as RegionFormatConfiguration;
-            }
+			if (_regions != null)
+			{
+				clone._regions = _regions.Clone() as RegionFormatConfiguration;
+			}
 
-            if (_tabs != null)
-            {
-                clone._tabs = _tabs.Clone() as TabConfiguration;
-            }
+			if (_tabs != null)
+			{
+				clone._tabs = _tabs.Clone() as TabConfiguration;
+			}
 
-            if (_lineSpacing != null)
-            {
-                clone._lineSpacing = _lineSpacing.Clone() as LineSpacingConfiguration;
-            }
+			if (_lineSpacing != null)
+			{
+				clone._lineSpacing = _lineSpacing.Clone() as LineSpacingConfiguration;
+			}
 
-            if (_usings != null)
-            {
-                clone._usings = _usings.Clone() as UsingConfiguration;
-            }
+			if (_usings != null)
+			{
+				clone._usings = _usings.Clone() as UsingConfiguration;
+			}
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

@@ -38,104 +38,92 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System.ComponentModel;
-    using System.Threading;
-    using System.Xml.Serialization;
+	using System.ComponentModel;
+	using System.Threading;
+	using System.Xml.Serialization;
 
-    /// <summary>
-    /// Configuration element for regions.
-    /// </summary>
-    [XmlType("Region")]
-    [DisplayName("Region")]
-    public class RegionConfiguration : ConfigurationElement
-    {
-        #region Fields
+	/// <summary>
+	/// Configuration element for regions.
+	/// </summary>
+	[XmlType("Region")]
+	[DisplayName("Region")]
+	public class RegionConfiguration : ConfigurationElement
+	{
+		#region Fields
 
-        /// <summary>
-        /// Default for whether or not region directives are enabled.
-        /// </summary>
-        private const bool DefaultDirectivesEnabled = true;
+		/// <summary>
+		/// Default for whether or not region directives are enabled.
+		/// </summary>
+		private const bool DefaultDirectivesEnabled = true;
 
-        /// <summary>
-        /// Whether or not directives should be written for the region.
-        /// </summary>
-        private bool _directivesEnabled = DefaultDirectivesEnabled;
+		/// <summary>
+		/// Whether or not directives should be written for the region.
+		/// </summary>
+		private bool _directivesEnabled = DefaultDirectivesEnabled;
 
-        /// <summary>
-        /// Region name.
-        /// </summary>
-        private string _name;
+		/// <summary>
+		/// Region name.
+		/// </summary>
+		private string _name;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets a value indicating whether or not this region 
-        /// should use directives.
-        /// </summary>
-        [XmlAttribute("DirectivesEnabled")]
-        [Description("Directives enabled")]
-        [DefaultValue(DefaultDirectivesEnabled)]
-        public bool DirectivesEnabled
-        {
-            get
-            {
-                return _directivesEnabled;
-            }
-            set
-            {
-                _directivesEnabled = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets a value indicating whether or not this region 
+		/// should use directives.
+		/// </summary>
+		[XmlAttribute("DirectivesEnabled")]
+		[Description("Directives enabled")]
+		[DefaultValue(DefaultDirectivesEnabled)]
+		public bool DirectivesEnabled
+		{
+			get { return _directivesEnabled; }
+			set { _directivesEnabled = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the region name.
-        /// </summary>
-        [XmlAttribute("Name")]
-        [Description("The region name")]
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                _name = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the region name.
+		/// </summary>
+		[XmlAttribute("Name")]
+		[Description("The region name")]
+		public string Name
+		{
+			get { return _name; }
+			set { _name = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Gets a string representation.
-        /// </summary>
-        /// <returns>The string representation.</returns>
-        public override string ToString()
-        {
-            return string.Format(
-                Thread.CurrentThread.CurrentCulture,
-                "Region: {0}",
-                Name);
-        }
+		/// <summary>
+		/// Gets a string representation.
+		/// </summary>
+		/// <returns>The string representation.</returns>
+		public override string ToString()
+		{
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture,
+				"Region: {0}",
+				Name);
+		}
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>Clone of this instance.</returns>
-        protected override ConfigurationElement DoClone()
-        {
-            RegionConfiguration clone = new RegionConfiguration();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>Clone of this instance.</returns>
+		protected override ConfigurationElement DoClone()
+		{
+			RegionConfiguration clone = new RegionConfiguration();
 
-            clone._name = _name;
-            clone._directivesEnabled = _directivesEnabled;
+			clone._name = _name;
+			clone._directivesEnabled = _directivesEnabled;
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

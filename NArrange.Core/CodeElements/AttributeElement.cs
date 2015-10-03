@@ -37,145 +37,133 @@
 
 namespace NArrange.Core.CodeElements
 {
-    /// <summary>
-    /// Attribute code element.
-    /// </summary>
-    public sealed class AttributeElement : TextCodeElement, IAttributeElement
-    {
-        #region Fields
+	/// <summary>
+	/// Attribute code element.
+	/// </summary>
+	public sealed class AttributeElement : TextCodeElement, IAttributeElement
+	{
+		#region Fields
 
-        /// <summary>
-        /// Parent element.
-        /// </summary>
-        private ICodeElement _parent;
+		/// <summary>
+		/// Parent element.
+		/// </summary>
+		private ICodeElement _parent;
 
-        /// <summary>
-        /// Target or scope.
-        /// </summary>
-        private string _target;
+		/// <summary>
+		/// Target or scope.
+		/// </summary>
+		private string _target;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new attribute element.
-        /// </summary>
-        public AttributeElement()
-        {
-        }
+		/// <summary>
+		/// Creates a new attribute element.
+		/// </summary>
+		public AttributeElement()
+		{
+		}
 
-        /// <summary>
-        /// Creates a new attribute element with the specified name.
-        /// </summary>
-        /// <param name="name">Attribute name.</param>
-        public AttributeElement(string name)
-        {
-            Name = name;
-        }
+		/// <summary>
+		/// Creates a new attribute element with the specified name.
+		/// </summary>
+		/// <param name="name">Attribute name.</param>
+		public AttributeElement(string name)
+		{
+			Name = name;
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the element type.
-        /// </summary>
-        public override ElementType ElementType
-        {
-            get
-            {
-                return ElementType.Attribute;
-            }
-        }
+		/// <summary>
+		/// Gets the element type.
+		/// </summary>
+		public override ElementType ElementType
+		{
+			get { return ElementType.Attribute; }
+		}
 
-        /// <summary>
-        /// Gets or sets the parent element.
-        /// </summary>
-        public override ICodeElement Parent
-        {
-            get
-            {
-                return _parent;
-            }
-            set
-            {
-                if (value != _parent)
-                {
-                    if (_parent != null)
-                    {
-                        AttributedElement attributedElement = _parent as AttributedElement;
-                        if (attributedElement != null)
-                        {
-                            attributedElement.RemoveAttribute(this);
-                        }
-                        else
-                        {
-                            _parent.RemoveChild(this);
-                        }
-                    }
+		/// <summary>
+		/// Gets or sets the parent element.
+		/// </summary>
+		public override ICodeElement Parent
+		{
+			get { return _parent; }
+			set
+			{
+				if (value != _parent)
+				{
+					if (_parent != null)
+					{
+						AttributedElement attributedElement = _parent as AttributedElement;
+						if (attributedElement != null)
+						{
+							attributedElement.RemoveAttribute(this);
+						}
+						else
+						{
+							_parent.RemoveChild(this);
+						}
+					}
 
-                    _parent = value;
-                    if (_parent != null)
-                    {
-                        AttributedElement attributedElement = _parent as AttributedElement;
-                        if (attributedElement != null)
-                        {
-                            if (!attributedElement.Attributes.Contains(this))
-                            {
-                                attributedElement.AddAttribute(this);
-                            }
-                        }
-                        else if (!_parent.Children.Contains(this))
-                        {
-                            _parent.AddChild(this);
-                        }
-                    }
-                }
-            }
-        }
+					_parent = value;
+					if (_parent != null)
+					{
+						AttributedElement attributedElement = _parent as AttributedElement;
+						if (attributedElement != null)
+						{
+							if (!attributedElement.Attributes.Contains(this))
+							{
+								attributedElement.AddAttribute(this);
+							}
+						}
+						else if (!_parent.Children.Contains(this))
+						{
+							_parent.AddChild(this);
+						}
+					}
+				}
+			}
+		}
 
-        /// <summary>
-        /// Gets or sets the attribute target. 
-        /// </summary>
-        public string Target
-        {
-            get
-            {
-                return _target;
-            }
-            set
-            {
-                _target = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the attribute target. 
+		/// </summary>
+		public string Target
+		{
+			get { return _target; }
+			set { _target = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Allows an ICodeElementVisitor to process (or visit) this element.
-        /// </summary>
-        /// <remarks>See the Gang of Four Visitor design pattern.</remarks>
-        /// <param name="visitor">Code element visitor.</param>
-        public override void Accept(ICodeElementVisitor visitor)
-        {
-            visitor.VisitAttributeElement(this);
-        }
+		/// <summary>
+		/// Allows an ICodeElementVisitor to process (or visit) this element.
+		/// </summary>
+		/// <remarks>See the Gang of Four Visitor design pattern.</remarks>
+		/// <param name="visitor">Code element visitor.</param>
+		public override void Accept(ICodeElementVisitor visitor)
+		{
+			visitor.VisitAttributeElement(this);
+		}
 
-        /// <summary>
-        /// Clones this instance.
-        /// </summary>
-        /// <returns>A clone of the code element.</returns>
-        protected override CodeElement DoClone()
-        {
-            AttributeElement clone = new AttributeElement();
-            clone._target = _target;
+		/// <summary>
+		/// Clones this instance.
+		/// </summary>
+		/// <returns>A clone of the code element.</returns>
+		protected override CodeElement DoClone()
+		{
+			AttributeElement clone = new AttributeElement();
+			clone._target = _target;
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

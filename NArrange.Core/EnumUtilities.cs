@@ -38,47 +38,47 @@
 
 namespace NArrange.Core
 {
-    using System;
-    using System.Collections.Generic;
+	using System;
+	using System.Collections.Generic;
 
-    /// <summary>
-    /// Enumeration utilities.
-    /// </summary>
-    public static class EnumUtilities
-    {
-        #region Fields
+	/// <summary>
+	/// Enumeration utilities.
+	/// </summary>
+	public static class EnumUtilities
+	{
+		#region Fields
 
-        /// <summary>
-        /// Enumeration string cache.
-        /// </summary>
-        private static readonly Dictionary<Enum, string> _enumStringCache = new Dictionary<Enum, string>();
+		/// <summary>
+		/// Enumeration string cache.
+		/// </summary>
+		private static readonly Dictionary<Enum, string> _enumStringCache = new Dictionary<Enum, string>();
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Gets the string representation of the specified enumeration value.
-        /// </summary>
-        /// <param name="value">Enumeration value.</param>
-        /// <returns>String representation.</returns>
-        public static string ToString(Enum value)
-        {
-            string valueString = null;
+		/// <summary>
+		/// Gets the string representation of the specified enumeration value.
+		/// </summary>
+		/// <param name="value">Enumeration value.</param>
+		/// <returns>String representation.</returns>
+		public static string ToString(Enum value)
+		{
+			string valueString = null;
 
-            if (!_enumStringCache.ContainsKey(value))
-            {
-                valueString = value.ToString();
-                _enumStringCache[value] = valueString;
-            }
-            else
-            {
-                valueString = _enumStringCache[value];
-            }
+			if (!_enumStringCache.ContainsKey(value))
+			{
+				valueString = value.ToString();
+				_enumStringCache[value] = valueString;
+			}
+			else
+			{
+				valueString = _enumStringCache[value];
+			}
 
-            return valueString;
-        }
+			return valueString;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

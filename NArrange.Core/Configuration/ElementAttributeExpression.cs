@@ -38,92 +38,86 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System.Threading;
+	using System.Threading;
 
-    /// <summary>
-    /// Element attribute expression.
-    /// </summary>
-    public class ElementAttributeExpression : LeafExpression
-    {
-        #region Fields
+	/// <summary>
+	/// Element attribute expression.
+	/// </summary>
+	public class ElementAttributeExpression : LeafExpression
+	{
+		#region Fields
 
-        /// <summary>
-        /// Attribute type.
-        /// </summary>
-        private readonly ElementAttributeType _elementAttributeType;
+		/// <summary>
+		/// Attribute type.
+		/// </summary>
+		private readonly ElementAttributeType _elementAttributeType;
 
-        /// <summary>
-        /// Attribute scope.
-        /// </summary>
-        private readonly ElementAttributeScope _elementScope;
+		/// <summary>
+		/// Attribute scope.
+		/// </summary>
+		private readonly ElementAttributeScope _elementScope;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new element attribute expression.
-        /// </summary>
-        /// <param name="elementAttribute">The element attribute.</param>
-        public ElementAttributeExpression(ElementAttributeType elementAttribute)
-            : this(elementAttribute, ElementAttributeScope.Element)
-        {
-        }
+		/// <summary>
+		/// Creates a new element attribute expression.
+		/// </summary>
+		/// <param name="elementAttribute">The element attribute.</param>
+		public ElementAttributeExpression(ElementAttributeType elementAttribute)
+			: this(elementAttribute, ElementAttributeScope.Element)
+		{
+		}
 
-        /// <summary>
-        /// Creates a new element attribute expression.
-        /// </summary>
-        /// <param name="elementAttribute">The element attribute.</param>
-        /// <param name="scope">The scope.</param>
-        public ElementAttributeExpression(ElementAttributeType elementAttribute, ElementAttributeScope scope)
-        {
-            _elementAttributeType = elementAttribute;
-            _elementScope = scope;
-        }
+		/// <summary>
+		/// Creates a new element attribute expression.
+		/// </summary>
+		/// <param name="elementAttribute">The element attribute.</param>
+		/// <param name="scope">The scope.</param>
+		public ElementAttributeExpression(ElementAttributeType elementAttribute, ElementAttributeScope scope)
+		{
+			_elementAttributeType = elementAttribute;
+			_elementScope = scope;
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the element attribute specified by the expression.
-        /// </summary>
-        public ElementAttributeType ElementAttribute
-        {
-            get
-            {
-                return _elementAttributeType;
-            }
-        }
+		/// <summary>
+		/// Gets the element attribute specified by the expression.
+		/// </summary>
+		public ElementAttributeType ElementAttribute
+		{
+			get { return _elementAttributeType; }
+		}
 
-        /// <summary>
-        /// Gets the element scope specified by the expression.
-        /// </summary>
-        public ElementAttributeScope Scope
-        {
-            get
-            {
-                return _elementScope;
-            }
-        }
+		/// <summary>
+		/// Gets the element scope specified by the expression.
+		/// </summary>
+		public ElementAttributeScope Scope
+		{
+			get { return _elementScope; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Gets the string representation of this expression.
-        /// </summary>
-        /// <returns>String representation.</returns>
-        public override string ToString()
-        {
-            return string.Format(
-                Thread.CurrentThread.CurrentCulture,
-                "$({0}.{1})",
-                _elementScope,
-                _elementAttributeType);
-        }
+		/// <summary>
+		/// Gets the string representation of this expression.
+		/// </summary>
+		/// <returns>String representation.</returns>
+		public override string ToString()
+		{
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture,
+				"$({0}.{1})",
+				_elementScope,
+				_elementAttributeType);
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

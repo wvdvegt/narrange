@@ -37,190 +37,181 @@
 
 namespace NArrange.Core.CodeElements
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
+	using System.Collections.Generic;
+	using System.Collections.ObjectModel;
 
-    /// <summary>
-    /// Represents a code element that can have attributes.
-    /// </summary>
-    public abstract class AttributedElement : TextCodeElement, IAttributedElement
-    {
-        #region Fields
+	/// <summary>
+	/// Represents a code element that can have attributes.
+	/// </summary>
+	public abstract class AttributedElement : TextCodeElement, IAttributedElement
+	{
+		#region Fields
 
-        /// <summary>
-        /// Synch lock object for the attributes collection.
-        /// </summary>
-        private readonly object _attributesLock = new object();
+		/// <summary>
+		/// Synch lock object for the attributes collection.
+		/// </summary>
+		private readonly object _attributesLock = new object();
 
-        /// <summary>
-        /// The element's accessibility.
-        /// </summary>
-        private CodeAccess _access;
+		/// <summary>
+		/// The element's accessibility.
+		/// </summary>
+		private CodeAccess _access;
 
-        /// <summary>
-        /// Attributes associated with this element.
-        /// </summary>
-        private List<IAttributeElement> _attributes;
+		/// <summary>
+		/// Attributes associated with this element.
+		/// </summary>
+		private List<IAttributeElement> _attributes;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new AttributedElement.
-        /// </summary>
-        protected AttributedElement()
-        {
-            _access = CodeAccess.Public;
-        }
+		/// <summary>
+		/// Creates a new AttributedElement.
+		/// </summary>
+		protected AttributedElement()
+		{
+			_access = CodeAccess.Public;
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets the code element access level.
-        /// </summary>
-        public CodeAccess Access
-        {
-            get
-            {
-                return _access;
-            }
-            set
-            {
-                _access = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the code element access level.
+		/// </summary>
+		public CodeAccess Access
+		{
+			get { return _access; }
+			set { _access = value; }
+		}
 
-        /// <summary>
-        /// Gets the read-only collection of attributes.
-        /// </summary>
-        public ReadOnlyCollection<IAttributeElement> Attributes
-        {
-            get
-            {
-                return BaseAttributes.AsReadOnly();
-            }
-        }
+		/// <summary>
+		/// Gets the read-only collection of attributes.
+		/// </summary>
+		public ReadOnlyCollection<IAttributeElement> Attributes
+		{
+			get { return BaseAttributes.AsReadOnly(); }
+		}
 
-        /// <summary>
-        /// Gets the writable collection of attributes.
-        /// </summary>
-        protected List<IAttributeElement> BaseAttributes
-        {
-            get
-            {
-                if (_attributes == null)
-                {
-                    lock (_attributesLock)
-                    {
-                        if (_attributes == null)
-                        {
-                            _attributes = new List<IAttributeElement>();
-                        }
-                    }
-                }
+		/// <summary>
+		/// Gets the writable collection of attributes.
+		/// </summary>
+		protected List<IAttributeElement> BaseAttributes
+		{
+			get
+			{
+				if (_attributes == null)
+				{
+					lock (_attributesLock)
+					{
+						if (_attributes == null)
+						{
+							_attributes = new List<IAttributeElement>();
+						}
+					}
+				}
 
-                return _attributes;
-            }
-        }
+				return _attributes;
+			}
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Adds an attribute to this code element.
-        /// </summary>
-        /// <param name="attributeElement">Attribute element to add.</param>
-        public void AddAttribute(IAttributeElement attributeElement)
-        {
-            if (attributeElement != null && !BaseAttributes.Contains(attributeElement))
-            {
-                lock (_attributesLock)
-                {
-                    if (attributeElement != null && !BaseAttributes.Contains(attributeElement))
-                    {
-                        BaseAttributes.Add(attributeElement);
-                        attributeElement.Parent = this;
-                    }
-                }
-            }
-        }
+		/// <summary>
+		/// Adds an attribute to this code element.
+		/// </summary>
+		/// <param name="attributeElement">Attribute element to add.</param>
+		public void AddAttribute(IAttributeElement attributeElement)
+		{
+			if (attributeElement != null && !BaseAttributes.Contains(attributeElement))
+			{
+				lock (_attributesLock)
+				{
+					if (attributeElement != null && !BaseAttributes.Contains(attributeElement))
+					{
+						BaseAttributes.Add(attributeElement);
+						attributeElement.Parent = this;
+					}
+				}
+			}
+		}
 
-        /// <summary>
-        /// Removes all attributes elements.
-        /// </summary>
-        public void ClearAttributes()
-        {
-            lock (_attributesLock)
-            {
-                for (int attributeIndex = 0; attributeIndex < Attributes.Count; attributeIndex++)
-                {
-                    IAttributeElement attribute = Attributes[attributeIndex];
-                    if (attribute != null && attribute.Parent != null)
-                    {
-                        attribute.Parent = null;
-                        attributeIndex--;
-                    }
-                }
+		/// <summary>
+		/// Removes all attributes elements.
+		/// </summary>
+		public void ClearAttributes()
+		{
+			lock (_attributesLock)
+			{
+				for (int attributeIndex = 0; attributeIndex < Attributes.Count; attributeIndex++)
+				{
+					IAttributeElement attribute = Attributes[attributeIndex];
+					if (attribute != null && attribute.Parent != null)
+					{
+						attribute.Parent = null;
+						attributeIndex--;
+					}
+				}
 
-                BaseAttributes.Clear();
-            }
-        }
+				BaseAttributes.Clear();
+			}
+		}
 
-        /// <summary>
-        /// Removes an attribute from this element.
-        /// </summary>
-        /// <param name="attributeElement">Attribute element to remove.</param>
-        public void RemoveAttribute(IAttributeElement attributeElement)
-        {
-            if (attributeElement != null && BaseAttributes.Contains(attributeElement))
-            {
-                lock (_attributesLock)
-                {
-                    if (attributeElement != null && BaseAttributes.Contains(attributeElement))
-                    {
-                        BaseAttributes.Remove(attributeElement);
-                        attributeElement.Parent = null;
-                    }
-                }
-            }
-        }
+		/// <summary>
+		/// Removes an attribute from this element.
+		/// </summary>
+		/// <param name="attributeElement">Attribute element to remove.</param>
+		public void RemoveAttribute(IAttributeElement attributeElement)
+		{
+			if (attributeElement != null && BaseAttributes.Contains(attributeElement))
+			{
+				lock (_attributesLock)
+				{
+					if (attributeElement != null && BaseAttributes.Contains(attributeElement))
+					{
+						BaseAttributes.Remove(attributeElement);
+						attributeElement.Parent = null;
+					}
+				}
+			}
+		}
 
-        /// <summary>
-        /// Creates a clone of the instance and copies any state.
-        /// </summary>
-        /// <returns>Cloned attribute element state.</returns>
-        protected abstract AttributedElement DoAttributedClone();
+		/// <summary>
+		/// Creates a clone of the instance and copies any state.
+		/// </summary>
+		/// <returns>Cloned attribute element state.</returns>
+		protected abstract AttributedElement DoAttributedClone();
 
-        /// <summary>
-        /// Creates a clone of the instance and copies any state.
-        /// </summary>
-        /// <returns>A clone of the instance.</returns>
-        protected override sealed CodeElement DoClone()
-        {
-            AttributedElement clone = DoAttributedClone();
+		/// <summary>
+		/// Creates a clone of the instance and copies any state.
+		/// </summary>
+		/// <returns>A clone of the instance.</returns>
+		protected override sealed CodeElement DoClone()
+		{
+			AttributedElement clone = DoAttributedClone();
 
-            //
-            // Copy state
-            //
-            clone._access = _access;
-            lock (_attributesLock)
-            {
-                for (int attributeIndex = 0; attributeIndex < Attributes.Count; attributeIndex++)
-                {
-                    IAttributeElement attribute = Attributes[attributeIndex];
-                    IAttributeElement attributeClone = attribute.Clone() as IAttributeElement;
+			//
+			// Copy state
+			//
+			clone._access = _access;
+			lock (_attributesLock)
+			{
+				for (int attributeIndex = 0; attributeIndex < Attributes.Count; attributeIndex++)
+				{
+					IAttributeElement attribute = Attributes[attributeIndex];
+					IAttributeElement attributeClone = attribute.Clone() as IAttributeElement;
 
-                    clone.AddAttribute(attributeClone);
-                }
-            }
+					clone.AddAttribute(attributeClone);
+				}
+			}
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

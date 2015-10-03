@@ -38,126 +38,108 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System;
-    using System.ComponentModel;
-    using System.Threading;
-    using System.Xml.Serialization;
+	using System;
+	using System.ComponentModel;
+	using System.Threading;
+	using System.Xml.Serialization;
 
-    /// <summary>
-    /// Specifies element sorting 
-    /// </summary>
-    [XmlType("Sort")]
-    public class SortBy : ICloneable
-    {
-        #region Fields
+	/// <summary>
+	/// Specifies element sorting 
+	/// </summary>
+	[XmlType("Sort")]
+	public class SortBy : ICloneable
+	{
+		#region Fields
 
-        /// <summary>
-        /// Attribute to sort by.
-        /// </summary>
-        private ElementAttributeType _by;
+		/// <summary>
+		/// Attribute to sort by.
+		/// </summary>
+		private ElementAttributeType _by;
 
-        /// <summary>
-        /// Sort direction.
-        /// </summary>
-        private SortDirection _direction = SortDirection.Ascending;
+		/// <summary>
+		/// Sort direction.
+		/// </summary>
+		private SortDirection _direction = SortDirection.Ascending;
 
-        /// <summary>
-        /// Innert sort, if any.
-        /// </summary>
-        private SortBy _innerSortBy;
+		/// <summary>
+		/// Innert sort, if any.
+		/// </summary>
+		private SortBy _innerSortBy;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets the attribute elements should be sorted by.
-        /// </summary>
-        [XmlAttribute("By")]
-        [Description("The attribute elements should be sorted by.")]
-        public ElementAttributeType By
-        {
-            get
-            {
-                return _by;
-            }
-            set
-            {
-                _by = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the attribute elements should be sorted by.
+		/// </summary>
+		[XmlAttribute("By")]
+		[Description("The attribute elements should be sorted by.")]
+		public ElementAttributeType By
+		{
+			get { return _by; }
+			set { _by = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the sort direction.
-        /// </summary>
-        [XmlAttribute("Direction")]
-        [DefaultValue(SortDirection.Ascending)]
-        [Description("The sort direction for elements.")]
-        public SortDirection Direction
-        {
-            get
-            {
-                return _direction;
-            }
-            set
-            {
-                _direction = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the sort direction.
+		/// </summary>
+		[XmlAttribute("Direction")]
+		[DefaultValue(SortDirection.Ascending)]
+		[Description("The sort direction for elements.")]
+		public SortDirection Direction
+		{
+			get { return _direction; }
+			set { _direction = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the inner sort specification.
-        /// </summary>
-        [XmlElement("Sort")]
-        [Description("The inner sort that will also apply when sorting elements.")]
-        [DisplayName("Inner sort by")]
-        public SortBy InnerSortBy
-        {
-            get
-            {
-                return _innerSortBy;
-            }
-            set
-            {
-                _innerSortBy = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the inner sort specification.
+		/// </summary>
+		[XmlElement("Sort")]
+		[Description("The inner sort that will also apply when sorting elements.")]
+		[DisplayName("Inner sort by")]
+		public SortBy InnerSortBy
+		{
+			get { return _innerSortBy; }
+			set { _innerSortBy = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>A clone of the instance.</returns>
-        public object Clone()
-        {
-            SortBy clone = new SortBy();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>A clone of the instance.</returns>
+		public object Clone()
+		{
+			SortBy clone = new SortBy();
 
-            clone._by = _by;
-            clone._direction = _direction;
+			clone._by = _by;
+			clone._direction = _direction;
 
-            if (_innerSortBy != null)
-            {
-                clone._innerSortBy = _innerSortBy.Clone() as SortBy;
-            }
+			if (_innerSortBy != null)
+			{
+				clone._innerSortBy = _innerSortBy.Clone() as SortBy;
+			}
 
-            return clone;
-        }
+			return clone;
+		}
 
-        /// <summary>
-        /// Gets the string representation.
-        /// </summary>
-        /// <returns>String representation.</returns>
-        public override string ToString()
-        {
-            return string.Format(
-                Thread.CurrentThread.CurrentCulture,
-                "Sort by: {0}",
-                _by);
-        }
+		/// <summary>
+		/// Gets the string representation.
+		/// </summary>
+		/// <returns>String representation.</returns>
+		public override string ToString()
+		{
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture,
+				"Sort by: {0}",
+				_by);
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

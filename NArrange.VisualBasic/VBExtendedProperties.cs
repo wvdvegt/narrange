@@ -38,63 +38,63 @@
 
 namespace NArrange.VisualBasic
 {
-    /// <summary>
-    /// Extended property names.
-    /// </summary>
-    public static class VBExtendedProperties
-    {
-        #region Fields
+	/// <summary>
+	/// Extended property names.
+	/// </summary>
+	public static class VBExtendedProperties
+	{
+		#region Fields
 
-        /// <summary>
-        /// AccessModifier extended property 
-        /// </summary>
-        public const string AccessModifier = "AccessModifier";
+		/// <summary>
+		/// AccessModifier extended property 
+		/// </summary>
+		public const string AccessModifier = "AccessModifier";
 
-        /// <summary>
-        /// Default extended property.
-        /// </summary>
-        public const string Default = VBKeyword.Default;
+		/// <summary>
+		/// Default extended property.
+		/// </summary>
+		public const string Default = VBKeyword.Default;
 
-        /// <summary>
-        /// Dim extended property.
-        /// </summary>
-        public const string Dim = "Dim";
+		/// <summary>
+		/// Dim extended property.
+		/// </summary>
+		public const string Dim = "Dim";
 
-        /// <summary>
-        /// ExternalAlias extended property 
-        /// </summary>
-        public const string ExternalAlias = "ExternalAlias";
+		/// <summary>
+		/// ExternalAlias extended property 
+		/// </summary>
+		public const string ExternalAlias = "ExternalAlias";
 
-        /// <summary>
-        /// ExternalLibrary extended property 
-        /// </summary>
-        public const string ExternalLibrary = "ExternalLibrary";
+		/// <summary>
+		/// ExternalLibrary extended property 
+		/// </summary>
+		public const string ExternalLibrary = "ExternalLibrary";
 
-        /// <summary>
-        /// ExternalModifier extended property 
-        /// </summary>
-        public const string ExternalModifier = "ExternalModifier";
+		/// <summary>
+		/// ExternalModifier extended property 
+		/// </summary>
+		public const string ExternalModifier = "ExternalModifier";
 
-        /// <summary>
-        /// Handles extended property.
-        /// </summary>
-        public const string Handles = VBKeyword.Handles;
+		/// <summary>
+		/// Handles extended property.
+		/// </summary>
+		public const string Handles = VBKeyword.Handles;
 
-        /// <summary>
-        /// Option extended property.
-        /// </summary>
-        public const string Option = "Option";
+		/// <summary>
+		/// Option extended property.
+		/// </summary>
+		public const string Option = "Option";
 
-        /// <summary>
-        /// Overloads extended property.
-        /// </summary>
-        public const string Overloads = VBKeyword.Overloads;
+		/// <summary>
+		/// Overloads extended property.
+		/// </summary>
+		public const string Overloads = VBKeyword.Overloads;
 
-        /// <summary>
-        /// WithEvents extended property.
-        /// </summary>
-        public const string WithEvents = VBKeyword.WithEvents;
+		/// <summary>
+		/// WithEvents extended property.
+		/// </summary>
+		public const string WithEvents = VBKeyword.WithEvents;
 
-        #endregion Fields
-    }
+		#endregion Fields
+	}
 }

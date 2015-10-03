@@ -37,73 +37,64 @@
 
 namespace NArrange.Core.CodeElements
 {
-    /// <summary>
-    /// Property element.
-    /// </summary>
-    public sealed class PropertyElement : InterfaceMemberElement
-    {
-        #region Fields
+	/// <summary>
+	/// Property element.
+	/// </summary>
+	public sealed class PropertyElement : InterfaceMemberElement
+	{
+		#region Fields
 
-        /// <summary>
-        /// Index parameter name.
-        /// </summary>
-        private string _indexParameter;
+		/// <summary>
+		/// Index parameter name.
+		/// </summary>
+		private string _indexParameter;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the element type.
-        /// </summary>
-        public override ElementType ElementType
-        {
-            get
-            {
-                return ElementType.Property;
-            }
-        }
+		/// <summary>
+		/// Gets the element type.
+		/// </summary>
+		public override ElementType ElementType
+		{
+			get { return ElementType.Property; }
+		}
 
-        /// <summary>
-        /// Gets or sets the property index parameter.
-        /// </summary>
-        public string IndexParameter
-        {
-            get
-            {
-                return _indexParameter;
-            }
-            set
-            {
-                _indexParameter = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the property index parameter.
+		/// </summary>
+		public string IndexParameter
+		{
+			get { return _indexParameter; }
+			set { _indexParameter = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Allows an ICodeElementVisitor to process (or visit) this element.
-        /// </summary>
-        /// <param name="visitor">Visitor to accept the code element.</param>
-        /// <remarks>See the Gang of Four Visitor design pattern.</remarks>
-        public override void Accept(ICodeElementVisitor visitor)
-        {
-            visitor.VisitPropertyElement(this);
-        }
+		/// <summary>
+		/// Allows an ICodeElementVisitor to process (or visit) this element.
+		/// </summary>
+		/// <param name="visitor">Visitor to accept the code element.</param>
+		/// <remarks>See the Gang of Four Visitor design pattern.</remarks>
+		public override void Accept(ICodeElementVisitor visitor)
+		{
+			visitor.VisitPropertyElement(this);
+		}
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>Clone of the element with interface member state copied.</returns>
-        protected override InterfaceMemberElement DoInterfaceMemberClone()
-        {
-            PropertyElement propertyElement = new PropertyElement();
-            propertyElement._indexParameter = _indexParameter;
-            return propertyElement;
-        }
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>Clone of the element with interface member state copied.</returns>
+		protected override InterfaceMemberElement DoInterfaceMemberClone()
+		{
+			PropertyElement propertyElement = new PropertyElement();
+			propertyElement._indexParameter = _indexParameter;
+			return propertyElement;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

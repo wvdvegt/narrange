@@ -38,148 +38,145 @@
 
 namespace NArrange.Core
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.IO;
+	using System;
+	using System.Collections.Generic;
+	using System.Collections.ObjectModel;
+	using System.IO;
 
-    /// <summary>
-    /// Parses a solution for individual project file names.
-    /// </summary>
-    public sealed class SolutionParser : ISolutionParser
-    {
-        #region Fields
+	/// <summary>
+	/// Parses a solution for individual project file names.
+	/// </summary>
+	public sealed class SolutionParser : ISolutionParser
+	{
+		#region Fields
 
-        /// <summary>
-        /// Singleton synch lock.
-        /// </summary>
-        private static readonly object _instanceLock = new object();
+		/// <summary>
+		/// Singleton synch lock.
+		/// </summary>
+		private static readonly object _instanceLock = new object();
 
-        /// <summary>
-        /// List of extensions handled by the solution parser.
-        /// </summary>
-        private readonly List<string> _extensions = new List<string>();
+		/// <summary>
+		/// List of extensions handled by the solution parser.
+		/// </summary>
+		private readonly List<string> _extensions = new List<string>();
 
-        /// <summary>
-        /// Parser map.
-        /// </summary>
-        private readonly Dictionary<string, ISolutionParser> _parserMap = 
-            new Dictionary<string, ISolutionParser>(StringComparer.OrdinalIgnoreCase);
+		/// <summary>
+		/// Parser map.
+		/// </summary>
+		private readonly Dictionary<string, ISolutionParser> _parserMap = 
+			new Dictionary<string, ISolutionParser>(StringComparer.OrdinalIgnoreCase);
 
-        /// <summary>
-        /// Singleton instance.
-        /// </summary>
-        private static SolutionParser _instance;
+		/// <summary>
+		/// Singleton instance.
+		/// </summary>
+		private static SolutionParser _instance;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new solution parser.
-        /// </summary>
-        private SolutionParser()
-        {
-            List<ISolutionParser> parsers = new List<ISolutionParser>();
-            parsers.Add(new MSBuildSolutionParser());
-            parsers.Add(new MonoDevelopSolutionParser());
+		/// <summary>
+		/// Creates a new solution parser.
+		/// </summary>
+		private SolutionParser()
+		{
+			List<ISolutionParser> parsers = new List<ISolutionParser>();
+			parsers.Add(new MSBuildSolutionParser());
+			parsers.Add(new MonoDevelopSolutionParser());
 
-            foreach (ISolutionParser parser in parsers)
-            {
-                foreach (string extension in parser.Extensions)
-                {
-                    _parserMap.Add(extension, parser);
-                    _extensions.Add(extension);
-                }
-            }
-        }
+			foreach (ISolutionParser parser in parsers)
+			{
+				foreach (string extension in parser.Extensions)
+				{
+					_parserMap.Add(extension, parser);
+					_extensions.Add(extension);
+				}
+			}
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets a solution parser for all solution types.
-        /// </summary>
-        public static SolutionParser Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    lock (_instanceLock)
-                    {
-                        if (_instance == null)
-                        {
-                            _instance = new SolutionParser();
-                        }
-                    }
-                }
+		/// <summary>
+		/// Gets a solution parser for all solution types.
+		/// </summary>
+		public static SolutionParser Instance
+		{
+			get
+			{
+				if (_instance == null)
+				{
+					lock (_instanceLock)
+					{
+						if (_instance == null)
+						{
+							_instance = new SolutionParser();
+						}
+					}
+				}
 
-                return _instance;
-            }
-        }
+				return _instance;
+			}
+		}
 
-        /// <summary>
-        /// Gets a list of extensions supported by this solution parser.
-        /// </summary>
-        public ReadOnlyCollection<string> Extensions
-        {
-            get
-            {
-                return _extensions.AsReadOnly();
-            }
-        }
+		/// <summary>
+		/// Gets a list of extensions supported by this solution parser.
+		/// </summary>
+		public ReadOnlyCollection<string> Extensions
+		{
+			get { return _extensions.AsReadOnly(); }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Gets a value indicating whether or not the specified file
-        /// is a recognized solution file.
-        /// </summary>
-        /// <param name="inputFile">Input file name.</param>
-        /// <returns>A boolean indicating whether or not the file is a solution.</returns>
-        public bool IsSolution(string inputFile)
-        {
-            bool isSolution = false;
+		/// <summary>
+		/// Gets a value indicating whether or not the specified file
+		/// is a recognized solution file.
+		/// </summary>
+		/// <param name="inputFile">Input file name.</param>
+		/// <returns>A boolean indicating whether or not the file is a solution.</returns>
+		public bool IsSolution(string inputFile)
+		{
+			bool isSolution = false;
 
-            if (!string.IsNullOrEmpty(inputFile))
-            {
-                string extension = Path.GetExtension(inputFile).TrimStart('.');
-                isSolution = _parserMap.ContainsKey(extension);
-            }
+			if (!string.IsNullOrEmpty(inputFile))
+			{
+				string extension = Path.GetExtension(inputFile).TrimStart('.');
+				isSolution = _parserMap.ContainsKey(extension);
+			}
 
-            return isSolution;
-        }
+			return isSolution;
+		}
 
-        /// <summary>
-        /// Parses project file names from a solution file.
-        /// </summary>
-        /// <param name="solutionFile">Solution file name.</param>
-        /// <returns>A list of project file names</returns>
-        public ReadOnlyCollection<string> Parse(string solutionFile)
-        {
-            if (solutionFile == null)
-            {
-                throw new ArgumentNullException("solutionFile");
-            }
+		/// <summary>
+		/// Parses project file names from a solution file.
+		/// </summary>
+		/// <param name="solutionFile">Solution file name.</param>
+		/// <returns>A list of project file names</returns>
+		public ReadOnlyCollection<string> Parse(string solutionFile)
+		{
+			if (solutionFile == null)
+			{
+				throw new ArgumentNullException("solutionFile");
+			}
 
-            List<string> projectFiles = new List<string>();
+			List<string> projectFiles = new List<string>();
 
-            string extension = Path.GetExtension(solutionFile).TrimStart('.');
-            ISolutionParser parser = null;
-            _parserMap.TryGetValue(extension, out parser);
+			string extension = Path.GetExtension(solutionFile).TrimStart('.');
+			ISolutionParser parser = null;
+			_parserMap.TryGetValue(extension, out parser);
 
-            if (parser != null)
-            {
-                projectFiles.AddRange(parser.Parse(solutionFile));
-            }
+			if (parser != null)
+			{
+				projectFiles.AddRange(parser.Parse(solutionFile));
+			}
 
-            return projectFiles.AsReadOnly();
-        }
+			return projectFiles.AsReadOnly();
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

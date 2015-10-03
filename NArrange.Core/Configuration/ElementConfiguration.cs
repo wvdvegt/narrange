@@ -38,181 +38,151 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System.ComponentModel;
-    using System.Threading;
-    using System.Xml.Serialization;
+	using System.ComponentModel;
+	using System.Threading;
+	using System.Xml.Serialization;
 
-    /// <summary>
-    /// Element configuration.
-    /// </summary>
-    [XmlType("Element")]
-    [DisplayName("Element")]
-    public class ElementConfiguration : ConfigurationElement
-    {
-        #region Fields
+	/// <summary>
+	/// Element configuration.
+	/// </summary>
+	[XmlType("Element")]
+	[DisplayName("Element")]
+	public class ElementConfiguration : ConfigurationElement
+	{
+		#region Fields
 
-        /// <summary>
-        /// The type of the element.
-        /// </summary>
-        private ElementType _elementType;
+		/// <summary>
+		/// The type of the element.
+		/// </summary>
+		private ElementType _elementType;
 
-        /// <summary>
-        /// A filter, if any, that should be applied to the elements.
-        /// </summary>
-        private FilterBy _filterBy;
+		/// <summary>
+		/// A filter, if any, that should be applied to the elements.
+		/// </summary>
+		private FilterBy _filterBy;
 
-        /// <summary>
-        /// A grouping specification, if any, that should be applied to the elements.
-        /// </summary>
-        private GroupBy _groupBy;
+		/// <summary>
+		/// A grouping specification, if any, that should be applied to the elements.
+		/// </summary>
+		private GroupBy _groupBy;
 
-        /// <summary>
-        /// The element configuration ID.  For use by element reference configurations.
-        /// </summary>
-        private string _id;
+		/// <summary>
+		/// The element configuration ID.  For use by element reference configurations.
+		/// </summary>
+		private string _id;
 
-        /// <summary>
-        /// A sort specification, if any, that specifies how elements will be sorted 
-        /// within the parent.
-        /// </summary>
-        private SortBy _sortBy;
+		/// <summary>
+		/// A sort specification, if any, that specifies how elements will be sorted 
+		/// within the parent.
+		/// </summary>
+		private SortBy _sortBy;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets the element type.
-        /// </summary>
-        [XmlAttribute("Type")]
-        [Description("The element type.")]
-        [DisplayName("Element type")]
-        public ElementType ElementType
-        {
-            get
-            {
-                return _elementType;
-            }
-            set
-            {
-                _elementType = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the element type.
+		/// </summary>
+		[XmlAttribute("Type")]
+		[Description("The element type.")]
+		[DisplayName("Element type")]
+		public ElementType ElementType
+		{
+			get { return _elementType; }
+			set { _elementType = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the filter specification.
-        /// </summary>
-        [XmlElement("Filter")]
-        [Description("The filter for this element.")]
-        [DisplayName("Filter by")]
-        public FilterBy FilterBy
-        {
-            get
-            {
-                return _filterBy;
-            }
-            set
-            {
-                _filterBy = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the filter specification.
+		/// </summary>
+		[XmlElement("Filter")]
+		[Description("The filter for this element.")]
+		[DisplayName("Filter by")]
+		public FilterBy FilterBy
+		{
+			get { return _filterBy; }
+			set { _filterBy = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the the group by, which specifies grouping of elements.
-        /// </summary>
-        [XmlElement("Group")]
-        [Description("The grouping for this element.")]
-        [DisplayName("Group by")]
-        public GroupBy GroupBy
-        {
-            get
-            {
-                return _groupBy;
-            }
-            set
-            {
-                _groupBy = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the the group by, which specifies grouping of elements.
+		/// </summary>
+		[XmlElement("Group")]
+		[Description("The grouping for this element.")]
+		[DisplayName("Group by")]
+		public GroupBy GroupBy
+		{
+			get { return _groupBy; }
+			set { _groupBy = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the element configuration identifier.
-        /// </summary>
-        [XmlAttribute("Id")]
-        [Description("The unique identifier of this element.")]
-        public string Id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the element configuration identifier.
+		/// </summary>
+		[XmlAttribute("Id")]
+		[Description("The unique identifier of this element.")]
+		public string Id
+		{
+			get { return _id; }
+			set { _id = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets the sort specification.
-        /// </summary>
-        [XmlElement("Sort")]
-        [Description("The sorting for this element.")]
-        [DisplayName("Sort by")]
-        public SortBy SortBy
-        {
-            get
-            {
-                return _sortBy;
-            }
-            set
-            {
-                _sortBy = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the sort specification.
+		/// </summary>
+		[XmlElement("Sort")]
+		[Description("The sorting for this element.")]
+		[DisplayName("Sort by")]
+		public SortBy SortBy
+		{
+			get { return _sortBy; }
+			set { _sortBy = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Gets a string representation.
-        /// </summary>
-        /// <returns>The string representation.</returns>
-        public override string ToString()
-        {
-            return string.Format(
-                Thread.CurrentThread.CurrentCulture, "Element: Type - {0}", ElementType);
-        }
+		/// <summary>
+		/// Gets a string representation.
+		/// </summary>
+		/// <returns>The string representation.</returns>
+		public override string ToString()
+		{
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture, "Element: Type - {0}", ElementType);
+		}
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>Clone of the instance.</returns>
-        protected override ConfigurationElement DoClone()
-        {
-            ElementConfiguration clone = new ElementConfiguration();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>Clone of the instance.</returns>
+		protected override ConfigurationElement DoClone()
+		{
+			ElementConfiguration clone = new ElementConfiguration();
 
-            clone._elementType = _elementType;
-            clone._id = _id;
+			clone._elementType = _elementType;
+			clone._id = _id;
 
-            if (_filterBy != null)
-            {
-                clone._filterBy = _filterBy.Clone() as FilterBy;
-            }
+			if (_filterBy != null)
+			{
+				clone._filterBy = _filterBy.Clone() as FilterBy;
+			}
 
-            if (_groupBy != null)
-            {
-                clone._groupBy = _groupBy.Clone() as GroupBy;
-            }
+			if (_groupBy != null)
+			{
+				clone._groupBy = _groupBy.Clone() as GroupBy;
+			}
 
-            if (_sortBy != null)
-            {
-                clone._sortBy = _sortBy.Clone() as SortBy;
-            }
+			if (_sortBy != null)
+			{
+				clone._sortBy = _sortBy.Clone() as SortBy;
+			}
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

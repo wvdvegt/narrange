@@ -37,47 +37,44 @@
 
 namespace NArrange.Core.CodeElements
 {
-    /// <summary>
-    /// Code namespace element.
-    /// </summary>
-    public sealed class NamespaceElement : CommentedElement
-    {
-        #region Properties
+	/// <summary>
+	/// Code namespace element.
+	/// </summary>
+	public sealed class NamespaceElement : CommentedElement
+	{
+		#region Properties
 
-        /// <summary>
-        /// Gets the element type.
-        /// </summary>
-        public override ElementType ElementType
-        {
-            get
-            {
-                return ElementType.Namespace;
-            }
-        }
+		/// <summary>
+		/// Gets the element type.
+		/// </summary>
+		public override ElementType ElementType
+		{
+			get { return ElementType.Namespace; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Allows an ICodeElementVisitor to process (or visit) this element.
-        /// </summary>
-        /// <param name="visitor">Visitor to accept the code element.</param>
-        /// <remarks>See the Gang of Four Visitor design pattern.</remarks>
-        public override void Accept(ICodeElementVisitor visitor)
-        {
-            visitor.VisitNamespaceElement(this);
-        }
+		/// <summary>
+		/// Allows an ICodeElementVisitor to process (or visit) this element.
+		/// </summary>
+		/// <param name="visitor">Visitor to accept the code element.</param>
+		/// <remarks>See the Gang of Four Visitor design pattern.</remarks>
+		public override void Accept(ICodeElementVisitor visitor)
+		{
+			visitor.VisitNamespaceElement(this);
+		}
 
-        /// <summary>
-        /// Clones this instance.
-        /// </summary>
-        /// <returns>Clone of the code element.</returns>
-        protected override CodeElement DoClone()
-        {
-            return new NamespaceElement();
-        }
+		/// <summary>
+		/// Clones this instance.
+		/// </summary>
+		/// <returns>Clone of the code element.</returns>
+		protected override CodeElement DoClone()
+		{
+			return new NamespaceElement();
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

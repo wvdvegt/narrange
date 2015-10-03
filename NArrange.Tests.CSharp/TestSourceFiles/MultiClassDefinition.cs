@@ -94,4 +94,5 @@ namespace SampleNamespace
 /// </summary>
 public class GlobalClass
 {
+
 }

@@ -290,8 +290,8 @@ Namespace SampleNamespace
 			End AddHandler
 			RemoveHandler(ByVal value As SampleEventHandler)
 			End RemoveHandler
-      		RaiseEvent(ByVal sender As Object, ByVal boolParam As Boolean)
-      		End RaiseEvent
+			RaiseEvent(ByVal sender As Object, ByVal boolParam As Boolean)
+			End RaiseEvent
 		End Event
 
 		#End Region

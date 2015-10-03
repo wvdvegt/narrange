@@ -38,36 +38,33 @@
 
 namespace NArrange.Core
 {
-    using System;
+	using System;
 
-    /// <summary>
-    /// Utilities for working with the Mono runtime.
-    /// </summary>
-    public static class MonoUtilities
-    {
-        #region Fields
+	/// <summary>
+	/// Utilities for working with the Mono runtime.
+	/// </summary>
+	public static class MonoUtilities
+	{
+		#region Fields
 
-        /// <summary>
-        /// Whether or not the process is running under the Mono runtime.
-        /// </summary>
-        private static readonly Type _monoRuntime = Type.GetType("Mono.Runtime");
+		/// <summary>
+		/// Whether or not the process is running under the Mono runtime.
+		/// </summary>
+		private static readonly Type _monoRuntime = Type.GetType("Mono.Runtime");
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets a value indicating whether or not the current process
-        /// is running under the Mono runtime.
-        /// </summary>
-        public static bool IsMonoRuntime
-        {
-            get
-            {
-                return _monoRuntime != null;
-            }
-        }
+		/// <summary>
+		/// Gets a value indicating whether or not the current process
+		/// is running under the Mono runtime.
+		/// </summary>
+		public static bool IsMonoRuntime
+		{
+			get { return _monoRuntime != null; }
+		}
 
-        #endregion Properties
-    }
+		#endregion Properties
+	}
 }

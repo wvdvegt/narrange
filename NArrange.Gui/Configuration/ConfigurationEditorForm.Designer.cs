@@ -38,9 +38,11 @@ namespace NArrange.Gui.Configuration
 			// 
 			// _configurationEditorControl
 			// 
-			this._configurationEditorControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
+			this._configurationEditorControl.Anchor =
+				((System.Windows.Forms.AnchorStyles)
+					((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+					   | System.Windows.Forms.AnchorStyles.Left)
+					  | System.Windows.Forms.AnchorStyles.Right)));
 			this._configurationEditorControl.Enabled = false;
 			this._configurationEditorControl.Location = new System.Drawing.Point(3, 33);
 			this._configurationEditorControl.Name = "_configurationEditorControl";
@@ -58,8 +60,10 @@ namespace NArrange.Gui.Configuration
 			// 
 			// _configurationPicker
 			// 
-			this._configurationPicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
+			this._configurationPicker.Anchor =
+				((System.Windows.Forms.AnchorStyles)
+					(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+					  | System.Windows.Forms.AnchorStyles.Right)));
 			this._configurationPicker.Location = new System.Drawing.Point(131, 6);
 			this._configurationPicker.Name = "_configurationPicker";
 			this._configurationPicker.SelectedFile = "";
@@ -70,7 +74,9 @@ namespace NArrange.Gui.Configuration
 			// 
 			// _buttonSave
 			// 
-			this._buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this._buttonSave.Anchor =
+				((System.Windows.Forms.AnchorStyles)
+					((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this._buttonSave.Enabled = false;
 			this._buttonSave.Location = new System.Drawing.Point(566, 369);
 			this._buttonSave.Name = "_buttonSave";
@@ -82,7 +88,9 @@ namespace NArrange.Gui.Configuration
 			// 
 			// _buttonCancel
 			// 
-			this._buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this._buttonCancel.Anchor =
+				((System.Windows.Forms.AnchorStyles)
+					((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this._buttonCancel.Enabled = false;
 			this._buttonCancel.Location = new System.Drawing.Point(647, 369);
 			this._buttonCancel.Name = "_buttonCancel";
@@ -117,4 +125,5 @@ namespace NArrange.Gui.Configuration
 		private System.Windows.Forms.Button _buttonSave;
 		private System.Windows.Forms.Button _buttonCancel;
 	}
+
 }

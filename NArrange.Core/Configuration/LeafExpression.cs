@@ -37,35 +37,29 @@
 
 namespace NArrange.Core.Configuration
 {
-    /// <summary>
-    /// Element leaf expression base class.
-    /// </summary>
-    public abstract class LeafExpression : IConditionExpression
-    {
-        #region Properties
+	/// <summary>
+	/// Element leaf expression base class.
+	/// </summary>
+	public abstract class LeafExpression : IConditionExpression
+	{
+		#region Properties
 
-        /// <summary>
-        /// Gets the left expression.
-        /// </summary>
-        IConditionExpression IConditionExpression.Left
-        {
-            get
-            {
-                return null;
-            }
-        }
+		/// <summary>
+		/// Gets the left expression.
+		/// </summary>
+		IConditionExpression IConditionExpression.Left
+		{
+			get { return null; }
+		}
 
-        /// <summary>
-        /// Gets the right expression.
-        /// </summary>
-        IConditionExpression IConditionExpression.Right
-        {
-            get
-            {
-                return null;
-            }
-        }
+		/// <summary>
+		/// Gets the right expression.
+		/// </summary>
+		IConditionExpression IConditionExpression.Right
+		{
+			get { return null; }
+		}
 
-        #endregion Properties
-    }
+		#endregion Properties
+	}
 }

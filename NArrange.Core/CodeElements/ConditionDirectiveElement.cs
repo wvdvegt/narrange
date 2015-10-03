@@ -37,98 +37,83 @@
 
 namespace NArrange.Core.CodeElements
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+	using System;
+	using System.Collections.Generic;
+	using System.Text;
 
-    /// <summary>
-    /// Code element for conditional preprocessor directives.
-    /// </summary>
-    public class ConditionDirectiveElement : CommentedElement
-    {
-        #region Fields
+	/// <summary>
+	/// Code element for conditional preprocessor directives.
+	/// </summary>
+	public class ConditionDirectiveElement : CommentedElement
+	{
+		#region Fields
 
-        /// <summary>
-        /// Linked else condition.
-        /// </summary>
-        private ConditionDirectiveElement _elseCondition;
+		/// <summary>
+		/// Linked else condition.
+		/// </summary>
+		private ConditionDirectiveElement _elseCondition;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets or sets the condition expression for the directive.
-        /// </summary>
-        public string ConditionExpression
-        {
-            get
-            {
-                return Name;
-            }
-            set
-            {
-                Name = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the condition expression for the directive.
+		/// </summary>
+		public string ConditionExpression
+		{
+			get { return Name; }
+			set { Name = value; }
+		}
 
-        /// <summary>
-        /// Gets the code element type.
-        /// </summary>
-        public override ElementType ElementType
-        {
-            get
-            {
-                return ElementType.ConditionDirective;
-            }
-        }
+		/// <summary>
+		/// Gets the code element type.
+		/// </summary>
+		public override ElementType ElementType
+		{
+			get { return ElementType.ConditionDirective; }
+		}
 
-        /// <summary>
-        /// Gets or sets the else condition directive element.
-        /// </summary>
-        public ConditionDirectiveElement ElseCondition
-        {
-            get
-            {
-                return _elseCondition;
-            }
-            set
-            {
-                _elseCondition = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the else condition directive element.
+		/// </summary>
+		public ConditionDirectiveElement ElseCondition
+		{
+			get { return _elseCondition; }
+			set { _elseCondition = value; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Allows an ICodeElementVisitor to process (or visit) this element.
-        /// </summary>
-        /// <param name="visitor">Visitor to accept the code element.</param>
-        /// <remarks>See the Gang of Four Visitor design pattern.</remarks>
-        public override void Accept(ICodeElementVisitor visitor)
-        {
-            visitor.VisitConditionDirectiveElement(this);
-        }
+		/// <summary>
+		/// Allows an ICodeElementVisitor to process (or visit) this element.
+		/// </summary>
+		/// <param name="visitor">Visitor to accept the code element.</param>
+		/// <remarks>See the Gang of Four Visitor design pattern.</remarks>
+		public override void Accept(ICodeElementVisitor visitor)
+		{
+			visitor.VisitConditionDirectiveElement(this);
+		}
 
-        /// <summary>
-        /// Creates an instance for cloning.
-        /// </summary>
-        /// <returns>Clone of the code element.</returns>
-        protected override CodeElement DoClone()
-        {
-            ConditionDirectiveElement clone = new ConditionDirectiveElement();
+		/// <summary>
+		/// Creates an instance for cloning.
+		/// </summary>
+		/// <returns>Clone of the code element.</returns>
+		protected override CodeElement DoClone()
+		{
+			ConditionDirectiveElement clone = new ConditionDirectiveElement();
 
-            if (_elseCondition != null)
-            {
-                ConditionDirectiveElement elseClone = _elseCondition.Clone() as ConditionDirectiveElement;
-                clone._elseCondition = elseClone;
-            }
+			if (_elseCondition != null)
+			{
+				ConditionDirectiveElement elseClone = _elseCondition.Clone() as ConditionDirectiveElement;
+				clone._elseCondition = elseClone;
+			}
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

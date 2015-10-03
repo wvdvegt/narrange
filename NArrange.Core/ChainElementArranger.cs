@@ -38,151 +38,150 @@
 
 namespace NArrange.Core
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading;
+	using NArrange.Core.CodeElements;
+	using System;
+	using System.Collections.Generic;
+	using System.Threading;
 
-    using NArrange.Core.CodeElements;
+	/// <summary>
+	/// Uses the chain of responsibility pattern to arrange an element using
+	/// the provided ArrangedCodeBuilder.
+	/// </summary>
+	public sealed class ChainElementArranger : IElementArranger
+	{
+		#region Fields
 
-    /// <summary>
-    /// Uses the chain of responsibility pattern to arrange an element using
-    /// the provided ArrangedCodeBuilder.
-    /// </summary>
-    public sealed class ChainElementArranger : IElementArranger
-    {
-        #region Fields
+		/// <summary>
+		/// Collection of child arrangers.
+		/// </summary>
+		private readonly List<IElementArranger> _arrangers;
 
-        /// <summary>
-        /// Collection of child arrangers.
-        /// </summary>
-        private readonly List<IElementArranger> _arrangers;
+		#endregion Fields
 
-        #endregion Fields
+		#region Constructors
 
-        #region Constructors
+		/// <summary>
+		/// Creates a new element arranger chain.
+		/// </summary>
+		public ChainElementArranger()
+		{
+			_arrangers = new List<IElementArranger>();
+		}
 
-        /// <summary>
-        /// Creates a new element arranger chain.
-        /// </summary>
-        public ChainElementArranger()
-        {
-            _arrangers = new List<IElementArranger>();
-        }
+		#endregion Constructors
 
-        #endregion Constructors
+		#region Methods
 
-        #region Methods
+		/// <summary>
+		/// Adds an arranger to the responsibility chain.
+		/// </summary>
+		/// <param name="arranger">Child arranger to add.</param>
+		public void AddArranger(IElementArranger arranger)
+		{
+			if (arranger == null)
+			{
+				throw new ArgumentNullException("arranger");
+			}
 
-        /// <summary>
-        /// Adds an arranger to the responsibility chain.
-        /// </summary>
-        /// <param name="arranger">Child arranger to add.</param>
-        public void AddArranger(IElementArranger arranger)
-        {
-            if (arranger == null)
-            {
-                throw new ArgumentNullException("arranger");
-            }
+			_arrangers.Add(arranger);
+		}
 
-            _arrangers.Add(arranger);
-        }
+		/// <summary>
+		/// Arranges an element, delegating the responsibility to the first arranger
+		/// encountered who can process the request.
+		/// </summary>
+		/// <param name="parentElement">Parent code element.</param>
+		/// <param name="codeElement">Code element to arrange.</param>
+		public void ArrangeElement(ICodeElement parentElement, ICodeElement codeElement)
+		{
+			bool arranged = false;
 
-        /// <summary>
-        /// Arranges an element, delegating the responsibility to the first arranger
-        /// encountered who can process the request.
-        /// </summary>
-        /// <param name="parentElement">Parent code element.</param>
-        /// <param name="codeElement">Code element to arrange.</param>
-        public void ArrangeElement(ICodeElement parentElement, ICodeElement codeElement)
-        {
-            bool arranged = false;
+			// Region elements are ignored.  Only process their children.
+			RegionElement regionElement = codeElement as RegionElement;
+			if (regionElement != null)
+			{
+				List<ICodeElement> regionChildren = new List<ICodeElement>(regionElement.Children);
+				regionElement.ClearChildren();
 
-            // Region elements are ignored.  Only process their children.
-            RegionElement regionElement = codeElement as RegionElement;
-            if (regionElement != null)
-            {
-                List<ICodeElement> regionChildren = new List<ICodeElement>(regionElement.Children);
-                regionElement.ClearChildren();
+				foreach (ICodeElement regionChildElement in regionChildren)
+				{
+					ArrangeElement(parentElement, regionChildElement);
+				}
+			}
+			else
+			{
+				foreach (IElementArranger arranger in _arrangers)
+				{
+					if (arranger.CanArrange(parentElement, codeElement))
+					{
+						arranger.ArrangeElement(parentElement, codeElement);
+						arranged = true;
+						break;
+					}
+				}
 
-                foreach (ICodeElement regionChildElement in regionChildren)
-                {
-                    ArrangeElement(parentElement, regionChildElement);
-                }
-            }
-            else
-            {
-                foreach (IElementArranger arranger in _arrangers)
-                {
-                    if (arranger.CanArrange(parentElement, codeElement))
-                    {
-                        arranger.ArrangeElement(parentElement, codeElement);
-                        arranged = true;
-                        break;
-                    }
-                }
+				if (!arranged)
+				{
+					if (parentElement != null)
+					{
+						parentElement.AddChild(codeElement);
+					}
+					else
+					{
+						throw new InvalidOperationException(
+							string.Format(
+								Thread.CurrentThread.CurrentCulture,
+								"Cannot arrange element of type {0} with name '{1}'.",
+								codeElement.GetType().Name,
+								codeElement.Name));
+					}
+				}
+			}
+		}
 
-                if (!arranged)
-                {
-                    if (parentElement != null)
-                    {
-                        parentElement.AddChild(codeElement);
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException(
-                            string.Format(
-                            Thread.CurrentThread.CurrentCulture,
-                            "Cannot arrange element of type {0} with name '{1}'.",
-                            codeElement.GetType().Name,
-                            codeElement.Name));
-                    }
-                }
-            }
-        }
+		/// <summary>
+		/// Determines if the specified code element can be arranged by
+		/// any arranger in the chain.
+		/// </summary>
+		/// <param name="codeElement">Code element to check.</param>
+		/// <returns>
+		/// A boolean value indicating whether or not the specified element
+		/// can be arranged by this arranger.
+		/// </returns>
+		public bool CanArrange(ICodeElement codeElement)
+		{
+			return CanArrange(null, codeElement);
+		}
 
-        /// <summary>
-        /// Determines if the specified code element can be arranged by
-        /// any arranger in the chain.
-        /// </summary>
-        /// <param name="codeElement">Code element to check.</param>
-        /// <returns>
-        /// A boolean value indicating whether or not the specified element
-        /// can be arranged by this arranger.
-        /// </returns>
-        public bool CanArrange(ICodeElement codeElement)
-        {
-            return CanArrange(null, codeElement);
-        }
+		/// <summary>
+		/// Determines if the specified code element can be arranged by
+		/// any arranger in the chain.
+		/// </summary>
+		/// <param name="parentElement">Parent code element.</param>
+		/// <param name="codeElement">Code element to check.</param>
+		/// <returns>
+		/// A boolean value indicating whether or not this arranger can 
+		/// arrange the code element.
+		/// </returns>
+		public bool CanArrange(ICodeElement parentElement, ICodeElement codeElement)
+		{
+			bool canArrange = false;
 
-        /// <summary>
-        /// Determines if the specified code element can be arranged by
-        /// any arranger in the chain.
-        /// </summary>
-        /// <param name="parentElement">Parent code element.</param>
-        /// <param name="codeElement">Code element to check.</param>
-        /// <returns>
-        /// A boolean value indicating whether or not this arranger can 
-        /// arrange the code element.
-        /// </returns>
-        public bool CanArrange(ICodeElement parentElement, ICodeElement codeElement)
-        {
-            bool canArrange = false;
+			if (codeElement != null)
+			{
+				foreach (IElementArranger arranger in _arrangers)
+				{
+					if (arranger != null && arranger.CanArrange(parentElement, codeElement))
+					{
+						canArrange = true;
+						break;
+					}
+				}
+			}
 
-            if (codeElement != null)
-            {
-                foreach (IElementArranger arranger in _arrangers)
-                {
-                    if (arranger != null && arranger.CanArrange(parentElement, codeElement))
-                    {
-                        canArrange = true;
-                        break;
-                    }
-                }
-            }
+			return canArrange;
+		}
 
-            return canArrange;
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

@@ -37,181 +37,181 @@
 
 namespace NArrange.Core.CodeElements
 {
-    using System;
-    using System.Collections.Generic;
+	using System;
+	using System.Collections.Generic;
 
-    /// <summary>
-    /// Comparer for ICodeElements.
-    /// </summary>
-    public class ElementComparer : IComparer<ICodeElement>
-    {
-        #region Fields
+	/// <summary>
+	/// Comparer for ICodeElements.
+	/// </summary>
+	public class ElementComparer : IComparer<ICodeElement>
+	{
+		#region Fields
 
-        /// <summary>
-        /// Comparison element attribute.
-        /// </summary>
-        private ElementAttributeType _compareAttribute;
+		/// <summary>
+		/// Comparison element attribute.
+		/// </summary>
+		private ElementAttributeType _compareAttribute;
 
-        /// <summary>
-        /// Comparison delegate.
-        /// </summary>
-        private Comparison<ICodeElement> _comparison;
+		/// <summary>
+		/// Comparison delegate.
+		/// </summary>
+		private Comparison<ICodeElement> _comparison;
 
-        /// <summary>
-        /// Inner comparer.
-        /// </summary>
-        private IComparer<ICodeElement> _innerComparer;
+		/// <summary>
+		/// Inner comparer.
+		/// </summary>
+		private IComparer<ICodeElement> _innerComparer;
 
-        /// <summary>
-        /// Sort direction.
-        /// </summary>
-        private SortDirection _sortDirection;
+		/// <summary>
+		/// Sort direction.
+		/// </summary>
+		private SortDirection _sortDirection;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new ElementComparer.
-        /// </summary>
-        /// <param name="compareAttribute">The compare attribute.</param>
-        /// <param name="sortDirection">The sort direction.</param>
-        public ElementComparer(ElementAttributeType compareAttribute, SortDirection sortDirection)
-            : this(compareAttribute, sortDirection, null)
-        {
-        }
+		/// <summary>
+		/// Creates a new ElementComparer.
+		/// </summary>
+		/// <param name="compareAttribute">The compare attribute.</param>
+		/// <param name="sortDirection">The sort direction.</param>
+		public ElementComparer(ElementAttributeType compareAttribute, SortDirection sortDirection)
+			: this(compareAttribute, sortDirection, null)
+		{
+		}
 
-        /// <summary>
-        /// Create a new ElementComparer.
-        /// </summary>
-        /// <param name="compareAttribute">The compare attribute.</param>
-        /// <param name="sortDirection">The sort direction.</param>
-        /// <param name="innerComparer">The inner comparer.</param>
-        public ElementComparer(
-            ElementAttributeType compareAttribute,
-            SortDirection sortDirection,
-            IComparer<ICodeElement> innerComparer)
-        {
-            _compareAttribute = compareAttribute;
-            _sortDirection = sortDirection;
-            _innerComparer = innerComparer;
+		/// <summary>
+		/// Create a new ElementComparer.
+		/// </summary>
+		/// <param name="compareAttribute">The compare attribute.</param>
+		/// <param name="sortDirection">The sort direction.</param>
+		/// <param name="innerComparer">The inner comparer.</param>
+		public ElementComparer(
+			ElementAttributeType compareAttribute,
+			SortDirection sortDirection,
+			IComparer<ICodeElement> innerComparer)
+		{
+			_compareAttribute = compareAttribute;
+			_sortDirection = sortDirection;
+			_innerComparer = innerComparer;
 
-            _comparison = CreateComparison(compareAttribute);
-        }
+			_comparison = CreateComparison(compareAttribute);
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.
-        /// </summary>
-        /// <param name="x">The first object to compare.</param>
-        /// <param name="y">The second object to compare.</param>
-        /// <returns>
-        /// Value Condition Less than zerox is less than y.Zerox equals y.Greater than zerox is greater than y.
-        /// </returns>
-        public int Compare(ICodeElement x, ICodeElement y)
-        {
-            int compareValue = 0;
+		/// <summary>
+		/// Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.
+		/// </summary>
+		/// <param name="x">The first object to compare.</param>
+		/// <param name="y">The second object to compare.</param>
+		/// <returns>
+		/// Value Condition Less than zerox is less than y.Zerox equals y.Greater than zerox is greater than y.
+		/// </returns>
+		public int Compare(ICodeElement x, ICodeElement y)
+		{
+			int compareValue = 0;
 
-            if (_sortDirection != SortDirection.None)
-            {
-                compareValue = _comparison(x, y);
+			if (_sortDirection != SortDirection.None)
+			{
+				compareValue = _comparison(x, y);
 
-                //
-                // Inner sort?
-                //
-                if (compareValue == 0)
-                {
-                    if (_innerComparer != null)
-                    {
-                        compareValue = _innerComparer.Compare(x, y);
-                    }
-                }
-                else if (_sortDirection == SortDirection.Descending)
-                {
-                    compareValue = -compareValue;
-                }
-            }
+				//
+				// Inner sort?
+				//
+				if (compareValue == 0)
+				{
+					if (_innerComparer != null)
+					{
+						compareValue = _innerComparer.Compare(x, y);
+					}
+				}
+				else if (_sortDirection == SortDirection.Descending)
+				{
+					compareValue = -compareValue;
+				}
+			}
 
-            return compareValue;
-        }
+			return compareValue;
+		}
 
-        /// <summary>
-        /// Creates a comparison delegate based on the configuration.
-        /// </summary>
-        /// <param name="compareAttribute">The compare attribute.</param>
-        /// <returns>
-        /// Comparision delegate for two code elements.
-        /// </returns>
-        public Comparison<ICodeElement> CreateComparison(ElementAttributeType compareAttribute)
-        {
-            Comparison<ICodeElement> comparison = delegate(ICodeElement x, ICodeElement y)
-            {
-                int compareValue = 0;
+		/// <summary>
+		/// Creates a comparison delegate based on the configuration.
+		/// </summary>
+		/// <param name="compareAttribute">The compare attribute.</param>
+		/// <returns>
+		/// Comparision delegate for two code elements.
+		/// </returns>
+		public Comparison<ICodeElement> CreateComparison(ElementAttributeType compareAttribute)
+		{
+			Comparison<ICodeElement> comparison = delegate(ICodeElement x, ICodeElement y)
+			{
+				int compareValue = 0;
 
-                if (x == null && y != null)
-                {
-                    compareValue = -1;
-                }
-                else if (x != null && y == null)
-                {
-                    compareValue = 1;
-                }
-                else
-                {
-                    switch (compareAttribute)
-                    {
-                        case ElementAttributeType.Access:
-                            AttributedElement attributedX = x as AttributedElement;
-                            AttributedElement attributedY = y as AttributedElement;
-                            if (attributedX != null && attributedY != null)
-                            {
-                                compareValue = attributedX.Access.CompareTo(attributedY.Access);
-                            }
-                            break;
+				if (x == null && y != null)
+				{
+					compareValue = -1;
+				}
+				else if (x != null && y == null)
+				{
+					compareValue = 1;
+				}
+				else
+				{
+					switch (compareAttribute)
+					{
+						case ElementAttributeType.Access:
+							AttributedElement attributedX = x as AttributedElement;
+							AttributedElement attributedY = y as AttributedElement;
+							if (attributedX != null && attributedY != null)
+							{
+								compareValue = attributedX.Access.CompareTo(attributedY.Access);
+							}
+							break;
 
-                        case ElementAttributeType.Modifier:
-                            MemberElement memberX = x as MemberElement;
-                            MemberElement memberY = y as MemberElement;
-                            if (memberX != null && memberY != null)
-                            {
-                                compareValue = memberX.MemberModifiers.CompareTo(memberY.MemberModifiers);
-                            }
-                            break;
+						case ElementAttributeType.Modifier:
+							MemberElement memberX = x as MemberElement;
+							MemberElement memberY = y as MemberElement;
+							if (memberX != null && memberY != null)
+							{
+								compareValue = memberX.MemberModifiers.CompareTo(memberY.MemberModifiers);
+							}
+							break;
 
-                        case ElementAttributeType.ElementType:
-                            compareValue = x.ElementType.CompareTo(y.ElementType);
-                            break;
+						case ElementAttributeType.ElementType:
+							compareValue = x.ElementType.CompareTo(y.ElementType);
+							break;
 
-                        default:
-                            if (compareAttribute == ElementAttributeType.Type &&
-                                x is TypeElement && y is TypeElement)
-                            {
-                                compareValue = ((TypeElement)x).Type.CompareTo(((TypeElement)y).Type);
-                            }
-                            else if (compareAttribute == ElementAttributeType.Type &&
-                                x is UsingElement && y is UsingElement)
-                            {
-                                compareValue = ((UsingElement)x).Type.CompareTo(((UsingElement)y).Type);
-                            }
-                            else
-                            {
-                                string attributeX = ElementUtilities.GetAttribute(compareAttribute, x);
-                                string attributeY = ElementUtilities.GetAttribute(compareAttribute, y);
-                                compareValue = StringComparer.OrdinalIgnoreCase.Compare(attributeX, attributeY);
-                            }
-                            break;
-                    }
-                }
+						default:
+							if (compareAttribute == ElementAttributeType.Type &&
+								x is TypeElement && y is TypeElement)
+							{
+								compareValue = ((TypeElement) x).Type.CompareTo(((TypeElement) y).Type);
+							}
+							else if (compareAttribute == ElementAttributeType.Type &&
+									 x is UsingElement && y is UsingElement)
+							{
+								compareValue = ((UsingElement) x).Type.CompareTo(((UsingElement) y).Type);
+							}
+							else
+							{
+								string attributeX = ElementUtilities.GetAttribute(compareAttribute, x);
+								string attributeY = ElementUtilities.GetAttribute(compareAttribute, y);
+								compareValue = StringComparer.OrdinalIgnoreCase.Compare(attributeX, attributeY);
+							}
+							break;
+					}
+				}
 
-                return compareValue;
-            };
+				return compareValue;
+			};
 
-            return comparison;
-        }
+			return comparison;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

@@ -1,104 +1,103 @@
 namespace NArrange.Tests.Core.Configuration
 {
-    using System;
-    using System.Text;
+	using NArrange.Core.Configuration;
+	using NUnit.Framework;
+	using System;
+	using System.Text;
 
-    using NArrange.Core.Configuration;
+	/// <summary>
+	/// Test fixture for the EncodingConfiguration class.
+	/// </summary>
+	[TestFixture]
+	public class EncodingConfigurationTests
+	{
+		#region Methods
 
-    using NUnit.Framework;
+		/// <summary>
+		/// Tests the ICloneable implementation.
+		/// </summary>
+		[Test]
+		public void CloneTest()
+		{
+			EncodingConfiguration encodingConfiguration = new EncodingConfiguration();
+			encodingConfiguration.CodePage = "1252";
 
-    /// <summary>
-    /// Test fixture for the EncodingConfiguration class.
-    /// </summary>
-    [TestFixture]
-    public class EncodingConfigurationTests
-    {
-        #region Methods
+			EncodingConfiguration clone = encodingConfiguration.Clone() as EncodingConfiguration;
+			Assert.IsNotNull(clone, "Clone did not return a valid instance.");
 
-        /// <summary>
-        /// Tests the ICloneable implementation.
-        /// </summary>
-        [Test]
-        public void CloneTest()
-        {
-            EncodingConfiguration encodingConfiguration = new EncodingConfiguration();
-            encodingConfiguration.CodePage = "1252";
+			Assert.AreEqual(encodingConfiguration.CodePage, clone.CodePage);
+		}
 
-            EncodingConfiguration clone = encodingConfiguration.Clone() as EncodingConfiguration;
-            Assert.IsNotNull(clone, "Clone did not return a valid instance.");
+		/// <summary>
+		/// Tests the creation of a new EncodingConfiguration.
+		/// </summary>
+		[Test]
+		public void CreateTest()
+		{
+			EncodingConfiguration encodingConfiguration = new EncodingConfiguration();
 
-            Assert.AreEqual(encodingConfiguration.CodePage, clone.CodePage);
-        }
+			//
+			// Verify default state
+			//
+			Assert.AreEqual(EncodingConfiguration.DetectCodePage, encodingConfiguration.CodePage,
+				"Unexpected default value for CodePage.");
+		}
 
-        /// <summary>
-        /// Tests the creation of a new EncodingConfiguration.
-        /// </summary>
-        [Test]
-        public void CreateTest()
-        {
-            EncodingConfiguration encodingConfiguration = new EncodingConfiguration();
+		/// <summary>
+		/// Tests GetEncoding() with an invalid codepage.
+		/// </summary>
+		[Test]
+		[ExpectedException(typeof (FormatException))]
+		public void GetEncodingInvalidFormatTest()
+		{
+			EncodingConfiguration config = new EncodingConfiguration();
+			config.CodePage = "SFDS";
 
-            //
-            // Verify default state
-            //
-            Assert.AreEqual(EncodingConfiguration.DetectCodePage, encodingConfiguration.CodePage, "Unexpected default value for CodePage.");
-        }
+			config.GetEncoding();
+		}
 
-        /// <summary>
-        /// Tests GetEncoding() with an invalid codepage.
-        /// </summary>
-        [Test]
-        [ExpectedException(typeof(FormatException))]
-        public void GetEncodingInvalidFormatTest()
-        {
-            EncodingConfiguration config = new EncodingConfiguration();
-            config.CodePage = "SFDS";
+		/// <summary>
+		/// Tests valid encoding scenarios.
+		/// </summary>
+		[Test]
+		public void GetEncodingTest()
+		{
+			EncodingConfiguration config = new EncodingConfiguration();
+			Encoding encoding = null;
 
-            config.GetEncoding();
-        }
+			config.CodePage = "Default";
+			encoding = config.GetEncoding();
+			Assert.AreEqual(Encoding.Default.CodePage, encoding.CodePage, "Unexpected codepage.");
+			config.CodePage = "default";
+			encoding = config.GetEncoding();
+			Assert.AreEqual(Encoding.Default.CodePage, encoding.CodePage, "Unexpected codepage.");
 
-        /// <summary>
-        /// Tests valid encoding scenarios.
-        /// </summary>
-        [Test]
-        public void GetEncodingTest()
-        {
-            EncodingConfiguration config = new EncodingConfiguration();
-            Encoding encoding = null;
+			config.CodePage = "65001";
+			encoding = config.GetEncoding();
+			Assert.AreEqual(65001, encoding.CodePage, "Unexpected codepage.");
 
-            config.CodePage = "Default";
-            encoding = config.GetEncoding();
-            Assert.AreEqual(Encoding.Default.CodePage, encoding.CodePage, "Unexpected codepage.");
-            config.CodePage = "default";
-            encoding = config.GetEncoding();
-            Assert.AreEqual(Encoding.Default.CodePage, encoding.CodePage, "Unexpected codepage.");
+			config.CodePage = "Detect";
+			encoding = config.GetEncoding();
+			Assert.IsNull(encoding, "Unexpected encoding.");
+			config.CodePage = "detect";
+			encoding = config.GetEncoding();
+			Assert.IsNull(encoding, "Unexpected encoding.");
+		}
 
-            config.CodePage = "65001";
-            encoding = config.GetEncoding();
-            Assert.AreEqual(65001, encoding.CodePage, "Unexpected codepage.");
+		/// <summary>
+		/// Tests the ToString method.
+		/// </summary>
+		[Test]
+		public void ToStringTest()
+		{
+			EncodingConfiguration encodingConfiguration = new EncodingConfiguration();
+			encodingConfiguration.CodePage = "65001";
 
-            config.CodePage = "Detect";
-            encoding = config.GetEncoding();
-            Assert.IsNull(encoding, "Unexpected encoding.");
-            config.CodePage = "detect";
-            encoding = config.GetEncoding();
-            Assert.IsNull(encoding, "Unexpected encoding.");
-        }
+			string str = encodingConfiguration.ToString();
 
-        /// <summary>
-        /// Tests the ToString method.
-        /// </summary>
-        [Test]
-        public void ToStringTest()
-        {
-            EncodingConfiguration encodingConfiguration = new EncodingConfiguration();
-            encodingConfiguration.CodePage = "65001";
+			Assert.AreEqual("Encoding: CodePage - 65001", str, "Unexpected string representation.");
+		}
 
-            string str = encodingConfiguration.ToString();
-
-            Assert.AreEqual("Encoding: CodePage - 65001", str, "Unexpected string representation.");
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

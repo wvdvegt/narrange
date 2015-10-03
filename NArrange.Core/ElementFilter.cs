@@ -38,115 +38,112 @@
 
 namespace NArrange.Core
 {
-    using NArrange.Core.CodeElements;
-    using NArrange.Core.Configuration;
+	using NArrange.Core.CodeElements;
+	using NArrange.Core.Configuration;
 
-    /// <summary>
-    /// Class for determining whether or not an element matches 
-    /// filter criteria.
-    /// </summary>
-    public class ElementFilter : IElementFilter
-    {
-        #region Fields
+	/// <summary>
+	/// Class for determining whether or not an element matches 
+	/// filter criteria.
+	/// </summary>
+	public class ElementFilter : IElementFilter
+	{
+		#region Fields
 
-        /// <summary>
-        /// Filter condition expression.
-        /// </summary>
-        private readonly IConditionExpression _conditionExpression;
+		/// <summary>
+		/// Filter condition expression.
+		/// </summary>
+		private readonly IConditionExpression _conditionExpression;
 
-        /// <summary>
-        /// Filter condition scope that is required for evaluation.
-        /// </summary>
-        private readonly ElementAttributeScope _requiredScope;
+		/// <summary>
+		/// Filter condition scope that is required for evaluation.
+		/// </summary>
+		private readonly ElementAttributeScope _requiredScope;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new ElementFilter.
-        /// </summary>
-        /// <param name="conditionExpression">The condition expression.</param>
-        public ElementFilter(string conditionExpression)
-        {
-            _conditionExpression = ConditionExpressionParser.Instance.Parse(conditionExpression);
-            _requiredScope = GetRequiredScope(_conditionExpression);
-        }
+		/// <summary>
+		/// Creates a new ElementFilter.
+		/// </summary>
+		/// <param name="conditionExpression">The condition expression.</param>
+		public ElementFilter(string conditionExpression)
+		{
+			_conditionExpression = ConditionExpressionParser.Instance.Parse(conditionExpression);
+			_requiredScope = GetRequiredScope(_conditionExpression);
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the required scope information for evaluating the condition.
-        /// </summary>
-        public ElementAttributeScope RequiredScope
-        {
-            get
-            {
-                return _requiredScope;
-            }
-        }
+		/// <summary>
+		/// Gets the required scope information for evaluating the condition.
+		/// </summary>
+		public ElementAttributeScope RequiredScope
+		{
+			get { return _requiredScope; }
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Determines whether or not the specified code element matches the
-        /// filter criteria.
-        /// </summary>
-        /// <param name="codeElement">Code element to analyze.</param>
-        /// <returns>
-        /// True if the elemet matches the filter, otherwise false.
-        /// </returns>
-        public bool IsMatch(ICodeElement codeElement)
-        {
-            bool isMatch = false;
+		/// <summary>
+		/// Determines whether or not the specified code element matches the
+		/// filter criteria.
+		/// </summary>
+		/// <param name="codeElement">Code element to analyze.</param>
+		/// <returns>
+		/// True if the elemet matches the filter, otherwise false.
+		/// </returns>
+		public bool IsMatch(ICodeElement codeElement)
+		{
+			bool isMatch = false;
 
-            if (codeElement != null)
-            {
-                isMatch = ConditionExpressionEvaluator.Instance.Evaluate(_conditionExpression, codeElement);
-            }
+			if (codeElement != null)
+			{
+				isMatch = ConditionExpressionEvaluator.Instance.Evaluate(_conditionExpression, codeElement);
+			}
 
-            return isMatch;
-        }
+			return isMatch;
+		}
 
-        /// <summary>
-        /// Gets the scope required to evaluate the condition.
-        /// </summary>
-        /// <param name="expression">Condition expression.</param>
-        /// <returns>Element attribute scope.</returns>
-        private ElementAttributeScope GetRequiredScope(IConditionExpression expression)
-        {
-            ElementAttributeScope scope = ElementAttributeScope.Element;
+		/// <summary>
+		/// Gets the scope required to evaluate the condition.
+		/// </summary>
+		/// <param name="expression">Condition expression.</param>
+		/// <returns>Element attribute scope.</returns>
+		private ElementAttributeScope GetRequiredScope(IConditionExpression expression)
+		{
+			ElementAttributeScope scope = ElementAttributeScope.Element;
 
-            if (expression != null)
-            {
-                ElementAttributeExpression attributeExpression = expression as ElementAttributeExpression;
-                if (attributeExpression != null)
-                {
-                    scope = attributeExpression.Scope;
-                }
-                else
-                {
-                    ElementAttributeScope leftScope = GetRequiredScope(expression.Left);
-                    ElementAttributeScope rightScope = GetRequiredScope(expression.Right);
+			if (expression != null)
+			{
+				ElementAttributeExpression attributeExpression = expression as ElementAttributeExpression;
+				if (attributeExpression != null)
+				{
+					scope = attributeExpression.Scope;
+				}
+				else
+				{
+					ElementAttributeScope leftScope = GetRequiredScope(expression.Left);
+					ElementAttributeScope rightScope = GetRequiredScope(expression.Right);
 
-                    if (leftScope > rightScope)
-                    {
-                        scope = leftScope;
-                    }
-                    else
-                    {
-                        scope = rightScope;
-                    }
-                }
-            }
+					if (leftScope > rightScope)
+					{
+						scope = leftScope;
+					}
+					else
+					{
+						scope = rightScope;
+					}
+				}
+			}
 
-            return scope;
-        }
+			return scope;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

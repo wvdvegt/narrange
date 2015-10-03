@@ -37,121 +37,117 @@
 
 namespace NArrange.Core
 {
-    using System;
-    using System.Collections.ObjectModel;
-    using System.IO;
+	using NArrange.Core.CodeElements;
+	using NArrange.Core.Configuration;
+	using System;
+	using System.Collections.ObjectModel;
+	using System.IO;
 
-    using NArrange.Core.CodeElements;
-    using NArrange.Core.Configuration;
+	/// <summary>
+	/// Base class for writing code elements to a file.
+	/// </summary>
+	public abstract class CodeWriter : ICodeElementWriter
+	{
+		#region Fields
 
-    /// <summary>
-    /// Base class for writing code elements to a file.
-    /// </summary>
-    public abstract class CodeWriter : ICodeElementWriter
-    {
-        #region Fields
+		/// <summary>
+		/// Code configuration.
+		/// </summary>
+		private CodeConfiguration _configuration;
 
-        /// <summary>
-        /// Code configuration.
-        /// </summary>
-        private CodeConfiguration _configuration;
+		#endregion Fields
 
-        #endregion Fields
+		#region Properties
 
-        #region Properties
+		/// <summary>
+		/// Gets or sets the code configuration.
+		/// </summary>
+		public CodeConfiguration Configuration
+		{
+			get
+			{
+				if (_configuration == null)
+				{
+					_configuration = CodeConfiguration.Default;
+				}
 
-        /// <summary>
-        /// Gets or sets the code configuration.
-        /// </summary>
-        public CodeConfiguration Configuration
-        {
-            get
-            {
-                if (_configuration == null)
-                {
-                    _configuration = CodeConfiguration.Default;
-                }
+				return _configuration;
+			}
+			set { _configuration = value; }
+		}
 
-                return _configuration;
-            }
-            set
-            {
-                _configuration = value;
-            }
-        }
+		#endregion Properties
 
-        #endregion Properties
+		#region Methods
 
-        #region Methods
+		/// <summary>
+		/// Writes each element using the specified visitor.
+		/// </summary>
+		/// <param name="codeElements">The code elements.</param>
+		/// <param name="writer">The writer.</param>
+		/// <param name="visitor">The visitor.</param>
+		public static void WriteVisitElements(
+			ReadOnlyCollection<ICodeElement> codeElements,
+			TextWriter writer,
+			ICodeElementVisitor visitor)
+		{
+			for (int index = 0; index < codeElements.Count; index++)
+			{
+				ICodeElement codeElement = codeElements[index];
+				if (codeElement != null)
+				{
+					CommentedElement commentedElement = codeElement as CommentedElement;
+					if (index > 0 &&
+						((commentedElement != null && commentedElement.HeaderComments.Count > 0) ||
+						 codeElement is NamespaceElement || codeElement is TypeElement ||
+						 codeElement is RegionElement || codeElement is ConditionDirectiveElement ||
+						 (codeElement is MemberElement && !(codeElement is FieldElement)) ||
+						 (!(codeElement is GroupElement) &&
+						  codeElement.ElementType != codeElements[index - 1].ElementType) ||
+						 codeElements[index - 1] is GroupElement))
+					{
+						writer.WriteLine();
+					}
 
-        /// <summary>
-        /// Writes each element using the specified visitor.
-        /// </summary>
-        /// <param name="codeElements">The code elements.</param>
-        /// <param name="writer">The writer.</param>
-        /// <param name="visitor">The visitor.</param>
-        public static void WriteVisitElements(
-            ReadOnlyCollection<ICodeElement> codeElements,
-            TextWriter writer,
-            ICodeElementVisitor visitor)
-        {
-            for (int index = 0; index < codeElements.Count; index++)
-            {
-                ICodeElement codeElement = codeElements[index];
-                if (codeElement != null)
-                {
-                    CommentedElement commentedElement = codeElement as CommentedElement;
-                    if (index > 0 &&
-                        ((commentedElement != null && commentedElement.HeaderComments.Count > 0) ||
-                        codeElement is NamespaceElement || codeElement is TypeElement ||
-                        codeElement is RegionElement || codeElement is ConditionDirectiveElement ||
-                        (codeElement is MemberElement && !(codeElement is FieldElement)) ||
-                        (!(codeElement is GroupElement) &&
-                        codeElement.ElementType != codeElements[index - 1].ElementType) ||
-                        codeElements[index - 1] is GroupElement))
-                    {
-                        writer.WriteLine();
-                    }
+					codeElement.Accept(visitor);
 
-                    codeElement.Accept(visitor);
+					if (codeElements.Count > 1 && index < codeElements.Count - 1)
+					{
+						writer.WriteLine();
+						if ((codeElement is RegionElement || codeElement is ConditionDirectiveElement) &&
+							codeElement.Parent == null &&
+							!(codeElements.Count > index + 1 && codeElements[index + 1] is NamespaceElement))
+						{
+							writer.WriteLine();
+						}
+					}
+				}
+			}
+		}
 
-                    if (codeElements.Count > 1 && index < codeElements.Count - 1)
-                    {
-                        writer.WriteLine();
-                        if ((codeElement is RegionElement || codeElement is ConditionDirectiveElement) &&
-                            codeElement.Parent == null &&
-                            !(codeElements.Count > index + 1 && codeElements[index + 1] is NamespaceElement))
-                        {
-                            writer.WriteLine();
-                        }
-                    }
-                }
-            }
-        }
+		/// <summary>
+		/// Writes code elements to the specified text writer.
+		/// </summary>
+		/// <param name="codeElements">Read only collection of elements</param>
+		/// <param name="writer">Code file writer</param>
+		public void Write(ReadOnlyCollection<ICodeElement> codeElements, TextWriter writer)
+		{
+			if (codeElements == null)
+			{
+				throw new ArgumentNullException("codeElements");
+			}
 
-        /// <summary>
-        /// Writes code elements to the specified text writer.
-        /// </summary>
-        /// <param name="codeElements">Read only collection of elements</param>
-        /// <param name="writer">Code file writer</param>
-        public void Write(ReadOnlyCollection<ICodeElement> codeElements, TextWriter writer)
-        {
-            if (codeElements == null)
-            {
-                throw new ArgumentNullException("codeElements");
-            }
+			DoWriteElements(codeElements, writer);
+		}
 
-            DoWriteElements(codeElements, writer);
-        }
+		/// <summary>
+		/// Template method for inheritors to write a collection of code elements to the
+		/// specified text writer.
+		/// </summary>
+		/// <param name="codeElements">The code elements.</param>
+		/// <param name="writer">The writer.</param>
+		protected abstract void DoWriteElements(ReadOnlyCollection<ICodeElement> codeElements, TextWriter writer);
 
-        /// <summary>
-        /// Template method for inheritors to write a collection of code elements to the
-        /// specified text writer.
-        /// </summary>
-        /// <param name="codeElements">The code elements.</param>
-        /// <param name="writer">The writer.</param>
-        protected abstract void DoWriteElements(ReadOnlyCollection<ICodeElement> codeElements, TextWriter writer);
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

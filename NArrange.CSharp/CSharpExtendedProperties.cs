@@ -38,18 +38,18 @@
 
 namespace NArrange.CSharp
 {
-    /// <summary>
-    /// CSharp extended element property names.
-    /// </summary>
-    public static class CSharpExtendedProperties
-    {
-        #region Fields
+	/// <summary>
+	/// CSharp extended element property names.
+	/// </summary>
+	public static class CSharpExtendedProperties
+	{
+		#region Fields
 
-        /// <summary>
-        /// Property for whether or not the field is fixed (bool).
-        /// </summary>
-        public const string Fixed = CSharpKeyword.Fixed;
+		/// <summary>
+		/// Property for whether or not the field is fixed (bool).
+		/// </summary>
+		public const string Fixed = CSharpKeyword.Fixed;
 
-        #endregion Fields
-    }
+		#endregion Fields
+	}
 }

@@ -38,301 +38,300 @@
 
 namespace NArrange.Core
 {
-    using System;
-    using System.IO;
-    using System.Text.RegularExpressions;
-    using System.Threading;
+	using NArrange.Core.CodeElements;
+	using NArrange.Core.Configuration;
+	using System;
+	using System.IO;
+	using System.Text.RegularExpressions;
+	using System.Threading;
 
-    using NArrange.Core.CodeElements;
-    using NArrange.Core.Configuration;
+	/// <summary>
+	/// Class for evaluating filter expressions.
+	/// </summary>
+	public sealed class ConditionExpressionEvaluator
+	{
+		#region Fields
 
-    /// <summary>
-    /// Class for evaluating filter expressions.
-    /// </summary>
-    public sealed class ConditionExpressionEvaluator
-    {
-        #region Fields
+		/// <summary>
+		/// Synchronization lock for the singleton instance.
+		/// </summary>
+		private static readonly object _instanceLock = new object();
 
-        /// <summary>
-        /// Synchronization lock for the singleton instance.
-        /// </summary>
-        private static readonly object _instanceLock = new object();
+		/// <summary>
+		/// Singleton instance field.
+		/// </summary>
+		private static ConditionExpressionEvaluator _instance;
 
-        /// <summary>
-        /// Singleton instance field.
-        /// </summary>
-        private static ConditionExpressionEvaluator _instance;
+		#endregion Fields
 
-        #endregion Fields
+		#region Constructors
 
-        #region Constructors
+		/// <summary>
+		/// Creates a new ConditionExpressionEvaluator.
+		/// </summary>
+		private ConditionExpressionEvaluator()
+		{
+		}
 
-        /// <summary>
-        /// Creates a new ConditionExpressionEvaluator.
-        /// </summary>
-        private ConditionExpressionEvaluator()
-        {
-        }
+		#endregion Constructors
 
-        #endregion Constructors
+		#region Properties
 
-        #region Properties
+		/// <summary>
+		/// Gets the single instance of the expression evaluator.
+		/// </summary>
+		public static ConditionExpressionEvaluator Instance
+		{
+			get
+			{
+				if (_instance == null)
+				{
+					lock (_instanceLock)
+					{
+						if (_instance == null)
+						{
+							_instance = new ConditionExpressionEvaluator();
+						}
+					}
+				}
 
-        /// <summary>
-        /// Gets the single instance of the expression evaluator.
-        /// </summary>
-        public static ConditionExpressionEvaluator Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    lock (_instanceLock)
-                    {
-                        if (_instance == null)
-                        {
-                            _instance = new ConditionExpressionEvaluator();
-                        }
-                    }
-                }
+				return _instance;
+			}
+		}
 
-                return _instance;
-            }
-        }
+		#endregion Properties
 
-        #endregion Properties
+		#region Methods
 
-        #region Methods
+		/// <summary>
+		/// Evaluates an expression against the specified file.
+		/// </summary>
+		/// <param name="conditionExpression">The condition expression.</param>
+		/// <param name="file">The file to evaluate against.</param>
+		/// <returns>True if the expression evaluates to true, otherwise false.</returns>
+		public bool Evaluate(IConditionExpression conditionExpression, FileInfo file)
+		{
+			bool result = false;
 
-        /// <summary>
-        /// Evaluates an expression against the specified file.
-        /// </summary>
-        /// <param name="conditionExpression">The condition expression.</param>
-        /// <param name="file">The file to evaluate against.</param>
-        /// <returns>True if the expression evaluates to true, otherwise false.</returns>
-        public bool Evaluate(IConditionExpression conditionExpression, FileInfo file)
-        {
-            bool result = false;
+			if (conditionExpression == null)
+			{
+				throw new ArgumentNullException("conditionExpression");
+			}
+			else if (file == null)
+			{
+				throw new ArgumentNullException("file");
+			}
 
-            if (conditionExpression == null)
-            {
-                throw new ArgumentNullException("conditionExpression");
-            }
-            else if (file == null)
-            {
-                throw new ArgumentNullException("file");
-            }
+			result = Evaluate<FileInfo>(conditionExpression, file);
 
-            result = Evaluate<FileInfo>(conditionExpression, file);
+			return result;
+		}
 
-            return result;
-        }
+		/// <summary>
+		/// Evaluates an expression against the specified element.
+		/// </summary>
+		/// <param name="conditionExpression">The condition expression.</param>
+		/// <param name="element">The element.</param>
+		/// <returns>True if the expression holds true for the element, otherwise false.</returns>
+		public bool Evaluate(IConditionExpression conditionExpression, ICodeElement element)
+		{
+			bool result = false;
 
-        /// <summary>
-        /// Evaluates an expression against the specified element.
-        /// </summary>
-        /// <param name="conditionExpression">The condition expression.</param>
-        /// <param name="element">The element.</param>
-        /// <returns>True if the expression holds true for the element, otherwise false.</returns>
-        public bool Evaluate(IConditionExpression conditionExpression, ICodeElement element)
-        {
-            bool result = false;
+			if (conditionExpression == null)
+			{
+				throw new ArgumentNullException("conditionExpression");
+			}
+			else if (element == null)
+			{
+				throw new ArgumentNullException("element");
+			}
 
-            if (conditionExpression == null)
-            {
-                throw new ArgumentNullException("conditionExpression");
-            }
-            else if (element == null)
-            {
-                throw new ArgumentNullException("element");
-            }
+			result = Evaluate<ICodeElement>(conditionExpression, element);
 
-            result = Evaluate<ICodeElement>(conditionExpression, element);
+			return result;
+		}
 
-            return result;
-        }
+		/// <summary>
+		/// Gets the expression value.
+		/// </summary>
+		/// <param name="expression">The expression.</param>
+		/// <param name="element">The element.</param>
+		/// <returns>The expression value as text.</returns>
+		private static string GetExpressionValue(IConditionExpression expression, ICodeElement element)
+		{
+			string value = string.Empty;
 
-        /// <summary>
-        /// Gets the expression value.
-        /// </summary>
-        /// <param name="expression">The expression.</param>
-        /// <param name="element">The element.</param>
-        /// <returns>The expression value as text.</returns>
-        private static string GetExpressionValue(IConditionExpression expression, ICodeElement element)
-        {
-            string value = string.Empty;
+			if (expression != null && element != null)
+			{
+				StringExpression stringExpression = expression as StringExpression;
+				if (stringExpression != null)
+				{
+					value = stringExpression.Text;
+				}
+				else
+				{
+					ElementAttributeExpression attributeExpression = expression as ElementAttributeExpression;
 
-            if (expression != null && element != null)
-            {
-                StringExpression stringExpression = expression as StringExpression;
-                if (stringExpression != null)
-                {
-                    value = stringExpression.Text;
-                }
-                else
-                {
-                    ElementAttributeExpression attributeExpression = expression as ElementAttributeExpression;
+					if (attributeExpression.Scope == ElementAttributeScope.Parent)
+					{
+						element = element.Parent;
+					}
 
-                    if (attributeExpression.Scope == ElementAttributeScope.Parent)
-                    {
-                        element = element.Parent;
-                    }
+					if (attributeExpression != null)
+					{
+						value = ElementUtilities.GetAttribute(attributeExpression.ElementAttribute, element);
+					}
+				}
+			}
 
-                    if (attributeExpression != null)
-                    {
-                        value = ElementUtilities.GetAttribute(attributeExpression.ElementAttribute, element);
-                    }
-                }
-            }
+			return value;
+		}
 
-            return value;
-        }
+		/// <summary>
+		/// Gets the expression value.
+		/// </summary>
+		/// <param name="expression">The expression.</param>
+		/// <param name="entity">The entity.</param>
+		/// <returns>The expression value as text.</returns>
+		private static string GetExpressionValue(IConditionExpression expression, object entity)
+		{
+			string expressionValue = string.Empty;
 
-        /// <summary>
-        /// Gets the expression value.
-        /// </summary>
-        /// <param name="expression">The expression.</param>
-        /// <param name="entity">The entity.</param>
-        /// <returns>The expression value as text.</returns>
-        private static string GetExpressionValue(IConditionExpression expression, object entity)
-        {
-            string expressionValue = string.Empty;
+			ICodeElement element = entity as ICodeElement;
+			if (element != null)
+			{
+				expressionValue = GetExpressionValue(expression, element);
+			}
+			else
+			{
+				FileInfo file = entity as FileInfo;
+				if (file != null)
+				{
+					expressionValue = GetExpressionValue(expression, file);
+				}
+			}
 
-            ICodeElement element = entity as ICodeElement;
-            if (element != null)
-            {
-                expressionValue = GetExpressionValue(expression, element);
-            }
-            else
-            {
-                FileInfo file = entity as FileInfo;
-                if (file != null)
-                {
-                    expressionValue = GetExpressionValue(expression, file);
-                }
-            }
+			return expressionValue;
+		}
 
-            return expressionValue;
-        }
+		/// <summary>
+		/// Gets the expression value.
+		/// </summary>
+		/// <param name="expression">The expression.</param>
+		/// <param name="file">The file to evaluate the expression against.</param>
+		/// <returns>The expression value as text.</returns>
+		private static string GetExpressionValue(IConditionExpression expression, FileInfo file)
+		{
+			string value = string.Empty;
 
-        /// <summary>
-        /// Gets the expression value.
-        /// </summary>
-        /// <param name="expression">The expression.</param>
-        /// <param name="file">The file to evaluate the expression against.</param>
-        /// <returns>The expression value as text.</returns>
-        private static string GetExpressionValue(IConditionExpression expression, FileInfo file)
-        {
-            string value = string.Empty;
+			if (expression != null && file != null)
+			{
+				StringExpression stringExpression = expression as StringExpression;
+				if (stringExpression != null)
+				{
+					value = stringExpression.Text;
+				}
+				else
+				{
+					FileAttributeExpression attributeExpression = expression as FileAttributeExpression;
+					if (attributeExpression != null)
+					{
+						value = FileUtilities.GetAttribute(attributeExpression.FileAttribute, file);
+					}
+				}
+			}
 
-            if (expression != null && file != null)
-            {
-                StringExpression stringExpression = expression as StringExpression;
-                if (stringExpression != null)
-                {
-                    value = stringExpression.Text;
-                }
-                else
-                {
-                    FileAttributeExpression attributeExpression = expression as FileAttributeExpression;
-                    if (attributeExpression != null)
-                    {
-                        value = FileUtilities.GetAttribute(attributeExpression.FileAttribute, file);
-                    }
-                }
-            }
+			return value;
+		}
 
-            return value;
-        }
+		/// <summary>
+		/// Evaluates an expression against the specified entity.
+		/// </summary>
+		/// <typeparam name="TEntity">Entity type</typeparam>
+		/// <param name="conditionExpression">The condition expression.</param>
+		/// <param name="entity">The entity.</param>
+		/// <returns>True if the expression holds true, otherwise false.</returns>
+		private bool Evaluate<TEntity>(IConditionExpression conditionExpression, TEntity entity)
+		{
+			bool result = false;
 
-        /// <summary>
-        /// Evaluates an expression against the specified entity.
-        /// </summary>
-        /// <typeparam name="TEntity">Entity type</typeparam>
-        /// <param name="conditionExpression">The condition expression.</param>
-        /// <param name="entity">The entity.</param>
-        /// <returns>True if the expression holds true, otherwise false.</returns>
-        private bool Evaluate<TEntity>(IConditionExpression conditionExpression, TEntity entity)
-        {
-            bool result = false;
+			BinaryOperatorExpression binaryOperatorExpression = conditionExpression as BinaryOperatorExpression;
+			if (binaryOperatorExpression != null)
+			{
+				string leftStr, rightStr;
+				bool leftResult, rightResult;
 
-            BinaryOperatorExpression binaryOperatorExpression = conditionExpression as BinaryOperatorExpression;
-            if (binaryOperatorExpression != null)
-            {
-                string leftStr, rightStr;
-                bool leftResult, rightResult;
+				switch (binaryOperatorExpression.Operator)
+				{
+					case BinaryExpressionOperator.Equal:
+						leftStr = GetExpressionValue(binaryOperatorExpression.Left, entity);
+						rightStr = GetExpressionValue(binaryOperatorExpression.Right, entity);
+						result = leftStr == rightStr;
+						break;
 
-                switch (binaryOperatorExpression.Operator)
-                {
-                    case BinaryExpressionOperator.Equal:
-                        leftStr = GetExpressionValue(binaryOperatorExpression.Left, entity);
-                        rightStr = GetExpressionValue(binaryOperatorExpression.Right, entity);
-                        result = leftStr == rightStr;
-                        break;
+					case BinaryExpressionOperator.NotEqual:
+						leftStr = GetExpressionValue(binaryOperatorExpression.Left, entity);
+						rightStr = GetExpressionValue(binaryOperatorExpression.Right, entity);
+						result = leftStr != rightStr;
+						break;
 
-                    case BinaryExpressionOperator.NotEqual:
-                        leftStr = GetExpressionValue(binaryOperatorExpression.Left, entity);
-                        rightStr = GetExpressionValue(binaryOperatorExpression.Right, entity);
-                        result = leftStr != rightStr;
-                        break;
+					case BinaryExpressionOperator.Contains:
+						leftStr = GetExpressionValue(binaryOperatorExpression.Left, entity);
+						rightStr = GetExpressionValue(binaryOperatorExpression.Right, entity);
+						result = leftStr.Contains(rightStr);
+						break;
 
-                    case BinaryExpressionOperator.Contains:
-                        leftStr = GetExpressionValue(binaryOperatorExpression.Left, entity);
-                        rightStr = GetExpressionValue(binaryOperatorExpression.Right, entity);
-                        result = leftStr.Contains(rightStr);
-                        break;
+					case BinaryExpressionOperator.Matches:
+						leftStr = GetExpressionValue(binaryOperatorExpression.Left, entity);
+						rightStr = GetExpressionValue(binaryOperatorExpression.Right, entity);
+						Regex regex = new Regex(rightStr);
+						result = regex.IsMatch(leftStr);
+						break;
 
-                    case BinaryExpressionOperator.Matches:
-                        leftStr = GetExpressionValue(binaryOperatorExpression.Left, entity);
-                        rightStr = GetExpressionValue(binaryOperatorExpression.Right, entity);
-                        Regex regex = new Regex(rightStr);
-                        result = regex.IsMatch(leftStr);
-                        break;
+					case BinaryExpressionOperator.And:
+						leftResult = Evaluate(binaryOperatorExpression.Left, entity);
+						rightResult = Evaluate(binaryOperatorExpression.Right, entity);
+						result = leftResult && rightResult;
+						break;
 
-                    case BinaryExpressionOperator.And:
-                        leftResult = Evaluate(binaryOperatorExpression.Left, entity);
-                        rightResult = Evaluate(binaryOperatorExpression.Right, entity);
-                        result = leftResult && rightResult;
-                        break;
+					case BinaryExpressionOperator.Or:
+						leftResult = Evaluate(binaryOperatorExpression.Left, entity);
+						rightResult = Evaluate(binaryOperatorExpression.Right, entity);
+						result = leftResult || rightResult;
+						break;
 
-                    case BinaryExpressionOperator.Or:
-                        leftResult = Evaluate(binaryOperatorExpression.Left, entity);
-                        rightResult = Evaluate(binaryOperatorExpression.Right, entity);
-                        result = leftResult || rightResult;
-                        break;
+					default:
+						throw new ArgumentOutOfRangeException(
+							string.Format(
+								Thread.CurrentThread.CurrentCulture,
+								"Unsupported operator type {0}",
+								binaryOperatorExpression.Operator));
+				}
+			}
+			else
+			{
+				UnaryOperatorExpression unaryOperatorExpression = conditionExpression as UnaryOperatorExpression;
+				if (unaryOperatorExpression != null)
+				{
+					switch (unaryOperatorExpression.Operator)
+					{
+						case UnaryExpressionOperator.Negate:
+							result = !Evaluate(unaryOperatorExpression.InnerExpression, entity);
+							break;
 
-                    default:
-                        throw new ArgumentOutOfRangeException(
-                            string.Format(
-                            Thread.CurrentThread.CurrentCulture,
-                            "Unsupported operator type {0}",
-                            binaryOperatorExpression.Operator));
-                }
-            }
-            else
-            {
-                UnaryOperatorExpression unaryOperatorExpression = conditionExpression as UnaryOperatorExpression;
-                if (unaryOperatorExpression != null)
-                {
-                    switch (unaryOperatorExpression.Operator)
-                    {
-                        case UnaryExpressionOperator.Negate:
-                            result = !Evaluate(unaryOperatorExpression.InnerExpression, entity);
-                            break;
+						default:
+							throw new ArgumentOutOfRangeException(
+								string.Format(
+									Thread.CurrentThread.CurrentCulture,
+									"Unsupported operator type {0}",
+									unaryOperatorExpression.Operator));
+					}
+				}
+			}
 
-                        default:
-                            throw new ArgumentOutOfRangeException(
-                                string.Format(
-                                Thread.CurrentThread.CurrentCulture,
-                                "Unsupported operator type {0}",
-                                unaryOperatorExpression.Operator));
-                    }
-                }
-            }
+			return result;
+		}
 
-            return result;
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

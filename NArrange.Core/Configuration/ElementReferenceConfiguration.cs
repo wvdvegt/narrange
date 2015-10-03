@@ -38,120 +38,108 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System.ComponentModel;
-    using System.Threading;
-    using System.Xml.Serialization;
+	using System.ComponentModel;
+	using System.Threading;
+	using System.Xml.Serialization;
 
-    /// <summary>
-    /// Element reference configuration.
-    /// </summary>
-    [XmlType("ElementRef")]
-    [DisplayName("Element Reference")]
-    public class ElementReferenceConfiguration : ConfigurationElement
-    {
-        #region Fields
+	/// <summary>
+	/// Element reference configuration.
+	/// </summary>
+	[XmlType("ElementRef")]
+	[DisplayName("Element Reference")]
+	public class ElementReferenceConfiguration : ConfigurationElement
+	{
+		#region Fields
 
-        /// <summary>
-        /// The referenced element ID.
-        /// </summary>
-        private string _id;
+		/// <summary>
+		/// The referenced element ID.
+		/// </summary>
+		private string _id;
 
-        /// <summary>
-        /// The referenced element, if loaded.
-        /// </summary>
-        private ElementConfiguration _referencedElement;
+		/// <summary>
+		/// The referenced element, if loaded.
+		/// </summary>
+		private ElementConfiguration _referencedElement;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the collection of element configurations.
-        /// </summary>
-        [Browsable(false)]
-        public override ConfigurationElementCollection Elements
-        {
-            get
-            {
-                return base.Elements;
-            }
-        }
+		/// <summary>
+		/// Gets the collection of element configurations.
+		/// </summary>
+		[Browsable(false)]
+		public override ConfigurationElementCollection Elements
+		{
+			get { return base.Elements; }
+		}
 
-        /// <summary>
-        /// Gets or sets the element reference identifier.
-        /// </summary>
-        [XmlAttribute("Id")]
-        [Description("The unique identifier of the referenced element.")]
-        public string Id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the element reference identifier.
+		/// </summary>
+		[XmlAttribute("Id")]
+		[Description("The unique identifier of the referenced element.")]
+		public string Id
+		{
+			get { return _id; }
+			set { _id = value; }
+		}
 
-        /// <summary>
-        /// Gets the referenced element configuration.
-        /// </summary>
-        [XmlIgnore]
-        [Browsable(false)]
-        public ElementConfiguration ReferencedElement
-        {
-            get
-            {
-                return _referencedElement;
-            }
-            internal set
-            {
-                if (value != null)
-                {
-                    _referencedElement = value.Clone() as ElementConfiguration;
-                    _referencedElement.Id = null;
-                }
-                else
-                {
-                    _referencedElement = null;
-                }
-            }
-        }
+		/// <summary>
+		/// Gets the referenced element configuration.
+		/// </summary>
+		[XmlIgnore]
+		[Browsable(false)]
+		public ElementConfiguration ReferencedElement
+		{
+			get { return _referencedElement; }
+			internal set
+			{
+				if (value != null)
+				{
+					_referencedElement = value.Clone() as ElementConfiguration;
+					_referencedElement.Id = null;
+				}
+				else
+				{
+					_referencedElement = null;
+				}
+			}
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Gets a string representation.
-        /// </summary>
-        /// <returns>The string represetation.</returns>
-        public override string ToString()
-        {
-            return string.Format(
-                Thread.CurrentThread.CurrentCulture, "Element Reference: {0}", Id);
-        }
+		/// <summary>
+		/// Gets a string representation.
+		/// </summary>
+		/// <returns>The string represetation.</returns>
+		public override string ToString()
+		{
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture, "Element Reference: {0}", Id);
+		}
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>Clone of this instance.</returns>
-        protected override ConfigurationElement DoClone()
-        {
-            ElementReferenceConfiguration clone = new ElementReferenceConfiguration();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>Clone of this instance.</returns>
+		protected override ConfigurationElement DoClone()
+		{
+			ElementReferenceConfiguration clone = new ElementReferenceConfiguration();
 
-            clone._id = _id;
+			clone._id = _id;
 
-            if (_referencedElement != null)
-            {
-                ElementConfiguration referenceClone = _referencedElement.Clone() as ElementConfiguration;
-                clone._referencedElement = referenceClone;
-            }
+			if (_referencedElement != null)
+			{
+				ElementConfiguration referenceClone = _referencedElement.Clone() as ElementConfiguration;
+				clone._referencedElement = referenceClone;
+			}
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

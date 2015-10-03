@@ -38,85 +38,79 @@
 
 namespace NArrange.Core
 {
-    using System;
-    using System.Threading;
+	using System;
+	using System.Threading;
 
-    /// <summary>
-    /// Exception thrown by parsers.
-    /// </summary>
-    public sealed class ParseException : Exception
-    {
-        #region Fields
+	/// <summary>
+	/// Exception thrown by parsers.
+	/// </summary>
+	public sealed class ParseException : Exception
+	{
+		#region Fields
 
-        /// <summary>
-        /// Character position at which the error occurred.
-        /// </summary>
-        private readonly int _column;
+		/// <summary>
+		/// Character position at which the error occurred.
+		/// </summary>
+		private readonly int _column;
 
-        /// <summary>
-        /// Line number at which the error occurred.
-        /// </summary>
-        private readonly int _lineNumber;
+		/// <summary>
+		/// Line number at which the error occurred.
+		/// </summary>
+		private readonly int _lineNumber;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        /// <summary>
-        /// Creates a new ParseException.
-        /// </summary>
-        /// <param name="message">Message text.</param>
-        /// <param name="lineNumber">Line number.</param>
-        /// <param name="column">Line position.</param>
-        public ParseException(string message, int lineNumber, int column)
-            : base(message)
-        {
-            _lineNumber = lineNumber;
-            _column = column;
-        }
+		/// <summary>
+		/// Creates a new ParseException.
+		/// </summary>
+		/// <param name="message">Message text.</param>
+		/// <param name="lineNumber">Line number.</param>
+		/// <param name="column">Line position.</param>
+		public ParseException(string message, int lineNumber, int column)
+			: base(message)
+		{
+			_lineNumber = lineNumber;
+			_column = column;
+		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the character position of the parse error.
-        /// </summary>
-        public int Column
-        {
-            get
-            {
-                return _column;
-            }
-        }
+		/// <summary>
+		/// Gets the character position of the parse error.
+		/// </summary>
+		public int Column
+		{
+			get { return _column; }
+		}
 
-        /// <summary>
-        /// Gets the line number.
-        /// </summary>
-        public int LineNumber
-        {
-            get
-            {
-                return _lineNumber;
-            }
-        }
+		/// <summary>
+		/// Gets the line number.
+		/// </summary>
+		public int LineNumber
+		{
+			get { return _lineNumber; }
+		}
 
-        /// <summary>
-        /// Gets the exception message.
-        /// </summary>
-        public override string Message
-        {
-            get
-            {
-                return string.Format(
-                    Thread.CurrentThread.CurrentCulture,
-                    "{0}: Line {1}, Column {2}",
-                    base.Message,
-                    LineNumber,
-                    Column);
-            }
-        }
+		/// <summary>
+		/// Gets the exception message.
+		/// </summary>
+		public override string Message
+		{
+			get
+			{
+				return string.Format(
+					Thread.CurrentThread.CurrentCulture,
+					"{0}: Line {1}, Column {2}",
+					base.Message,
+					LineNumber,
+					Column);
+			}
+		}
 
-        #endregion Properties
-    }
+		#endregion Properties
+	}
 }

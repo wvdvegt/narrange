@@ -38,120 +38,111 @@
 
 namespace NArrange.Core.Configuration
 {
-    using System.ComponentModel;
-    using System.Threading;
-    using System.Xml.Serialization;
+	using System.ComponentModel;
+	using System.Threading;
+	using System.Xml.Serialization;
 
-    /// <summary>
-    /// Specifies project extensions.
-    /// </summary>
-    [XmlType("ProjectHandler")]
-    [DisplayName("Project Handler")]
-    public class ProjectHandlerConfiguration : HandlerConfiguration
-    {
-        #region Fields
+	/// <summary>
+	/// Specifies project extensions.
+	/// </summary>
+	[XmlType("ProjectHandler")]
+	[DisplayName("Project Handler")]
+	public class ProjectHandlerConfiguration : HandlerConfiguration
+	{
+		#region Fields
 
-        /// <summary>
-        /// Parser Type name within the assembly.
-        /// </summary>
-        private string _parserType;
+		/// <summary>
+		/// Parser Type name within the assembly.
+		/// </summary>
+		private string _parserType;
 
-        /// <summary>
-        /// Project extension configurations.
-        /// </summary>
-        private ExtensionConfigurationCollection _projectExtensions;
+		/// <summary>
+		/// Project extension configurations.
+		/// </summary>
+		private ExtensionConfigurationCollection _projectExtensions;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        /// Gets the handler type.
-        /// </summary>
-        public override HandlerType HandlerType
-        {
-            get
-            {
-                return HandlerType.Project;
-            }
-        }
+		/// <summary>
+		/// Gets the handler type.
+		/// </summary>
+		public override HandlerType HandlerType
+		{
+			get { return HandlerType.Project; }
+		}
 
-        /// <summary>
-        /// Gets or sets the parser Type..
-        /// </summary>
-        [XmlAttribute("Parser")]
-        [Description("The fully-qualified Type name for the associated parser.")]
-        [DisplayName("Parser")]
-        public string ParserType
-        {
-            get
-            {
-                return _parserType;
-            }
-            set
-            {
-                _parserType = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the parser Type..
+		/// </summary>
+		[XmlAttribute("Parser")]
+		[Description("The fully-qualified Type name for the associated parser.")]
+		[DisplayName("Parser")]
+		public string ParserType
+		{
+			get { return _parserType; }
+			set { _parserType = value; }
+		}
 
-        /// <summary>
-        /// Gets the list of project extension configurations.
-        /// </summary>
-        [XmlArrayItem(typeof(ExtensionConfiguration))]
-        [Description("The list of project file extensions supported by the project parser.")]
-        [DisplayName("Project extensions")]
-        public ExtensionConfigurationCollection ProjectExtensions
-        {
-            get
-            {
-                if (_projectExtensions == null)
-                {
-                    lock (this)
-                    {
-                        if (_projectExtensions == null)
-                        {
-                            _projectExtensions = new ExtensionConfigurationCollection();
-                        }
-                    }
-                }
+		/// <summary>
+		/// Gets the list of project extension configurations.
+		/// </summary>
+		[XmlArrayItem(typeof (ExtensionConfiguration))]
+		[Description("The list of project file extensions supported by the project parser.")]
+		[DisplayName("Project extensions")]
+		public ExtensionConfigurationCollection ProjectExtensions
+		{
+			get
+			{
+				if (_projectExtensions == null)
+				{
+					lock (this)
+					{
+						if (_projectExtensions == null)
+						{
+							_projectExtensions = new ExtensionConfigurationCollection();
+						}
+					}
+				}
 
-                return _projectExtensions;
-            }
-        }
+				return _projectExtensions;
+			}
+		}
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Gets the string representation.
-        /// </summary>
-        /// <returns>The string representation.</returns>
-        public override string ToString()
-        {
-            return string.Format(
-                Thread.CurrentThread.CurrentCulture, "Project Handler: {0}", _parserType);
-        }
+		/// <summary>
+		/// Gets the string representation.
+		/// </summary>
+		/// <returns>The string representation.</returns>
+		public override string ToString()
+		{
+			return string.Format(
+				Thread.CurrentThread.CurrentCulture, "Project Handler: {0}", _parserType);
+		}
 
-        /// <summary>
-        /// Creates a clone of this instance.
-        /// </summary>
-        /// <returns>Clone of the instance.</returns>
-        protected override HandlerConfiguration DoClone()
-        {
-            ProjectHandlerConfiguration clone = new ProjectHandlerConfiguration();
+		/// <summary>
+		/// Creates a clone of this instance.
+		/// </summary>
+		/// <returns>Clone of the instance.</returns>
+		protected override HandlerConfiguration DoClone()
+		{
+			ProjectHandlerConfiguration clone = new ProjectHandlerConfiguration();
 
-            clone._parserType = _parserType;
+			clone._parserType = _parserType;
 
-            foreach (ExtensionConfiguration extension in ProjectExtensions)
-            {
-                ExtensionConfiguration extensionClone = extension.Clone() as ExtensionConfiguration;
-                clone.ProjectExtensions.Add(extensionClone);
-            }
+			foreach (ExtensionConfiguration extension in ProjectExtensions)
+			{
+				ExtensionConfiguration extensionClone = extension.Clone() as ExtensionConfiguration;
+				clone.ProjectExtensions.Add(extensionClone);
+			}
 
-            return clone;
-        }
+			return clone;
+		}
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

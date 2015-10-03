@@ -37,86 +37,73 @@
 
 namespace NArrange.Core.CodeElements
 {
-    using System;
-    using System.Collections.ObjectModel;
+	using System;
+	using System.Collections.ObjectModel;
 
-    /// <summary>
-    /// Interface for a code element.
-    /// </summary>
-    public interface ICodeElement : ICloneable
-    {
-        #region Properties
+	/// <summary>
+	/// Interface for a code element.
+	/// </summary>
+	public interface ICodeElement : ICloneable
+	{
+		#region Properties
 
-        /// <summary>
-        /// Gets any children of this code element.
-        /// </summary>
-        /// <remarks>For a class, this would return
-        /// all member, methods, properties and nested types.</remarks>
-        ReadOnlyCollection<ICodeElement> Children
-        {
-            get;
-        }
+		/// <summary>
+		/// Gets any children of this code element.
+		/// </summary>
+		/// <remarks>For a class, this would return
+		/// all member, methods, properties and nested types.</remarks>
+		ReadOnlyCollection<ICodeElement> Children { get; }
 
-        /// <summary>
-        /// Gets the element type.
-        /// </summary>
-        ElementType ElementType
-        {
-            get;
-        }
+		/// <summary>
+		/// Gets the element type.
+		/// </summary>
+		ElementType ElementType { get; }
 
-        /// <summary>
-        /// Gets the name of the code element.
-        /// </summary>
-        string Name
-        {
-            get;
-        }
+		/// <summary>
+		/// Gets the name of the code element.
+		/// </summary>
+		string Name { get; }
 
-        /// <summary>
-        /// Gets or sets the parent of this element.
-        /// </summary>
-        ICodeElement Parent
-        {
-            get;
-            set;
-        }
+		/// <summary>
+		/// Gets or sets the parent of this element.
+		/// </summary>
+		ICodeElement Parent { get; set; }
 
-        #endregion Properties
+		#endregion Properties
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        /// Allows an ICodeElementVisitor to process (or visit) this element.
-        /// </summary>
-        /// <param name="visitor">The visitor.</param>
-        /// <remarks>See the Gang of Four Visitor design pattern.</remarks>
-        void Accept(ICodeElementVisitor visitor);
+		/// <summary>
+		/// Allows an ICodeElementVisitor to process (or visit) this element.
+		/// </summary>
+		/// <param name="visitor">The visitor.</param>
+		/// <remarks>See the Gang of Four Visitor design pattern.</remarks>
+		void Accept(ICodeElementVisitor visitor);
 
-        /// <summary>
-        /// Adds a child to this element.
-        /// </summary>
-        /// <param name="childElement">The child element to add.</param>
-        void AddChild(ICodeElement childElement);
+		/// <summary>
+		/// Adds a child to this element.
+		/// </summary>
+		/// <param name="childElement">The child element to add.</param>
+		void AddChild(ICodeElement childElement);
 
-        /// <summary>
-        /// Removes all child elements.
-        /// </summary>
-        void ClearChildren();
+		/// <summary>
+		/// Removes all child elements.
+		/// </summary>
+		void ClearChildren();
 
-        /// <summary>
-        /// Inserts a child at the specified index.
-        /// </summary>
-        /// <param name="index">The index.</param>
-        /// <param name="childElement">The child element.</param>
-        void InsertChild(int index, ICodeElement childElement);
+		/// <summary>
+		/// Inserts a child at the specified index.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <param name="childElement">The child element.</param>
+		void InsertChild(int index, ICodeElement childElement);
 
-        /// <summary>
-        /// Removes a child from this element.
-        /// </summary>
-        /// <param name="childElement">The child element to remove.</param>
-        void RemoveChild(ICodeElement childElement);
+		/// <summary>
+		/// Removes a child from this element.
+		/// </summary>
+		/// <param name="childElement">The child element to remove.</param>
+		void RemoveChild(ICodeElement childElement);
 
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

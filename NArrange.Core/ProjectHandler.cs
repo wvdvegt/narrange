@@ -38,113 +38,106 @@
 
 namespace NArrange.Core
 {
-    using System;
-    using System.Reflection;
+	using NArrange.Core.Configuration;
+	using System;
+	using System.Reflection;
 
-    using NArrange.Core.Configuration;
+	/// <summary>
+	/// This class provides instances for handling project parsing requests 
+	/// based on file extension.
+	/// </summary>
+	public sealed class ProjectHandler
+	{
+		#region Fields
 
-    /// <summary>
-    /// This class provides instances for handling project parsing requests 
-    /// based on file extension.
-    /// </summary>
-    public sealed class ProjectHandler
-    {
-        #region Fields
+		/// <summary>
+		/// Configuration for the project handler.
+		/// </summary>
+		private readonly ProjectHandlerConfiguration _configuration;
 
-        /// <summary>
-        /// Configuration for the project handler.
-        /// </summary>
-        private readonly ProjectHandlerConfiguration _configuration;
+		/// <summary>
+		/// Assembly used for loading the project handler Type.
+		/// </summary>
+		private Assembly _assembly;
 
-        /// <summary>
-        /// Assembly used for loading the project handler Type.
-        /// </summary>
-        private Assembly _assembly;
+		/// <summary>
+		/// Project parser for getting a list of source files in a project.
+		/// </summary>
+		private IProjectParser _projectParser;
 
-        /// <summary>
-        /// Project parser for getting a list of source files in a project.
-        /// </summary>
-        private IProjectParser _projectParser;
+		#endregion Fields
 
-        #endregion Fields
+		#region Constructors
 
-        #region Constructors
+		/// <summary>
+		/// Creates a new ProjectHandler.
+		/// </summary>
+		/// <param name="configuration">The configuration.</param>
+		public ProjectHandler(ProjectHandlerConfiguration configuration)
+		{
+			if (configuration == null)
+			{
+				throw new ArgumentNullException("configuration");
+			}
 
-        /// <summary>
-        /// Creates a new ProjectHandler.
-        /// </summary>
-        /// <param name="configuration">The configuration.</param>
-        public ProjectHandler(ProjectHandlerConfiguration configuration)
-        {
-            if (configuration == null)
-            {
-                throw new ArgumentNullException("configuration");
-            }
+			_configuration = configuration;
 
-            _configuration = configuration;
+			Initialize();
+		}
 
-            Initialize();
-        }
+		#endregion Constructors
 
-        #endregion Constructors
+		#region Properties
 
-        #region Properties
+		/// <summary>
+		/// Gets the handler configuration used to create this ProjectHandler.
+		/// </summary>
+		public ProjectHandlerConfiguration Configuration
+		{
+			get { return _configuration; }
+		}
 
-        /// <summary>
-        /// Gets the handler configuration used to create this ProjectHandler.
-        /// </summary>
-        public ProjectHandlerConfiguration Configuration
-        {
-            get
-            {
-                return _configuration;
-            }
-        }
+		/// <summary>
+		/// Gets the project parser associated with the extension.
+		/// </summary>
+		public IProjectParser ProjectParser
+		{
+			get { return _projectParser; }
+		}
 
-        /// <summary>
-        /// Gets the project parser associated with the extension.
-        /// </summary>
-        public IProjectParser ProjectParser
-        {
-            get
-            {
-                return _projectParser;
-            }
-        }
+		#endregion Properties
 
-        #endregion Properties
+		#region Methods
 
-        #region Methods
+		/// <summary>
+		/// Initializes the extension handler.
+		/// </summary>
+		private void Initialize()
+		{
+			Type projectParserType = null;
+			string assemblyName = _configuration.AssemblyName;
+			if (string.IsNullOrEmpty(assemblyName))
+			{
+				_assembly = GetType().Assembly;
+			}
+			else
+			{
+				_assembly = Assembly.Load(assemblyName);
+			}
 
-        /// <summary>
-        /// Initializes the extension handler.
-        /// </summary>
-        private void Initialize()
-        {
-            Type projectParserType = null;
-            string assemblyName = _configuration.AssemblyName;
-            if (string.IsNullOrEmpty(assemblyName))
-            {
-                _assembly = GetType().Assembly;
-            }
-            else
-            {
-                _assembly = Assembly.Load(assemblyName);
-            }
+			string projectParserTypeName = _configuration.ParserType;
+			if (string.IsNullOrEmpty(projectParserTypeName))
+			{
+				projectParserType = typeof (MSBuildProjectParser);
+			}
+			else
+			{
+				projectParserType = _assembly.GetType(projectParserTypeName);
+			}
 
-            string projectParserTypeName = _configuration.ParserType;
-            if (string.IsNullOrEmpty(projectParserTypeName))
-            {
-                projectParserType = typeof(MSBuildProjectParser);
-            }
-            else
-            {
-                projectParserType = _assembly.GetType(projectParserTypeName);
-            }
+			_projectParser = Activator.CreateInstance(projectParserType) as IProjectParser;
+		}
 
-            _projectParser = Activator.CreateInstance(projectParserType) as IProjectParser;
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }

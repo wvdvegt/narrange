@@ -1,122 +1,120 @@
 namespace NArrange.Tests.Core
 {
-    using System;
-    using System.Collections.ObjectModel;
-    using System.IO;
-    using System.Reflection;
+	using NArrange.Core;
+	using NUnit.Framework;
+	using System;
+	using System.Collections.ObjectModel;
+	using System.IO;
+	using System.Reflection;
 
-    using NArrange.Core;
+	/// <summary>
+	/// Test fixture for the MSBuildProjectParser class.
+	/// </summary>
+	[TestFixture]
+	public class MSBuildProjectParserTests
+	{
+		#region Fields
 
-    using NUnit.Framework;
+		/// <summary>
+		/// Test project file name.
+		/// </summary>
+		private string _testProjectFile;
 
-    /// <summary>
-    /// Test fixture for the MSBuildProjectParser class.
-    /// </summary>
-    [TestFixture]
-    public class MSBuildProjectParserTests
-    {
-        #region Fields
+		#endregion Fields
 
-        /// <summary>
-        /// Test project file name.
-        /// </summary>
-        private string _testProjectFile;
+		#region Methods
 
-        #endregion Fields
+		/// <summary>
+		/// Writes the test project to a file.
+		/// </summary>
+		/// <param name="fileName">Name of the file.</param>
+		public static void WriteTestProject(string fileName)
+		{
+			Assembly assembly = Assembly.GetExecutingAssembly();
+			using (Stream stream = assembly.GetManifestResourceStream(
+				typeof (MSBuildProjectParserTests), "TestProject.csproj"))
+			{
+				Assert.IsNotNull(stream, "Test stream could not be retrieved.");
 
-        #region Methods
+				StreamReader reader = new StreamReader(stream);
+				string contents = reader.ReadToEnd();
 
-        /// <summary>
-        /// Writes the test project to a file.
-        /// </summary>
-        /// <param name="fileName">Name of the file.</param>
-        public static void WriteTestProject(string fileName)
-        {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            using (Stream stream = assembly.GetManifestResourceStream(
-               typeof(MSBuildProjectParserTests), "TestProject.csproj"))
-            {
-                Assert.IsNotNull(stream, "Test stream could not be retrieved.");
+				File.WriteAllText(fileName, contents);
+			}
+		}
 
-                StreamReader reader = new StreamReader(stream);
-                string contents = reader.ReadToEnd();
+		/// <summary>
+		/// Tests parsing a null project fileName.
+		/// </summary>
+		[Test]
+		[ExpectedException(typeof (ArgumentNullException))]
+		public void ParseNullTest()
+		{
+			MSBuildProjectParser projectParser = new MSBuildProjectParser();
+			projectParser.Parse(null);
+		}
 
-                File.WriteAllText(fileName, contents);
-            }
-        }
+		/// <summary>
+		/// Tests parsing project source files.
+		/// </summary>
+		[Test]
+		public void ParseTest()
+		{
+			string[] testSourceFiles = new string[]
+			{
+				Path.Combine(Path.GetTempPath(), "ClassMembers.cs"),
+				Path.Combine(Path.GetTempPath(), "ClassDefinition.cs"),
+				Path.Combine(Path.GetTempPath(), "BlahBlahBlah.cs"),
+				Path.Combine(Path.GetTempPath(), "Folder1\\Class2.cs"),
+				Path.Combine(Path.GetTempPath(), "Folder1\\Folder2\\Class3.cs"),
+				Path.Combine(Path.GetTempPath(), "Properties\\AssemblyInfo.cs"),
+				Path.Combine(Path.GetTempPath(), "Test.Designer.cs")
+			};
 
-        /// <summary>
-        /// Tests parsing a null project fileName.
-        /// </summary>
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ParseNullTest()
-        {
-            MSBuildProjectParser projectParser = new MSBuildProjectParser();
-            projectParser.Parse(null);
-        }
+			MSBuildProjectParser projectParser = new MSBuildProjectParser();
 
-        /// <summary>
-        /// Tests parsing project source files.
-        /// </summary>
-        [Test]
-        public void ParseTest()
-        {
-            string[] testSourceFiles = new string[]
-            {
-                Path.Combine(Path.GetTempPath(), "ClassMembers.cs"),
-                Path.Combine(Path.GetTempPath(), "ClassDefinition.cs"),
-                Path.Combine(Path.GetTempPath(), "BlahBlahBlah.cs"),
-                Path.Combine(Path.GetTempPath(), "Folder1\\Class2.cs"),
-                Path.Combine(Path.GetTempPath(), "Folder1\\Folder2\\Class3.cs"),
-                Path.Combine(Path.GetTempPath(), "Properties\\AssemblyInfo.cs"),
-                Path.Combine(Path.GetTempPath(), "Test.Designer.cs")
-            };
+			ReadOnlyCollection<string> sourceFiles = projectParser.Parse(_testProjectFile);
 
-            MSBuildProjectParser projectParser = new MSBuildProjectParser();
+			Assert.AreEqual(testSourceFiles.Length, sourceFiles.Count, "Unexpected number of source files.");
 
-            ReadOnlyCollection<string> sourceFiles = projectParser.Parse(_testProjectFile);
+			foreach (string testSourceFile in testSourceFiles)
+			{
+				Assert.IsTrue(
+					sourceFiles.Contains(testSourceFile),
+					"Test source file {0} was not included in the source file list.",
+					testSourceFile);
+			}
+		}
 
-            Assert.AreEqual(testSourceFiles.Length, sourceFiles.Count, "Unexpected number of source files.");
+		/// <summary>
+		/// Performs test fixture setup.
+		/// </summary>
+		[TestFixtureSetUp]
+		public void TestFixtureSetup()
+		{
+			_testProjectFile = Path.GetTempFileName() + ".csproj";
 
-            foreach (string testSourceFile in testSourceFiles)
-            {
-                Assert.IsTrue(
-                    sourceFiles.Contains(testSourceFile),
-                    "Test source file {0} was not included in the source file list.",
-                    testSourceFile);
-            }
-        }
+			WriteTestProject(_testProjectFile);
+		}
 
-        /// <summary>
-        /// Performs test fixture setup.
-        /// </summary>
-        [TestFixtureSetUp]
-        public void TestFixtureSetup()
-        {
-            _testProjectFile = Path.GetTempFileName() + ".csproj";
+		/// <summary>
+		/// Performs test fixture cleanup.
+		/// </summary>
+		[TestFixtureTearDown]
+		public void TestFixtureTearDown()
+		{
+			try
+			{
+				if (_testProjectFile != null)
+				{
+					File.Delete(_testProjectFile);
+				}
+			}
+			catch
+			{
+			}
+		}
 
-            WriteTestProject(_testProjectFile);
-        }
-
-        /// <summary>
-        /// Performs test fixture cleanup.
-        /// </summary>
-        [TestFixtureTearDown]
-        public void TestFixtureTearDown()
-        {
-            try
-            {
-                if (_testProjectFile != null)
-                {
-                    File.Delete(_testProjectFile);
-                }
-            }
-            catch
-            {
-            }
-        }
-
-        #endregion Methods
-    }
+		#endregion Methods
+	}
 }
