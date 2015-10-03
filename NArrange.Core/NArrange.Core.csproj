@@ -104,6 +104,7 @@
     <Compile Include="Configuration\UnaryOperatorExpression.cs" />
     <Compile Include="Configuration\FileAttributeExpression.cs" />
     <Compile Include="Configuration\ElementAttributeExpression.cs" />
+    <Compile Include="PeekingTextReader.cs" />
     <Compile Include="ProjectHandler.cs" />
     <Compile Include="MonoDevelopSolutionParser.cs" />
     <Compile Include="MonoDevelopProjectParser.cs" />

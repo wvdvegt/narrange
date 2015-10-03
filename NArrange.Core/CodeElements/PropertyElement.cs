@@ -44,6 +44,8 @@ namespace NArrange.Core.CodeElements
 	{
 		#region Fields
 
+		private string _autoPropertyInitializer;
+
 		/// <summary>
 		/// Index parameter name.
 		/// </summary>
@@ -52,6 +54,18 @@ namespace NArrange.Core.CodeElements
 		#endregion Fields
 
 		#region Properties
+
+		/// <summary>
+		/// C# 6.0 feature.
+		/// Auto properties can be get;set; or get; only. In both cases, it is valid to initialize inline like so:
+		/// <example>public string MyProperty { get; } = "inline initializer";</example>
+		/// This property will hold the initilizer content.
+		/// </summary>
+		public string AutoPropertyInitializer
+		{
+			get { return _autoPropertyInitializer; }
+			set { _autoPropertyInitializer = value; }
+		}
 
 		/// <summary>
 		/// Gets the element type.
@@ -92,6 +106,7 @@ namespace NArrange.Core.CodeElements
 		{
 			PropertyElement propertyElement = new PropertyElement();
 			propertyElement._indexParameter = _indexParameter;
+			propertyElement._autoPropertyInitializer = _autoPropertyInitializer;
 			return propertyElement;
 		}
 

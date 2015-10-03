@@ -36,6 +36,9 @@
 
 #endregion Header
 
+
+using System.Linq;
+
 namespace NArrange.Core
 {
 	using NArrange.Core.CodeElements;
@@ -71,7 +74,7 @@ namespace NArrange.Core
 		/// <summary>
 		/// Whitepace characters.
 		/// </summary>
-		protected static readonly char[] WhiteSpaceCharacters = {' ', '\t', '\r', '\n'};
+		protected static readonly char[] WhiteSpaceCharacters = { ' ', '\t', '\r', '\n' };
 
 		/// <summary>
 		/// Buffer for reading a character.
@@ -106,7 +109,7 @@ namespace NArrange.Core
 		/// <summary>
 		/// Input text reader.
 		/// </summary>
-		private TextReader _reader;
+		private PeekingTextReader _reader;
 
 		/// <summary>
 		/// Regular expression cache.
@@ -153,7 +156,7 @@ namespace NArrange.Core
 				int data = _reader.Peek();
 				if (data > 0)
 				{
-					char ch = (char) data;
+					char ch = (char)data;
 					return ch;
 				}
 				else
@@ -201,7 +204,11 @@ namespace NArrange.Core
 			List<ICodeElement> codeElements = new List<ICodeElement>();
 
 			Reset();
-			_reader = reader;
+			var peekingTextReader = reader as PeekingTextReader;
+			if (peekingTextReader != null)
+				_reader = peekingTextReader;
+			else
+				_reader = new PeekingTextReader(reader);
 
 			codeElements = DoParseElements();
 
@@ -291,7 +298,7 @@ namespace NArrange.Core
 			int data = _reader.Peek();
 			while (data > 0)
 			{
-				char ch = (char) data;
+				char ch = (char)data;
 
 				if ((((whiteSpaceType & WhiteSpaceTypes.Space) == WhiteSpaceTypes.Space) && ch == ' ') ||
 					(((whiteSpaceType & WhiteSpaceTypes.Tab) == WhiteSpaceTypes.Tab) && ch == '\t') ||
@@ -356,6 +363,31 @@ namespace NArrange.Core
 		}
 
 		/// <summary>
+		/// Peeks ahead in the reader until the first character not in the ignore list is found and returns it.
+		/// If already at eof or only characters to be ignored are found until end then '\0' is returned.
+		/// </summary>
+		/// <param name="ignores"></param>
+		/// <returns></returns>
+		protected char PeekNextCharExcept(char[] ignores)
+		{
+			int data = _reader.Peek();
+			while (data > 0)
+			{
+				char ch = (char)data;
+
+				if (!ignores.Contains(ch))
+				{
+					// found next character
+					return ch;
+				}
+
+				data = _reader.Peek();
+			}
+			// EOF
+			return '\0';
+		}
+
+		/// <summary>
 		/// Reads the current line. Does not update PreviousChar.
 		/// </summary>
 		/// <returns>The line read.</returns>
@@ -377,7 +409,7 @@ namespace NArrange.Core
 		protected bool TryReadChar(char character)
 		{
 			int data = _reader.Peek();
-			char nextCh = (char) data;
+			char nextCh = (char)data;
 			if (nextCh == character)
 			{
 				TryReadChar();

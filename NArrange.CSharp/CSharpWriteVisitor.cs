@@ -503,10 +503,13 @@ namespace NArrange.CSharp
 				if (element.BodyText == null || element.BodyText.Trim().Length <= 0)
 				{
 					this.Writer.Write("}");
+					if (!string.IsNullOrEmpty(element.AutoPropertyInitializer))
+					{
+						WriteAutoPropertyInitializer(element);
+					}
 					return;
 				}
 				// check whether we actually have a valid property
-				var noWhiteSpaces = element.BodyText.Replace(" ", "").Replace("\t", "");
 				var noFormatting = element.BodyText.Replace("\r", "").Replace("\n", "");
 				if (noFormatting.Contains("get;") || noFormatting.Contains("set;"))
 				{
@@ -514,6 +517,10 @@ namespace NArrange.CSharp
 					// it appears to be; inline by replacing all linefeeds and whitespaces
 					this.Writer.Write("get; set; }");
 					base.WriteClosingComment(element, "// ");
+					if (!string.IsNullOrEmpty(element.AutoPropertyInitializer))
+					{
+						WriteAutoPropertyInitializer(element);
+					}
 					return;
 				}
 			}
@@ -522,6 +529,10 @@ namespace NArrange.CSharp
 			Writer.WriteLine();
 
 			WriteBody(element);
+			if (!string.IsNullOrEmpty(element.AutoPropertyInitializer))
+			{
+				WriteAutoPropertyInitializer(element);
+			}
 		}
 
 		/// <summary>
@@ -733,6 +744,13 @@ namespace NArrange.CSharp
 			{
 				attribute.Accept(this);
 			}
+		}
+
+		private void WriteAutoPropertyInitializer(PropertyElement element)
+		{
+			Writer.Write(" ");
+			Writer.Write(element.AutoPropertyInitializer);
+			Writer.Write(";");
 		}
 
 		/// <summary>
