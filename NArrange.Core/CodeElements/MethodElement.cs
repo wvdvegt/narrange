@@ -86,6 +86,11 @@ namespace NArrange.Core.CodeElements
 		}
 
 		/// <summary>
+		/// C# 6.0 feature where a method must not have a body but can use an expression (limited to a single statement) by using the keyword "=>".
+		/// </summary>
+		public bool HasExpressionBody { get; set; }
+
+		/// <summary>
 		/// Gets a value indicating whether or not the member is async.
 		/// </summary>
 		public bool IsAsync
@@ -210,6 +215,7 @@ namespace NArrange.Core.CodeElements
 			clone._params = _params;
 			clone._isOperator = _isOperator;
 			clone._operatorType = _operatorType;
+			clone.HasExpressionBody = HasExpressionBody;
 
 			foreach (TypeParameter typeParam in TypeParameters)
 			{

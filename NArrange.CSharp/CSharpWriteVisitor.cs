@@ -437,6 +437,12 @@ namespace NArrange.CSharp
 			{
 				Writer.Write(CSharpSymbol.EndOfStatement);
 			}
+			else if (element.HasExpressionBody)
+			{
+				Writer.Write(" => ");
+				Writer.Write(element.BodyText);
+				Writer.Write(';');
+			}
 			else
 			{
 				Writer.WriteLine();
@@ -674,6 +680,10 @@ namespace NArrange.CSharp
 			StringBuilder builder = new StringBuilder(DefaultBlockLength);
 			builder.Append(CSharpKeyword.Using);
 			builder.Append(' ');
+			if (element.IsStatic)
+			{
+				builder.Append("static ");
+			}
 			builder.Append(element.Name);
 			if (!string.IsNullOrEmpty(element.Redefine))
 			{
@@ -748,9 +758,9 @@ namespace NArrange.CSharp
 
 		private void WriteAutoPropertyInitializer(PropertyElement element)
 		{
-			Writer.Write(" ");
+			Writer.Write(" =");
 			Writer.Write(element.AutoPropertyInitializer);
-			Writer.Write(";");
+			Writer.Write(';');
 		}
 
 		/// <summary>

@@ -1656,7 +1656,24 @@ namespace NArrange.CSharp
 			}
 			else
 			{
-				method.BodyText = this.ParseBlock(true, method);
+				bool expression = NextChar == CSharpSymbol.Assignment;
+				if (expression)
+				{
+					var expressionHead = new[] { CSharpSymbol.ExpressionBodyArrow1, CSharpSymbol.ExpressionBodyArrow2 };
+					// lucky for us, expressions can only have one statement (unlike expression lambdas),
+					// therefore we must have text like this "=> followed.by.a.statement;" which ParseOptionalAssignment will automatically trim to "followed.by.a.statement"
+					method.BodyText = this.ParseOptionalAssignment(expressionHead);
+					method.HasExpressionBody = true;
+					if (string.IsNullOrEmpty(method.BodyText))
+					{
+						// is expression, but no suitable body found
+						this.OnParseError("Unexpected end of file. Expected " + new string(expressionHead));
+					}
+				}
+				else
+				{
+					method.BodyText = this.ParseBlock(true, method);
+				}
 			}
 
 			return method;
@@ -1852,21 +1869,35 @@ namespace NArrange.CSharp
 
 		/// <summary>
 		/// C# 6.0 feature.
-		/// Will parse the (optional) assignment part of any property.
+		/// Will parse one statement after the expected <paramref name="assignmentSymbols"/>
 		/// </summary>
-		/// <param name="property"></param>
-		/// <param name="initialDepth">Optional set initial depth. 1 is usually fine, but for auto properties we need 0 here.</param>
+		/// <param name="assignmentSymbols">The symbols required to be found in order. E.g. = for a auto property initializer or => for a method expression body.</param>
 		/// <returns>Returns null if none found, otherwise the assignment content.</returns>
-		private string ParseOptionalAssignment(PropertyElement property, int initialDepth = 1)
+		private string ParseOptionalAssignment(char[] assignmentSymbols)
 		{
 			// peek next char only, if we eat the whitespaces now, we might swallow the comment of the next property
 			var next = PeekNextCharExcept(WhiteSpaceCharacters);
-			if (next != CSharpSymbol.Assignment)
+			foreach (var nextExpected in assignmentSymbols)
 			{
-				// doesn't seem to be an auto property
-				return null;
+				if (next != nextExpected)
+				{
+					// doesn't seem to be an auto property
+					return null;
+				}
+				// do not skip whitespaces now as the assignmentSymbolds need to be in fixed order, e.g. => arrow may not be seperated by whitespaces
+				next = PeekNextCharExcept(new char[0]);
 			}
-			return ParseNestedText(CSharpSymbol.Assignment, CSharpSymbol.EndOfStatement, false, true, initialDepth);
+			const bool trim = true;
+			// need initial depth to be 0 as we don't have { + } bracket but ; as end delimiters
+			var found = ParseNestedText(assignmentSymbols[0], CSharpSymbol.EndOfStatement, false, trim, initialDepth: 0);
+
+			// remove assignment symbols
+			found = found.Substring(assignmentSymbols.Length);
+			if (trim)
+			{
+				found = found.Trim();
+			}
+			return found;
 		}
 
 		/// <summary>
@@ -1907,7 +1938,7 @@ namespace NArrange.CSharp
 
 			property.BodyText = this.ParseBlock(false, property);
 
-			property.AutoPropertyInitializer = this.ParseOptionalAssignment(property, 0);
+			property.AutoPropertyInitializer = this.ParseOptionalAssignment(new[] { CSharpSymbol.Assignment });
 			return property;
 		}
 
@@ -2120,6 +2151,18 @@ namespace NArrange.CSharp
 			if (string.IsNullOrEmpty(alias))
 			{
 				this.OnParseError("Expected a namepace name");
+			}
+
+			if (alias == "static")
+			{
+				// new in C# 6.0
+				// can now do "using static System.Math;" and then omit "Math." in every Math.Min, etc. call in this context
+				usingElement.IsStatic = true;
+				alias = CaptureWord();
+				if (string.IsNullOrEmpty(alias))
+				{
+					this.OnParseError("Expected a namepace name");
+				}
 			}
 
 			EatWhiteSpace();

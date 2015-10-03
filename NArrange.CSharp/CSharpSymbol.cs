@@ -136,6 +136,16 @@ namespace NArrange.CSharp
 		public const char EndParameterList = ')';
 
 		/// <summary>
+		/// First element of the expression body arrow.
+		/// </summary>
+		public const char ExpressionBodyArrow1 = '=';
+
+		/// <summary>
+		/// Second element of the expression body arrow.
+		/// </summary>
+		public const char ExpressionBodyArrow2 = '>';
+
+		/// <summary>
 		/// Negate symbol.
 		/// </summary>
 		public const char Negate = '!';

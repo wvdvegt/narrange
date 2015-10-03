@@ -111,6 +111,11 @@ namespace NArrange.Core.CodeElements
 		}
 
 		/// <summary>
+		/// New in C# 6.0. Allows static aliases.
+		/// </summary>
+		public bool IsStatic { get; set; }
+
+		/// <summary>
 		/// Gets or sets the namespace to be redefined to the name of this 
 		/// UsingElement.
 		/// </summary>
@@ -160,6 +165,7 @@ namespace NArrange.Core.CodeElements
 			UsingElement clone = new UsingElement();
 			clone._redefine = _redefine;
 			clone._isMovable = _isMovable;
+			clone.IsStatic = IsStatic;
 
 			return clone;
 		}

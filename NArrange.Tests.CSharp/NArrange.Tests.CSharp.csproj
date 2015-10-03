@@ -94,7 +94,6 @@
     <EmbeddedResource Include="TestSourceFiles\PropertyChanges\UglyCode.cs" />
     <EmbeddedResource Include="TestSourceFiles\CSharp_6_0_Features\ExpressionBodies.cs" />
     <EmbeddedResource Include="TestSourceFiles\CSharp_6_0_Features\AutoPropertyInitializers.cs" />
-    <EmbeddedResource Include="TestSourceFiles\CSharp_6_0_Features\NullConditionalOperator.cs" />
     <EmbeddedResource Include="TestSourceFiles\CSharp_6_0_Features\StaticExtensionMethods.cs" />
     <EmbeddedResource Include="TestSourceFiles\CSharp_6_0_Features\StaticNamespaces.cs" />
     <EmbeddedResource Include="TestSourceFiles\UTF8.cs" />

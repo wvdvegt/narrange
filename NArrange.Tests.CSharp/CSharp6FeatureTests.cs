@@ -12,6 +12,7 @@ namespace NArrange.Tests.CSharp
 {
 	/// <summary>
 	/// Class to assert that all C# 6.0 features work in NArrange.
+	///  They are new in C# 6 and old NArrange parser broke when encountering them.
 	/// </summary>
 	[TestFixture]
 	public class CSharp6FeatureTests
@@ -19,12 +20,39 @@ namespace NArrange.Tests.CSharp
 		#region Methods
 
 		/// <summary>
-		/// Asserts that auto property initializers work. They are new in C# 6 and old NArrange parser broke when encountering them.
+		/// Asserts that auto property initializers work.
 		/// </summary>
 		[Test]
 		public void AssertAutoPropertyInitializersAreCorrectlyFormatted()
 		{
 			TryCompileArrangeAndRecompile("AutoPropertyInitializers.cs");
+		}
+
+		/// <summary>
+		/// Assert that expression bodies work.
+		/// </summary>
+		[Test]
+		public void AssertExpressionBodiesAreCorrectlyFormatted()
+		{
+			TryCompileArrangeAndRecompile("ExpressionBodies.cs");
+		}
+
+		/// <summary>
+		/// Assert that usings of static extension methods are correctly formatted.
+		/// </summary>
+		[Test]
+		public void AssertStaticExtensionMethodsAreCorrectlyFormatted()
+		{
+			TryCompileArrangeAndRecompile("StaticExtensionMethods.cs");
+		}
+
+		/// <summary>
+		/// Assert that static namespaces are correctly formatted (is actually identical to static extension methods in syntax).
+		/// </summary>
+		[Test]
+		public void AssertStaticNamespacesAreCorrectlyFormatted()
+		{
+			TryCompileArrangeAndRecompile("StaticNamespaces.cs");
 		}
 
 		/// <summary>

@@ -4,13 +4,13 @@ using static System.Math;
 
 namespace SampleNamespace
 {
-    public class StaticNamespaces
-    {
-        static double GetSquarerootOf(double d)
-        {
-            return Sqrt(d);
-        }
+	public class StaticNamespaces
+	{
+		static double GetSquarerootOf(double d)
+		{
+			return Sqrt(d);
+		}
 
-        static void Log(string s) => WriteLine(s);
-    }
+		static void Log(string s) => WriteLine(s);
+	}
 }
