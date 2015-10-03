@@ -2,7 +2,7 @@ using System.Reflection;
 
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("NArrange")]
-[assembly: AssemblyCopyright("Copyright © 2007-2012 James Nies and NArrange contributors.")]
+[assembly: AssemblyCopyright("Copyright © 2007-2015 James Nies and NArrange contributors.")]
 
 // Version information for an assembly consists of the following four values:
 //

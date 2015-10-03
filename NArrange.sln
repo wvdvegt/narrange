@@ -42,6 +42,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NArrange.TestSourceFinder",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NArrange.VisualBasic", "NArrange.VisualBasic\NArrange.VisualBasic.csproj", "{33A733CE-7BDD-42D6-ADE6-77B82226F965}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZipTool", "ZipTool\ZipTool.csproj", "{D2F83DB1-9CFC-4ADD-A78E-73C7EF4C4DE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -100,6 +102,10 @@ Global
 		{33A733CE-7BDD-42D6-ADE6-77B82226F965}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33A733CE-7BDD-42D6-ADE6-77B82226F965}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33A733CE-7BDD-42D6-ADE6-77B82226F965}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2F83DB1-9CFC-4ADD-A78E-73C7EF4C4DE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2F83DB1-9CFC-4ADD-A78E-73C7EF4C4DE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2F83DB1-9CFC-4ADD-A78E-73C7EF4C4DE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2F83DB1-9CFC-4ADD-A78E-73C7EF4C4DE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
