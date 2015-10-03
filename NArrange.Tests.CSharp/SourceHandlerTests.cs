@@ -1,11 +1,11 @@
-namespace NArrange.Tests.Core
-{
-	using NArrange.Core;
-	using NArrange.Core.Configuration;
-	using NUnit.Framework;
-	using System;
+using System;
+using NArrange.Core;
+using NArrange.Core.Configuration;
+using NUnit.Framework;
 
-	/// <summary>
+namespace NArrange.Tests.CSharp
+{
+    /// <summary>
 	/// Test fixture for the SourceHandler class.
 	/// </summary>
 	[TestFixture]

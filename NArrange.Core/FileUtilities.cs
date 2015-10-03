@@ -35,12 +35,12 @@
 
 #endregion Header
 
-namespace NArrange.Core.CodeElements
-{
-	using System.IO;
-	using System.Text;
+using System.IO;
+using System.Text;
 
-	/// <summary>
+namespace NArrange.Core
+{
+    /// <summary>
 	/// File utility methods.
 	/// </summary>
 	public static class FileUtilities

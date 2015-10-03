@@ -1,15 +1,15 @@
-namespace NArrange.Tests.Core
-{
-	using NArrange.Core;
-	using NArrange.Core.Configuration;
-	using NArrange.Tests.CSharp;
-	using NUnit.Framework;
-	using System;
-	using System.IO;
-	using System.Reflection;
-	using System.Text;
+using System;
+using System.IO;
+using System.Reflection;
+using System.Text;
+using NArrange.Core;
+using NArrange.Core.Configuration;
+using NArrange.Tests.Core;
+using NUnit.Framework;
 
-	/// <summary>
+namespace NArrange.Tests.CSharp
+{
+    /// <summary>
 	/// Test fixture for the FileArranger class.
 	/// </summary>
 	[TestFixture]
