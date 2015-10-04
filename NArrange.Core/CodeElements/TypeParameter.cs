@@ -103,6 +103,16 @@ namespace NArrange.Core.CodeElements
 		}
 
 		/// <summary>
+		/// For interfaces. Can mark types as in.
+		/// </summary>
+		public bool IsIn { get; set; }
+
+		/// <summary>
+		/// For interfaces. Can mark types as out.
+		/// </summary>
+		public bool IsOut { get; set; }
+
+		/// <summary>
 		/// Gets or sets the type parameter name.
 		/// </summary>
 		public string Name
@@ -160,6 +170,8 @@ namespace NArrange.Core.CodeElements
 			// Copy state
 			//
 			clone._name = _name;
+			clone.IsIn = IsIn;
+			clone.IsOut = IsOut;
 			foreach (string constraint in Constraints)
 			{
 				clone.AddConstraint(constraint);

@@ -79,6 +79,7 @@
     </Compile>
     <Compile Include="CodeArrangerTests.cs" />
     <Compile Include="CSharp6FeatureTests.cs" />
+    <Compile Include="CSharpGenericInterfaceTests.cs" />
     <Compile Include="CSharpSymbolTests.cs" />
     <Compile Include="CSharpWriteArrangedTests.cs" />
     <Compile Include="FileArrangerTests.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="InlinePropertyWhenPossibleTests.cs" />
     <Compile Include="SourceHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="TestSourceFiles\Generics.cs" />
     <EmbeddedResource Include="TestSourceFiles\PropertyChanges\PropertyWithLogicCode.cs" />
     <EmbeddedResource Include="TestSourceFiles\PropertyChanges\PrettyCode.cs" />
     <EmbeddedResource Include="TestSourceFiles\PropertyChanges\UglyCode.cs" />

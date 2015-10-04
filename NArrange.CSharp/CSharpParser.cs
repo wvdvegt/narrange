@@ -590,7 +590,7 @@ namespace NArrange.CSharp
 		/// Parses an alias list, such as for parameters.
 		/// </summary>
 		/// <returns>Alias array.</returns>
-		private string[] ParseAliasList()
+		private string[] ParseAliasList(bool canBeInOrOutModified = false)
 		{
 			List<string> aliases = new List<string>();
 
@@ -606,7 +606,13 @@ namespace NArrange.CSharp
 				while (nextChar != EmptyChar && nextChar != CSharpSymbol.BeginBlock)
 				{
 					string alias = CaptureWord(false);
-
+					if (canBeInOrOutModified &&
+						(alias == "in" || alias == "out"))
+					{
+						EatWhiteSpace();
+						alias += " ";
+						alias += CaptureWord(false);
+					}
 					EatWhiteSpace();
 
 					nextChar = NextChar;
@@ -2008,11 +2014,23 @@ namespace NArrange.CSharp
 				bool isGeneric = TryReadChar(CSharpSymbol.BeginGeneric);
 				if (isGeneric)
 				{
-					string[] typeParameterNames = ParseAliasList();
+					var canBeInOrOutModified = elementType == TypeElementType.Interface;
+					string[] typeParameterNames = ParseAliasList(canBeInOrOutModified);
 					foreach (string typeParameterName in typeParameterNames)
 					{
+						var tName = typeParameterName;
 						TypeParameter typeParameter = new TypeParameter();
-						typeParameter.Name = typeParameterName;
+						if (tName.StartsWith("in "))
+						{
+							typeParameter.IsIn = true;
+							tName = tName.Substring("in ".Length);
+						}
+						else if (tName.StartsWith("out "))
+						{
+							typeParameter.IsOut = true;
+							tName = tName.Substring("out ".Length);
+						}
+						typeParameter.Name = tName;
 						typeElement.AddTypeParameter(typeParameter);
 					}
 

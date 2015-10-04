@@ -88,6 +88,25 @@ namespace NArrange.Tests.CSharp
 			}
 		}
 
+		internal static void CompileArrangeAndRecompile(string fullResourceName)
+		{
+			var tempFile = CopyToTempFile(fullResourceName);
+			try
+			{
+				Compile(tempFile).Should().BeTrue();
+				var currentContent = File.ReadAllText(tempFile);
+				Arrange(tempFile).Should().BeTrue();
+				var newContent = File.ReadAllText(tempFile);
+				currentContent.Should()
+					.NotBe(newContent, "because regions where missing and NArrange always adds them for us.");
+				Compile(tempFile).Should().BeTrue();
+			}
+			finally
+			{
+				File.Delete(tempFile);
+			}
+		}
+
 		/// <summary>
 		/// Aranges the given file and saves changes back to the file.
 		/// </summary>
@@ -169,21 +188,7 @@ namespace NArrange.Tests.CSharp
 		private static void TryCompileArrangeAndRecompile(string resourceName)
 		{
 			resourceName = "CSharp_6_0_Features." + resourceName;
-			var tempFile = CopyToTempFile(resourceName);
-			try
-			{
-				Compile(tempFile).Should().BeTrue();
-				var currentContent = File.ReadAllText(tempFile);
-				Arrange(tempFile).Should().BeTrue();
-				var newContent = File.ReadAllText(tempFile);
-				currentContent.Should()
-					.NotBe(newContent, "because regions where missing and NArrange always adds them for us.");
-				Compile(tempFile).Should().BeTrue();
-			}
-			finally
-			{
-				File.Delete(tempFile);
-			}
+			CompileArrangeAndRecompile(resourceName);
 		}
 
 		#endregion Methods
