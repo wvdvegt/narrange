@@ -1,3 +1,7 @@
+2015-10-04	Marc Stanglmayr
+
+	* Added covariant/contravariant interface support
+	
 2015-10-03	Marc Stanglmayr
 
 	* Forked latest from Sourceforge (which includes support for async/await)

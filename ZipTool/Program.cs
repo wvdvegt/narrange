@@ -22,7 +22,10 @@ namespace ZipTool
 					"NArrange.Core.dll",
 					"NArrange.CSharp.dll",
 					"NArrange.Gui.dll",
-					"NArrange.VisualBasic.dll"
+					"NArrange.VisualBasic.dll",
+					"DefaultConfig.v026.xml",
+					"DefaultConfig.xml",
+					"ICSharpCode.SharpZipLib.dll"
 				});
 
 			const string target = @"..\..\!Releases";
