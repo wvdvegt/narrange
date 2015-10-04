@@ -176,6 +176,6 @@ namespace NArrange.Tests.Core
 			BackupUtilities.RestoreFiles("c:\temp", null);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

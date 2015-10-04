@@ -52,6 +52,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.AreEqual("!(($(Element.Name) == 'Test'))", operatorExpression.ToString());
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -66,7 +66,7 @@ namespace NArrange.Core
 		/// </summary>
 		private IComparer<ICodeElement> _comparer;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -86,7 +86,7 @@ namespace NArrange.Core
 			_sortBy = sortBy.Clone() as SortBy;
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Methods
 
@@ -162,6 +162,6 @@ namespace NArrange.Core
 			return comparer;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

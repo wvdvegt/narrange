@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.VisualBasic
 {
@@ -344,7 +344,7 @@ namespace NArrange.VisualBasic
 		private static Dictionary<string, string> _specialNormalizedKeywords = 
 			CreateNormalizedKeywordDictionary();
 
-		#endregion Fields
+		#endregion
 
 		#region Methods
 
@@ -473,6 +473,6 @@ namespace NArrange.VisualBasic
 			return _specialNormalizedKeywords;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

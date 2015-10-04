@@ -66,6 +66,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.AreEqual("Sort by: Name", str, "Unexpected string representation.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

@@ -58,6 +58,6 @@ namespace ZipTool
 			}
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

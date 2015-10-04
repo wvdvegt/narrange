@@ -39,6 +39,6 @@ namespace NArrange.Tests.CSharp
 			new SourceHandler(null);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

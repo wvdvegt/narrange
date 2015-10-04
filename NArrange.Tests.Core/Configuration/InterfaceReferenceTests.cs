@@ -56,6 +56,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.AreEqual(InterfaceReferenceType.Class, reference.ReferenceType, "Unexpected value for ReferenceType.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

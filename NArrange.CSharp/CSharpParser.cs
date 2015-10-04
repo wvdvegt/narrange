@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 
 using System.Linq;
@@ -63,7 +63,7 @@ namespace NArrange.CSharp
 		/// </summary>
 		private const char EscapeChar = '\\';
 
-		#endregion Fields
+		#endregion
 
 		#region Methods
 
@@ -2490,6 +2490,6 @@ namespace NArrange.CSharp
 			return codeElement;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

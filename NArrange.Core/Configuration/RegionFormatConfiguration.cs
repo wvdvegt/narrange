@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.Configuration
 {
@@ -81,7 +81,7 @@ namespace NArrange.Core.Configuration
 		/// </summary>
 		private RegionStyle _style;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -93,7 +93,7 @@ namespace NArrange.Core.Configuration
 			_endRegionNameEnabled = true;
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -170,7 +170,7 @@ namespace NArrange.Core.Configuration
 			set { _style = value; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -204,6 +204,6 @@ namespace NArrange.Core.Configuration
 				Thread.CurrentThread.CurrentCulture, "Regions: EndRegionNameEnabled - {0}", EndRegionNameEnabled);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

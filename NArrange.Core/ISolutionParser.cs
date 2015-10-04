@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -51,7 +51,7 @@ namespace NArrange.Core
 		/// </summary>
 		ReadOnlyCollection<string> Extensions { get; }
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -62,6 +62,6 @@ namespace NArrange.Core
 		/// <returns>A list of project file names</returns>
 		ReadOnlyCollection<string> Parse(string solutionFile);
 
-		#endregion Methods
+		#endregion
 	}
 }

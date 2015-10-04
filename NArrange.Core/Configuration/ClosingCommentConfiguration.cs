@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.Configuration
 {
@@ -61,7 +61,7 @@ namespace NArrange.Core.Configuration
 		/// </summary>
 		private string _format;
 
-		#endregion Fields
+		#endregion
 
 		#region Properties
 
@@ -87,7 +87,7 @@ namespace NArrange.Core.Configuration
 			set { _format = value; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -120,6 +120,6 @@ namespace NArrange.Core.Configuration
 				Format);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

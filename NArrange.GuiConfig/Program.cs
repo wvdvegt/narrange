@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.GuiConfig
 {
@@ -59,6 +59,6 @@ namespace NArrange.GuiConfig
 			Application.Run(new ConfigurationEditorForm());
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

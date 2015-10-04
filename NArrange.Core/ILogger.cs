@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -52,6 +52,6 @@ namespace NArrange.Core
 		/// <param name="args">Message arguments.</param>
 		void LogMessage(LogLevel level, string message, params object[] args);
 
-		#endregion Methods
+		#endregion
 	}
 }

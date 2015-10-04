@@ -23,7 +23,7 @@ namespace NArrange.Tests.CSharp
 		/// </summary>
 		private ReadOnlyCollection<ICodeElement> _testElements;
 
-		#endregion Fields
+		#endregion
 
 		#region Methods
 
@@ -1049,6 +1049,6 @@ namespace NArrange.Tests.CSharp
 			}
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

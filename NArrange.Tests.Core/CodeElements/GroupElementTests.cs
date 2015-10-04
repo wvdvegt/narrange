@@ -67,6 +67,6 @@ namespace NArrange.Tests.Core.CodeElements
 			Assert.AreEqual(original.CustomSeparator, clone.CustomSeparator);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

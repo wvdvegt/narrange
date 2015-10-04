@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 
 using System.Linq;
@@ -116,7 +116,7 @@ namespace NArrange.Core
 		/// </summary>
 		private Dictionary<string, Regex> _regexCache = new Dictionary<string, Regex>();
 
-		#endregion Fields
+		#endregion
 
 		#region Properties
 
@@ -174,7 +174,7 @@ namespace NArrange.Core
 			get { return _prevCh; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -458,6 +458,6 @@ namespace NArrange.Core
 			_position = 1;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

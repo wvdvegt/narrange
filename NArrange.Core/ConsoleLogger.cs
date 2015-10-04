@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -72,7 +72,7 @@ namespace NArrange.Core
 		/// </summary>
 		private bool _trace;
 
-		#endregion Fields
+		#endregion
 
 		#region Properties
 
@@ -86,7 +86,7 @@ namespace NArrange.Core
 			set { _trace = value; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -153,6 +153,6 @@ namespace NArrange.Core
 			}
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

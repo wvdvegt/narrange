@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.VisualBasic
 {
@@ -65,7 +65,7 @@ namespace NArrange.VisualBasic
 		{
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Methods
 
@@ -1159,6 +1159,6 @@ namespace NArrange.VisualBasic
 			}
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

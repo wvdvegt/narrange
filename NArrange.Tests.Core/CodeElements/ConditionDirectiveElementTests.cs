@@ -75,6 +75,6 @@ namespace NArrange.Tests.Core.CodeElements
 			Assert.AreEqual(original.ElseCondition.Children.Count, clone.ElseCondition.Children.Count);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

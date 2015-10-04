@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.CSharp
 {
@@ -165,7 +165,7 @@ namespace NArrange.CSharp
 		/// </summary>
 		public const char TypeImplements = ':';
 
-		#endregion Fields
+		#endregion
 
 		#region Methods
 
@@ -201,6 +201,6 @@ namespace NArrange.CSharp
 				character == BeginVerbatimString;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

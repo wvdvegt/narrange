@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.VisualBasic
 {
@@ -110,7 +110,7 @@ namespace NArrange.VisualBasic
 		/// </summary>
 		public const char Preprocessor = '#';
 
-		#endregion Fields
+		#endregion
 
 		#region Methods
 
@@ -136,6 +136,6 @@ namespace NArrange.VisualBasic
 				   character == LineDelimiter;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

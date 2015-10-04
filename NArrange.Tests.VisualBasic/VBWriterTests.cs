@@ -1869,6 +1869,6 @@ namespace NArrange.Tests.VisualBasic
 				"Using element was not written correctly.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

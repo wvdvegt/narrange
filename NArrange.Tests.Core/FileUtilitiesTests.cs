@@ -19,7 +19,7 @@ namespace NArrange.Tests.Core
 		/// </summary>
 		private const string EncodingTestFileDirectory = "EncodingTestFiles";
 
-		#endregion Fields
+		#endregion
 
 		#region Methods
 
@@ -52,6 +52,6 @@ namespace NArrange.Tests.Core
 			}
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

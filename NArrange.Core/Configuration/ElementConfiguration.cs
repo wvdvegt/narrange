@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.Configuration
 {
@@ -77,7 +77,7 @@ namespace NArrange.Core.Configuration
 		/// </summary>
 		private SortBy _sortBy;
 
-		#endregion Fields
+		#endregion
 
 		#region Properties
 
@@ -140,7 +140,7 @@ namespace NArrange.Core.Configuration
 			set { _sortBy = value; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -183,6 +183,6 @@ namespace NArrange.Core.Configuration
 			return clone;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

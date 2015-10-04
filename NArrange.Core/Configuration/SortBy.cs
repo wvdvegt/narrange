@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.Configuration
 {
@@ -66,7 +66,7 @@ namespace NArrange.Core.Configuration
 		/// </summary>
 		private SortBy _innerSortBy;
 
-		#endregion Fields
+		#endregion
 
 		#region Properties
 
@@ -105,7 +105,7 @@ namespace NArrange.Core.Configuration
 			set { _innerSortBy = value; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -140,6 +140,6 @@ namespace NArrange.Core.Configuration
 				_by);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

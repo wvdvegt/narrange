@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -55,7 +55,7 @@ namespace NArrange.Core
 		/// </summary>
 		private CodeConfiguration _configuration;
 
-		#endregion Fields
+		#endregion
 
 		#region Properties
 
@@ -76,7 +76,7 @@ namespace NArrange.Core
 			set { _configuration = value; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -148,6 +148,6 @@ namespace NArrange.Core
 		/// <param name="writer">The writer.</param>
 		protected abstract void DoWriteElements(ReadOnlyCollection<ICodeElement> codeElements, TextWriter writer);
 
-		#endregion Methods
+		#endregion
 	}
 }

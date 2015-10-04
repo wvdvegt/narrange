@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Gui.Configuration
 {
@@ -54,7 +54,7 @@ namespace NArrange.Gui.Configuration
 		/// </summary>
 		private TypeDescriptionProvider _baseProvider;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -67,7 +67,7 @@ namespace NArrange.Gui.Configuration
 			_baseProvider = TypeDescriptor.GetProvider(type);
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Methods
 
@@ -85,9 +85,9 @@ namespace NArrange.Gui.Configuration
 			return new CodeConfigurationTypeDescriptor(_baseProvider.GetTypeDescriptor(objectType, instance));
 		}
 
-		#endregion Methods
+		#endregion
 
-		#region Nested Types
+		#region Other
 
 		/// <summary>
 		/// Custom type descriptor. It creates a new property and returns it along
@@ -95,8 +95,6 @@ namespace NArrange.Gui.Configuration
 		/// </summary>
 		private sealed class CodeConfigurationTypeDescriptor : CustomTypeDescriptor
 		{
-			#region Constructors
-
 			/// <summary>
 			/// Creates a new type descriptor using the specified parent.
 			/// </summary>
@@ -105,10 +103,6 @@ namespace NArrange.Gui.Configuration
 				: base(parent)
 			{
 			}
-
-			#endregion Constructors
-
-			#region Methods
 
 			/// <summary>
 			/// Gets the PropertyDescriptors for the Type.
@@ -152,8 +146,6 @@ namespace NArrange.Gui.Configuration
 			{
 				return this.GetProperties(null);
 			}
-
-			#endregion Methods
 		}
 
 		/// <summary>
@@ -161,16 +153,10 @@ namespace NArrange.Gui.Configuration
 		/// </summary>
 		private class ElementCollectionPropertyDescriptor : PropertyDescriptor
 		{
-			#region Fields
-
 			/// <summary>
 			/// Original, reflected property.
 			/// </summary>
 			private PropertyDescriptor _originalProperty;
-
-			#endregion Fields
-
-			#region Constructors
 
 			/// <summary>
 			/// Creates a new ElementCollectionPropertyDescriptor.
@@ -181,10 +167,6 @@ namespace NArrange.Gui.Configuration
 			{
 				_originalProperty = originalProperty;
 			}
-
-			#endregion Constructors
-
-			#region Properties
 
 			/// <summary>
 			/// Gets the type of the component for which this property belongs.
@@ -209,10 +191,6 @@ namespace NArrange.Gui.Configuration
 			{
 				get { return _originalProperty.PropertyType; }
 			}
-
-			#endregion Properties
-
-			#region Methods
 
 			/// <summary>
 			/// Gets a value indicating whether or not the properties value can be
@@ -282,10 +260,8 @@ namespace NArrange.Gui.Configuration
 			{
 				return _originalProperty.ShouldSerializeValue(component);
 			}
-
-			#endregion Methods
 		}
 
-		#endregion Nested Types
+		#endregion
 	}
 }

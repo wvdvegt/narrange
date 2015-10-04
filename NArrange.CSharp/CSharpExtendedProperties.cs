@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.CSharp
 {
@@ -50,6 +50,6 @@ namespace NArrange.CSharp
 		/// </summary>
 		public const string Fixed = CSharpKeyword.Fixed;
 
-		#endregion Fields
+		#endregion
 	}
 }

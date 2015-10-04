@@ -62,7 +62,7 @@ namespace NArrange.Tests.CSharp
 		/// </summary>
 		private string _testValidSourceFile2;
 
-		#endregion Fields
+		#endregion
 
 		#region Methods
 
@@ -522,6 +522,6 @@ namespace NArrange.Tests.CSharp
 			return contents;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

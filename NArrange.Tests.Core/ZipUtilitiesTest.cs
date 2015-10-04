@@ -80,6 +80,6 @@ namespace NArrange.Tests.Core
 			}
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

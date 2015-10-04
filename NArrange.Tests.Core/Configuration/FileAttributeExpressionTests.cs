@@ -23,6 +23,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.AreEqual("$(File.Path)", expression.ToString(), "Unexpected string representation.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

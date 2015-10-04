@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.Configuration
 {
@@ -54,6 +54,6 @@ namespace NArrange.Core.Configuration
 		/// </summary>
 		IConditionExpression Right { get; }
 
-		#endregion Properties
+		#endregion
 	}
 }

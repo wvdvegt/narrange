@@ -71,6 +71,6 @@ namespace NArrange.Tests.VisualBasic
 			Assert.AreEqual("Testit", VBKeyword.Normalize("testit"));
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

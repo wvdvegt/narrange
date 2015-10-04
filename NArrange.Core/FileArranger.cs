@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -101,7 +101,7 @@ namespace NArrange.Core
 		/// </summary>
 		private ProjectManager _projectManager;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -116,7 +116,7 @@ namespace NArrange.Core
 			_logger = logger;
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Methods
 
@@ -579,17 +579,15 @@ namespace NArrange.Core
 			return success;
 		}
 
-		#endregion Methods
+		#endregion
 
-		#region Nested Types
+		#region Other
 
 		/// <summary>
 		/// Arrange result.
 		/// </summary>
 		private class ArrangeResult
 		{
-			#region Fields
-
 			/// <summary>
 			/// Encoding to use when writing the file.
 			/// </summary>
@@ -615,10 +613,6 @@ namespace NArrange.Core
 			/// </summary>
 			private readonly string _outputFileText;
 
-			#endregion Fields
-
-			#region Constructors
-
 			/// <summary>
 			/// Creates a new ArrangeResult.
 			/// </summary>
@@ -641,10 +635,6 @@ namespace NArrange.Core
 				_modified = _inputFile != _outputFile ||
 							inputFileText != outputFileText;
 			}
-
-			#endregion Constructors
-
-			#region Properties
 
 			/// <summary>
 			/// Gets the encoding to use for writing.
@@ -677,10 +667,8 @@ namespace NArrange.Core
 			{
 				get { return _outputFileText; }
 			}
-
-			#endregion Properties
 		}
 
-		#endregion Nested Types
+		#endregion
 	}
 }

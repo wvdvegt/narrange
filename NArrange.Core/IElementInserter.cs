@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -53,6 +53,6 @@ namespace NArrange.Core
 		/// <param name="codeElement">Code element to insert.</param>
 		void InsertElement(ICodeElement parentElement, ICodeElement codeElement);
 
-		#endregion Methods
+		#endregion
 	}
 }

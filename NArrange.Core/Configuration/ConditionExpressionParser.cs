@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.Configuration
 {
@@ -87,7 +87,7 @@ namespace NArrange.Core.Configuration
 		/// </summary>
 		private static ConditionExpressionParser _instance;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -98,7 +98,7 @@ namespace NArrange.Core.Configuration
 		{
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -124,7 +124,7 @@ namespace NArrange.Core.Configuration
 			}
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -607,25 +607,19 @@ namespace NArrange.Core.Configuration
 			throw new FormatException(messageBuilder.ToString());
 		}
 
-		#endregion Methods
+		#endregion
 
-		#region Nested Types
+		#region Other
 
 		/// <summary>
 		/// Operator expression.
 		/// </summary>
 		private class OperatorExpressionPlaceholder : LeafExpression
 		{
-			#region Fields
-
 			/// <summary>
 			/// Operator type.
 			/// </summary>
 			private readonly BinaryExpressionOperator _operatorType;
-
-			#endregion Fields
-
-			#region Constructors
 
 			/// <summary>
 			/// Creates a new operator expression.
@@ -636,10 +630,6 @@ namespace NArrange.Core.Configuration
 				_operatorType = operatorType;
 			}
 
-			#endregion Constructors
-
-			#region Properties
-
 			/// <summary>
 			/// Gets the expression operator.
 			/// </summary>
@@ -647,10 +637,8 @@ namespace NArrange.Core.Configuration
 			{
 				get { return _operatorType; }
 			}
-
-			#endregion Properties
 		}
 
-		#endregion Nested Types
+		#endregion
 	}
 }

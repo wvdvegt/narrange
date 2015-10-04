@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.Configuration
 {
@@ -52,7 +52,7 @@ namespace NArrange.Core.Configuration
 		/// </summary>
 		private readonly FileAttributeType _fileAttributeType;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -65,7 +65,7 @@ namespace NArrange.Core.Configuration
 			_fileAttributeType = fileAttribute;
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -77,7 +77,7 @@ namespace NArrange.Core.Configuration
 			get { return _fileAttributeType; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -94,6 +94,6 @@ namespace NArrange.Core.Configuration
 				_fileAttributeType);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

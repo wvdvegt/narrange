@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.CodeElements
 {
@@ -50,7 +50,7 @@ namespace NArrange.Core.CodeElements
 		/// </summary>
 		private bool _directivesEnabled = true;
 
-		#endregion Fields
+		#endregion
 
 		#region Properties
 
@@ -72,7 +72,7 @@ namespace NArrange.Core.CodeElements
 			get { return ElementType.Region; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -98,6 +98,6 @@ namespace NArrange.Core.CodeElements
 			return clone;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

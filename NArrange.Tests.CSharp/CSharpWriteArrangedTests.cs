@@ -37,7 +37,7 @@ namespace NArrange.Tests.CSharp
 			}
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -52,6 +52,6 @@ namespace NArrange.Tests.CSharp
 			return CSharpTestFile.Compile(text);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

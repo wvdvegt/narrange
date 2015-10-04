@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Gui.Configuration
 {
@@ -64,7 +64,7 @@ namespace NArrange.Gui.Configuration
 		/// </summary>
 		private Type[] _newItemTypes;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -83,7 +83,7 @@ namespace NArrange.Gui.Configuration
 			Initialize();
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Methods
 
@@ -154,6 +154,6 @@ namespace NArrange.Gui.Configuration
 			this.ContextMenuStrip = _contextMenu;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

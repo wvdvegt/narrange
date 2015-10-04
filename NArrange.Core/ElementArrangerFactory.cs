@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -122,6 +122,6 @@ namespace NArrange.Core
 			return childrenArranger;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

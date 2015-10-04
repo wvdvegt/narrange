@@ -23,6 +23,6 @@ namespace NArrange.Tests.Core
 			ElementArrangerFactory.CreateElementArranger(null, new ElementConfiguration());
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

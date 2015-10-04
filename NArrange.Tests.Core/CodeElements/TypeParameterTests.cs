@@ -48,6 +48,6 @@ namespace NArrange.Tests.Core.CodeElements
 			Assert.AreEqual(0, typeParameter.Constraints.Count, "Constraints collection should be empty.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

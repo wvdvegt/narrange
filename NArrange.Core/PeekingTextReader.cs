@@ -15,7 +15,7 @@ namespace NArrange.Core
 		private readonly List<int> _peeks;
 		private readonly TextReader _textReader;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -29,7 +29,7 @@ namespace NArrange.Core
 			_peeks = new List<int>();
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Methods
 
@@ -132,6 +132,6 @@ namespace NArrange.Core
 			_textReader.Dispose();
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

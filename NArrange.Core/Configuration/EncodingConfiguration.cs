@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.Configuration
 {
@@ -68,7 +68,7 @@ namespace NArrange.Core.Configuration
 		/// </summary>
 		private string _codePage;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -80,7 +80,7 @@ namespace NArrange.Core.Configuration
 			_codePage = DetectCodePage;
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -98,7 +98,7 @@ namespace NArrange.Core.Configuration
 			set { _codePage = value; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -160,6 +160,6 @@ namespace NArrange.Core.Configuration
 				Thread.CurrentThread.CurrentCulture, "Encoding: CodePage - {0}", CodePage);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

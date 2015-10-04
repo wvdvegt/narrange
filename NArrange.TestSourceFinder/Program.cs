@@ -37,7 +37,7 @@
  *      - Removed unused using statements
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.TestSourceFinder
 {
@@ -173,6 +173,6 @@ namespace NArrange.TestSourceFinder
 			return sourceFiles.ToArray();
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

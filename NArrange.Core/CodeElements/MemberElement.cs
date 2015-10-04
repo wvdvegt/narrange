@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.CodeElements
 {
@@ -54,7 +54,7 @@ namespace NArrange.Core.CodeElements
 		/// </summary>
 		private string _type;
 
-		#endregion Fields
+		#endregion
 
 		#region Properties
 
@@ -132,7 +132,7 @@ namespace NArrange.Core.CodeElements
 			set { _type = value; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -159,6 +159,6 @@ namespace NArrange.Core.CodeElements
 		/// <returns>Clone of the instance with the member element state copied.</returns>
 		protected abstract MemberElement DoMemberClone();
 
-		#endregion Methods
+		#endregion
 	}
 }

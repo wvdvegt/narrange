@@ -101,17 +101,15 @@ namespace NArrange.Tests.Core
 			Assert.IsTrue(parentElement.Children.Contains(fieldElement));
 		}
 
-		#endregion Methods
+		#endregion
 
-		#region Nested Types
+		#region Other
 
 		/// <summary>
 		/// Test code element arranger.
 		/// </summary>
 		private class TestElementArranger : IElementArranger
 		{
-			#region Fields
-
 			/// <summary>
 			/// Whether or not arrage was called.
 			/// </summary>
@@ -122,10 +120,6 @@ namespace NArrange.Tests.Core
 			/// </summary>
 			private bool _canArrange;
 
-			#endregion Fields
-
-			#region Constructors
-
 			/// <summary>
 			/// Creates a test element arranger.
 			/// </summary>
@@ -135,10 +129,6 @@ namespace NArrange.Tests.Core
 				_canArrange = canArrange;
 			}
 
-			#endregion Constructors
-
-			#region Properties
-
 			/// <summary>
 			/// Gets a value indicating whether or not arrange was called.
 			/// </summary>
@@ -146,10 +136,6 @@ namespace NArrange.Tests.Core
 			{
 				get { return _arrangeCalled; }
 			}
-
-			#endregion Properties
-
-			#region Methods
 
 			/// <summary>
 			/// Arranges the specified element within the parent element.
@@ -187,10 +173,8 @@ namespace NArrange.Tests.Core
 			{
 				return _canArrange;
 			}
-
-			#endregion Methods
 		}
 
-		#endregion Nested Types
+		#endregion
 	}
 }

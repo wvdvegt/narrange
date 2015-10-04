@@ -74,6 +74,6 @@ namespace NArrange.Tests.Core.CodeElements
 			Assert.AreEqual(original.IsMovable, clone.IsMovable);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

@@ -34,7 +34,7 @@
 //      - Fixed the shifting of the Edit button under Mono
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Gui.Configuration
 {
@@ -58,7 +58,7 @@ namespace NArrange.Gui.Configuration
 			InitializeComponent();
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Events
 
@@ -72,7 +72,7 @@ namespace NArrange.Gui.Configuration
 		/// </summary>
 		public event EventHandler EditClick;
 
-		#endregion Events
+		#endregion
 
 		#region Properties
 
@@ -89,7 +89,7 @@ namespace NArrange.Gui.Configuration
 			}
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -197,6 +197,6 @@ namespace NArrange.Gui.Configuration
 			}
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

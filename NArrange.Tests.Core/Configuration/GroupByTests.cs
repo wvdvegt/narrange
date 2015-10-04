@@ -97,6 +97,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.AreEqual("Group by: Access", str, "Unexpected string representation.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

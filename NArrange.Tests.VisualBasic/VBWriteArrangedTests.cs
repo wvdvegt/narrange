@@ -37,7 +37,7 @@ namespace NArrange.Tests.VisualBasic
 			}
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -52,6 +52,6 @@ namespace NArrange.Tests.VisualBasic
 			return VBTestFile.Compile(text, assemblyName);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

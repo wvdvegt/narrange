@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.ConsoleApplication
 {
@@ -55,7 +55,7 @@ namespace NArrange.ConsoleApplication
 		/// </summary>
 		private const int Fail = -1;
 
-		#endregion Fields
+		#endregion
 
 		#region Methods
 
@@ -280,6 +280,6 @@ namespace NArrange.ConsoleApplication
 			Console.WriteLine();
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

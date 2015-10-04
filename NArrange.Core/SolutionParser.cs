@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -71,7 +71,7 @@ namespace NArrange.Core
 		/// </summary>
 		private static SolutionParser _instance;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -94,7 +94,7 @@ namespace NArrange.Core
 			}
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -128,7 +128,7 @@ namespace NArrange.Core
 			get { return _extensions.AsReadOnly(); }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -177,6 +177,6 @@ namespace NArrange.Core
 			return projectFiles.AsReadOnly();
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

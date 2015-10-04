@@ -67,6 +67,6 @@ namespace NArrange.Tests.Core.CodeElements
 				0, codeElement.HeaderComments.Count, "Header comment lines was not cleared.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

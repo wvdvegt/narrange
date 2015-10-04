@@ -1694,6 +1694,6 @@ namespace NArrange.Tests.CSharp
 				"Using element was not written correctly.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

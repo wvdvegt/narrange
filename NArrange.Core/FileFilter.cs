@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -54,7 +54,7 @@ namespace NArrange.Core
 		/// </summary>
 		private readonly IConditionExpression _conditionExpression;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -67,7 +67,7 @@ namespace NArrange.Core
 			_conditionExpression = ConditionExpressionParser.Instance.Parse(conditionExpression);
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Methods
 
@@ -91,6 +91,6 @@ namespace NArrange.Core
 			return isMatch;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

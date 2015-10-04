@@ -114,6 +114,6 @@ namespace NArrange.Tests.Core.CodeElements
 			}
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

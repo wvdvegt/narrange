@@ -64,6 +64,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.IsNotNull(formattingConfiguration.Usings, "Expected an instance Usings.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

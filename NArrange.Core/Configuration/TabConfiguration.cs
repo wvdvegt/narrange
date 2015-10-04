@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.Configuration
 {
@@ -61,7 +61,7 @@ namespace NArrange.Core.Configuration
 		/// </summary>
 		private TabStyle _tabStyle;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -74,7 +74,7 @@ namespace NArrange.Core.Configuration
 			_spacesPerTab = 4;
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -101,7 +101,7 @@ namespace NArrange.Core.Configuration
 			set { _tabStyle = value; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -134,6 +134,6 @@ namespace NArrange.Core.Configuration
 				SpacesPerTab);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

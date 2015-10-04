@@ -39,6 +39,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.AreEqual("Element Reference: SomeId", str, "Unexpected string representation.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

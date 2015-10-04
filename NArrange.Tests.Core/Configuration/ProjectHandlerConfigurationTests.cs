@@ -24,6 +24,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.AreEqual("Project Handler: TestAssembly.TestParser", str, "Unexpected string representation.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

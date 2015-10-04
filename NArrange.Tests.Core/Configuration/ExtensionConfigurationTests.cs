@@ -60,6 +60,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.AreEqual("Extension: cs", str, "Unexpected string representation.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

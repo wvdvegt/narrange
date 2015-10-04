@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.Configuration
 {
@@ -56,7 +56,7 @@ namespace NArrange.Core.Configuration
 		/// </summary>
 		private string _conditionExpression;
 
-		#endregion Fields
+		#endregion
 
 		#region Properties
 
@@ -71,7 +71,7 @@ namespace NArrange.Core.Configuration
 			set { _conditionExpression = value; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -100,6 +100,6 @@ namespace NArrange.Core.Configuration
 				Thread.CurrentThread.CurrentCulture, "Filter by: {0}", _conditionExpression);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

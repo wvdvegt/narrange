@@ -411,6 +411,6 @@ namespace NArrange.Tests.Core
 			Assert.IsFalse(result, "Unexpected expression evaluation result.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

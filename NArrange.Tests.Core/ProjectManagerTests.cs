@@ -22,6 +22,6 @@ namespace NArrange.Tests.Core
 			ProjectManager projectManager = new ProjectManager(null);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

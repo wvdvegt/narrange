@@ -96,6 +96,6 @@ namespace NArrange.Tests.Core.CodeElements
 			Assert.AreEqual(original.Type, clone.Type);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

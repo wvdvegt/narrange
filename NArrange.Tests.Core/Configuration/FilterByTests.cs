@@ -39,6 +39,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.AreEqual("Filter by: $(Access) == 'Protected'", str, "Unexpected string representation.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

@@ -80,6 +80,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.AreEqual("Element: Type - Method", str, "Unexpected string representation.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

@@ -59,6 +59,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.AreEqual("Tabs: Spaces, 8", str, "Unexpected string representation.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

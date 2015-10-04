@@ -60,6 +60,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.AreEqual("Usings: MoveTo - File", str, "Unexpected string representation.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

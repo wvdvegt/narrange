@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -76,7 +76,7 @@ namespace NArrange.Core
 		private static readonly int MaxIntLength = 
 			int.MinValue.ToString(CultureInfo.InvariantCulture).Length;
 
-		#endregion Fields
+		#endregion
 
 		#region Methods
 
@@ -296,6 +296,6 @@ namespace NArrange.Core
 			}
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

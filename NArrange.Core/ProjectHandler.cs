@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -65,7 +65,7 @@ namespace NArrange.Core
 		/// </summary>
 		private IProjectParser _projectParser;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -85,7 +85,7 @@ namespace NArrange.Core
 			Initialize();
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -105,7 +105,7 @@ namespace NArrange.Core
 			get { return _projectParser; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -138,6 +138,6 @@ namespace NArrange.Core
 			_projectParser = Activator.CreateInstance(projectParserType) as IProjectParser;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

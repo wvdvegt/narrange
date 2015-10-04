@@ -191,6 +191,6 @@ namespace NArrange.Tests.CSharp
 			CompileArrangeAndRecompile(resourceName);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

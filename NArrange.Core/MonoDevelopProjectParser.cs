@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -90,6 +90,6 @@ namespace NArrange.Core
 			return sourceFiles.AsReadOnly();
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

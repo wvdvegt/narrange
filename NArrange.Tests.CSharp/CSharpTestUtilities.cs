@@ -115,6 +115,6 @@ namespace NArrange.Tests.CSharp
 			return new CSharpTestFile("UTF8.cs");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

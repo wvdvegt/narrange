@@ -24,6 +24,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.AreEqual("Source Handler: TestLanguage", str, "Unexpected string representation.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

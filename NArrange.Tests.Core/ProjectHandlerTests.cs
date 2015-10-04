@@ -68,6 +68,6 @@ namespace NArrange.Tests.Core
 			new ProjectHandler(null);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

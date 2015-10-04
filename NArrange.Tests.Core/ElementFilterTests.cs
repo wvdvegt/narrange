@@ -103,6 +103,6 @@ namespace NArrange.Tests.Core
 			Assert.AreEqual(ElementAttributeScope.Parent, filter.RequiredScope);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

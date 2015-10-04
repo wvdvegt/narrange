@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.Configuration
 {
@@ -57,7 +57,7 @@ namespace NArrange.Core.Configuration
 		/// <remarks>Default is false for backwards compatibility.</remarks>
 		private bool _removeConsecutiveBlankLines = false;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -68,7 +68,7 @@ namespace NArrange.Core.Configuration
 		{
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -85,7 +85,7 @@ namespace NArrange.Core.Configuration
 			set { _removeConsecutiveBlankLines = value; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -116,6 +116,6 @@ namespace NArrange.Core.Configuration
 				RemoveConsecutiveBlankLines);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

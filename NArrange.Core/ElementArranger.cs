@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -76,7 +76,7 @@ namespace NArrange.Core
 		/// </summary>
 		private IElementInserter _inserter;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -97,7 +97,7 @@ namespace NArrange.Core
 			_parentConfiguration = parentConfiguration;
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Methods
 
@@ -377,6 +377,6 @@ namespace NArrange.Core
 			return staticFields.ToArray();
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

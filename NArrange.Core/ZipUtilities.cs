@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -70,6 +70,6 @@ namespace NArrange.Core
 			fastZip.CreateZip(zipFileName, sourceDirectory, true, null);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

@@ -105,6 +105,6 @@ namespace NArrange.Tests.Core.CodeElements
 				"TrailingComment was not copied correctly.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

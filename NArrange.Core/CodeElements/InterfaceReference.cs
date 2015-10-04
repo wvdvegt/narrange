@@ -20,7 +20,7 @@ namespace NArrange.Core.CodeElements
 		/// </summary>
 		private InterfaceReferenceType _referenceType;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -42,7 +42,7 @@ namespace NArrange.Core.CodeElements
 			_referenceType = referenceType;
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -64,7 +64,7 @@ namespace NArrange.Core.CodeElements
 			set { _referenceType = value; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -96,6 +96,6 @@ namespace NArrange.Core.CodeElements
 			return _name;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

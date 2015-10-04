@@ -92,6 +92,6 @@ namespace NArrange.Tests.Core.CodeElements
 			Assert.AreEqual(original.Type, clone.Type, "IsXmlComment was not copied correctly.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

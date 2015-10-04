@@ -20,7 +20,7 @@ namespace NArrange.Tests.Core
 		/// </summary>
 		private string _testSolutionFile;
 
-		#endregion Fields
+		#endregion
 
 		#region Methods
 
@@ -108,6 +108,6 @@ namespace NArrange.Tests.Core
 			}
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

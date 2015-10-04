@@ -39,6 +39,6 @@ namespace NArrange.Tests.CSharp
 			Assert.IsFalse(CSharpSymbol.IsCSharpSymbol('_'));
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

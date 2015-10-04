@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.SourceTester
 {
@@ -63,7 +63,7 @@ namespace NArrange.SourceTester
 		/// </summary>
 		private const int Fail = -1;
 
-		#endregion Fields
+		#endregion
 
 		#region Methods
 
@@ -449,6 +449,6 @@ namespace NArrange.SourceTester
 			Console.WriteLine();
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

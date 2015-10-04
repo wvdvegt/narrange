@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -55,7 +55,7 @@ namespace NArrange.Core
 		/// </summary>
 		CodeConfiguration Configuration { get; set; }
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -66,6 +66,6 @@ namespace NArrange.Core
 		/// <returns>A read-only collection of code elements.</returns>
 		ReadOnlyCollection<ICodeElement> Parse(TextReader reader);
 
-		#endregion Methods
+		#endregion
 	}
 }

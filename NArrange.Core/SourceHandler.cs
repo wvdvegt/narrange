@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -70,7 +70,7 @@ namespace NArrange.Core
 		/// </summary>
 		private ICodeElementWriter _codeWriter;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -90,7 +90,7 @@ namespace NArrange.Core
 			Initialize();
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -118,7 +118,7 @@ namespace NArrange.Core
 			get { return _configuration; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -143,6 +143,6 @@ namespace NArrange.Core
 			}
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

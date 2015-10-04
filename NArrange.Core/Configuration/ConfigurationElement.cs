@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.Configuration
 {
@@ -59,7 +59,7 @@ namespace NArrange.Core.Configuration
 		/// </summary>
 		private object _elementsSynchLock = new object();
 
-		#endregion Fields
+		#endregion
 
 		#region Properties
 
@@ -89,7 +89,7 @@ namespace NArrange.Core.Configuration
 			}
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -129,6 +129,6 @@ namespace NArrange.Core.Configuration
 		/// <returns>Clone of this instance.</returns>
 		protected abstract ConfigurationElement DoClone();
 
-		#endregion Methods
+		#endregion
 	}
 }

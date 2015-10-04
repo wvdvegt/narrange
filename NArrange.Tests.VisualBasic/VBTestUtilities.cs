@@ -115,6 +115,6 @@ namespace NArrange.Tests.VisualBasic
 			return new VBTestFile("StructDefinition.vb");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

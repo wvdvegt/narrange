@@ -931,6 +931,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.AreEqual("Test ' it", stringExpression.Text, "Unexpected expression text.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

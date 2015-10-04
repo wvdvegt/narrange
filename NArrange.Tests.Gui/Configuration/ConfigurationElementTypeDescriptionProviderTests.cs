@@ -47,6 +47,6 @@ namespace NArrange.Tests.Gui.Configuration
 				"Unexpected editor type for the Elements property.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

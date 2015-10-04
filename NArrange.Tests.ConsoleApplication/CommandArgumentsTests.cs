@@ -343,6 +343,6 @@ namespace NArrange.Tests.ConsoleApplication
 			CommandArguments.Parse("Input.cs", "/z");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

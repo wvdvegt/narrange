@@ -24,7 +24,7 @@ namespace NArrange.Tests.Core
 		/// </summary>
 		private bool _writeToConsole = false;
 
-		#endregion Fields
+		#endregion
 
 		#region Properties
 
@@ -46,7 +46,7 @@ namespace NArrange.Tests.Core
 			set { _writeToConsole = value; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -138,17 +138,15 @@ namespace NArrange.Tests.Core
 			return textBuilder.ToString();
 		}
 
-		#endregion Methods
+		#endregion
 
-		#region Nested Types
+		#region Other
 
 		/// <summary>
 		/// Test log event.
 		/// </summary>
 		public struct TestLogEvent
 		{
-			#region Fields
-
 			/// <summary>
 			/// Log level.
 			/// </summary>
@@ -158,10 +156,6 @@ namespace NArrange.Tests.Core
 			/// Log message.
 			/// </summary>
 			public readonly string Message;
-
-			#endregion Fields
-
-			#region Constructors
 
 			/// <summary>
 			/// Creates a new test log event.
@@ -174,10 +168,6 @@ namespace NArrange.Tests.Core
 				Message = message;
 			}
 
-			#endregion Constructors
-
-			#region Methods
-
 			/// <summary>
 			/// Gets the string representation.
 			/// </summary>
@@ -186,10 +176,8 @@ namespace NArrange.Tests.Core
 			{
 				return string.Format("{0}: {1}", Level, Message);
 			}
-
-			#endregion Methods
 		}
 
-		#endregion Nested Types
+		#endregion
 	}
 }

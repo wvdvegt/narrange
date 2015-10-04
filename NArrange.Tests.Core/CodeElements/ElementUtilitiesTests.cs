@@ -217,6 +217,6 @@ namespace NArrange.Tests.Core.CodeElements
 			Assert.AreEqual(string.Empty, attribute, "Unexpected attribute.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

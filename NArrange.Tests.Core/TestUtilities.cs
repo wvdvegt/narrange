@@ -25,7 +25,7 @@ namespace NArrange.Tests.Core
 			}
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -62,6 +62,6 @@ namespace NArrange.Tests.Core
 			return error;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

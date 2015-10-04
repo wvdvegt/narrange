@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.CodeElements
 {
@@ -69,7 +69,7 @@ namespace NArrange.Core.CodeElements
 		/// </summary>
 		ICodeElement Parent { get; set; }
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -104,6 +104,6 @@ namespace NArrange.Core.CodeElements
 		/// <param name="childElement">The child element to remove.</param>
 		void RemoveChild(ICodeElement childElement);
 
-		#endregion Methods
+		#endregion
 	}
 }

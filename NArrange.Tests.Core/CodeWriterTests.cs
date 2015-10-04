@@ -98,6 +98,6 @@ namespace NArrange.Tests.Core
 			codeWriter.Write(codeElements.AsReadOnly(), writer);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

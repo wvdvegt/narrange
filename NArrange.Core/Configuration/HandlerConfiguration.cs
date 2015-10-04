@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.Configuration
 {
@@ -53,7 +53,7 @@ namespace NArrange.Core.Configuration
 		/// </summary>
 		private string _assembly;
 
-		#endregion Fields
+		#endregion
 
 		#region Properties
 
@@ -74,7 +74,7 @@ namespace NArrange.Core.Configuration
 		/// </summary>
 		public abstract HandlerType HandlerType { get; }
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -99,6 +99,6 @@ namespace NArrange.Core.Configuration
 		/// <returns>Clone of the instance.</returns>
 		protected abstract HandlerConfiguration DoClone();
 
-		#endregion Methods
+		#endregion
 	}
 }

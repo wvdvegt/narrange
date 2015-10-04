@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -53,7 +53,7 @@ namespace NArrange.Core
 		/// </summary>
 		private static readonly Dictionary<Enum, string> _enumStringCache = new Dictionary<Enum, string>();
 
-		#endregion Fields
+		#endregion
 
 		#region Methods
 
@@ -79,6 +79,6 @@ namespace NArrange.Core
 			return valueString;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

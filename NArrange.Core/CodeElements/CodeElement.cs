@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.CodeElements
 {
@@ -72,7 +72,7 @@ namespace NArrange.Core.CodeElements
 		/// </summary>
 		private ICodeElement _parent;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -86,7 +86,7 @@ namespace NArrange.Core.CodeElements
 			_extendedProperties = new Dictionary<string, object>(5);
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -158,7 +158,7 @@ namespace NArrange.Core.CodeElements
 			}
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Indexers
 
@@ -189,7 +189,7 @@ namespace NArrange.Core.CodeElements
 			}
 		}
 
-		#endregion Indexers
+		#endregion
 
 		#region Methods
 
@@ -337,6 +337,6 @@ namespace NArrange.Core.CodeElements
 		/// <returns>Clone of the code element.</returns>
 		protected abstract CodeElement DoClone();
 
-		#endregion Methods
+		#endregion
 	}
 }

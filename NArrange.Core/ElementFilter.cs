@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -59,7 +59,7 @@ namespace NArrange.Core
 		/// </summary>
 		private readonly ElementAttributeScope _requiredScope;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -73,7 +73,7 @@ namespace NArrange.Core
 			_requiredScope = GetRequiredScope(_conditionExpression);
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -85,7 +85,7 @@ namespace NArrange.Core
 			get { return _requiredScope; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -144,6 +144,6 @@ namespace NArrange.Core
 			return scope;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

@@ -59,6 +59,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.AreEqual("Region: Test Region", str, "Unexpected string representation.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

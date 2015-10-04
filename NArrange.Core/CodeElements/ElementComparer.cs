@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.CodeElements
 {
@@ -67,7 +67,7 @@ namespace NArrange.Core.CodeElements
 		/// </summary>
 		private SortDirection _sortDirection;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -99,7 +99,7 @@ namespace NArrange.Core.CodeElements
 			_comparison = CreateComparison(compareAttribute);
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Methods
 
@@ -212,6 +212,6 @@ namespace NArrange.Core.CodeElements
 			return comparison;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

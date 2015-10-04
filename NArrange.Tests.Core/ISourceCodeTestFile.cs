@@ -20,7 +20,7 @@ namespace NArrange.Tests.Core
 		/// </summary>
 		string Name { get; }
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -30,6 +30,6 @@ namespace NArrange.Tests.Core
 		/// <returns>The TextReader.</returns>
 		TextReader GetReader();
 
-		#endregion Methods
+		#endregion
 	}
 }

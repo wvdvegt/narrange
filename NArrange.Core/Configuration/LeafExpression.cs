@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.Configuration
 {
@@ -60,6 +60,6 @@ namespace NArrange.Core.Configuration
 			get { return null; }
 		}
 
-		#endregion Properties
+		#endregion
 	}
 }

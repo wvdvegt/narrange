@@ -66,6 +66,6 @@ namespace NArrange.Tests.Core.CodeElements
 			Assert.AreEqual(original.DirectivesEnabled, clone.DirectivesEnabled);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

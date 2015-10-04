@@ -97,6 +97,6 @@ namespace NArrange.Tests.Core.CodeElements
 				"TypeParameters were not copied correctly.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.CodeElements
 {
@@ -54,7 +54,7 @@ namespace NArrange.Core.CodeElements
 		/// </summary>
 		private GroupSeparatorType _separatorType;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -75,7 +75,7 @@ namespace NArrange.Core.CodeElements
 			Name = name;
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -105,7 +105,7 @@ namespace NArrange.Core.CodeElements
 			set { _separatorType = value; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -132,6 +132,6 @@ namespace NArrange.Core.CodeElements
 			return clone;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

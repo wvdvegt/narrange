@@ -35,7 +35,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.VisualBasic
 {
@@ -2430,6 +2430,6 @@ namespace NArrange.VisualBasic
 			return read.ToString();
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

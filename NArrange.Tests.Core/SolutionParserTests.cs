@@ -56,6 +56,6 @@ namespace NArrange.Tests.Core
 			SolutionParser.Instance.Parse(null);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

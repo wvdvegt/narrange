@@ -31,7 +31,7 @@ namespace NArrange.Tests.CSharp
 		/// </summary>
 		private string _resourceName;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -46,7 +46,7 @@ namespace NArrange.Tests.CSharp
 			_assembly = GetAssembly(resourceName, targetCSharp6);
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -66,7 +66,7 @@ namespace NArrange.Tests.CSharp
 			get { return _resourceName; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -185,6 +185,6 @@ namespace NArrange.Tests.CSharp
 			return assembly;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.Configuration
 {
@@ -74,7 +74,7 @@ namespace NArrange.Core.Configuration
 		/// </summary>
 		private UsingConfiguration _usings;
 
-		#endregion Fields
+		#endregion
 
 		#region Properties
 
@@ -220,7 +220,7 @@ namespace NArrange.Core.Configuration
 			set { _usings = value; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -262,6 +262,6 @@ namespace NArrange.Core.Configuration
 			return clone;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

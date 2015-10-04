@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.Configuration
 {
@@ -79,7 +79,7 @@ namespace NArrange.Core.Configuration
 		/// </summary>
 		private GroupSeparatorType _separatorType;
 
-		#endregion Fields
+		#endregion
 
 		#region Properties
 
@@ -156,7 +156,7 @@ namespace NArrange.Core.Configuration
 			set { _separatorType = value; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -194,6 +194,6 @@ namespace NArrange.Core.Configuration
 				Thread.CurrentThread.CurrentCulture, "Group by: {0}", _by);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

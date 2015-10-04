@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -75,7 +75,7 @@ namespace NArrange.Core
 		/// </summary>
 		private int _tabCount;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -97,7 +97,7 @@ namespace NArrange.Core
 			_configuration = configuration;
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -126,7 +126,7 @@ namespace NArrange.Core
 			get { return _writer; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -582,6 +582,6 @@ namespace NArrange.Core
 			return formattedLine;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

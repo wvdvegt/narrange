@@ -81,6 +81,6 @@ namespace NArrange.Tests.Core.CodeElements
 			Assert.AreEqual(original.Type, clone.Type, "Type was not copied correctly.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

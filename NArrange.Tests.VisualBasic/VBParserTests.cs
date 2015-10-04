@@ -51,7 +51,7 @@ namespace NArrange.Tests.VisualBasic
 		/// </summary>
 		private const int PropertyRegionIndex = 2;
 
-		#endregion Fields
+		#endregion
 
 		#region Methods
 
@@ -4452,6 +4452,6 @@ namespace NArrange.Tests.VisualBasic
 			return classElement;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

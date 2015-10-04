@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.Configuration
 {
@@ -62,7 +62,7 @@ namespace NArrange.Core.Configuration
 		/// </summary>
 		private readonly IConditionExpression _right;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -82,7 +82,7 @@ namespace NArrange.Core.Configuration
 			_right = right;
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -110,7 +110,7 @@ namespace NArrange.Core.Configuration
 			get { return _right; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -152,6 +152,6 @@ namespace NArrange.Core.Configuration
 				Right);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

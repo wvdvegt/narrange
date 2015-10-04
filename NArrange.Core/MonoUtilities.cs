@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -52,7 +52,7 @@ namespace NArrange.Core
 		/// </summary>
 		private static readonly Type _monoRuntime = Type.GetType("Mono.Runtime");
 
-		#endregion Fields
+		#endregion
 
 		#region Properties
 
@@ -65,6 +65,6 @@ namespace NArrange.Core
 			get { return _monoRuntime != null; }
 		}
 
-		#endregion Properties
+		#endregion
 	}
 }

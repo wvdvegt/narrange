@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -68,7 +68,7 @@ namespace NArrange.Core
 		/// </summary>
 		private Dictionary<string, SourceHandler> _sourceExtensionHandlers;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -88,7 +88,7 @@ namespace NArrange.Core
 			Initialize();
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Methods
 
@@ -395,6 +395,6 @@ namespace NArrange.Core
 			return recognized;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

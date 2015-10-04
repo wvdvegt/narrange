@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Gui.Configuration
 {
@@ -58,7 +58,7 @@ namespace NArrange.Gui.Configuration
 			typeof (RegionConfiguration)
 		};
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -71,7 +71,7 @@ namespace NArrange.Gui.Configuration
 		{
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Methods
 
@@ -112,6 +112,6 @@ namespace NArrange.Gui.Configuration
 			return ItemTypes;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

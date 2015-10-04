@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -55,7 +55,7 @@ namespace NArrange.Core
 		/// </summary>
 		private readonly List<string> _extensions = new List<string>(new string[] {"sln"});
 
-		#endregion Fields
+		#endregion
 
 		#region Properties
 
@@ -67,7 +67,7 @@ namespace NArrange.Core
 			get { return _extensions.AsReadOnly(); }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -112,6 +112,6 @@ namespace NArrange.Core
 			return projectFiles.AsReadOnly();
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

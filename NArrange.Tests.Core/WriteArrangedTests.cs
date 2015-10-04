@@ -25,7 +25,7 @@ namespace NArrange.Tests.Core
 		/// </summary>
 		public abstract ISourceCodeTestFile[] ValidTestFiles { get; }
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -121,6 +121,6 @@ namespace NArrange.Tests.Core
 		/// <returns>Compiler results.</returns>
 		protected abstract CompilerResults Compile(string text, string assemblyName);
 
-		#endregion Methods
+		#endregion
 	}
 }

@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -52,7 +52,7 @@ namespace NArrange.Core
 		/// </summary>
 		ElementAttributeScope RequiredScope { get; }
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -64,6 +64,6 @@ namespace NArrange.Core
 		/// <returns>True if the elemet matches the filter, otherwise false.</returns>
 		bool IsMatch(ICodeElement codeElement);
 
-		#endregion Methods
+		#endregion
 	}
 }

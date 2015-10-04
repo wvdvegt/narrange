@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Gui.Configuration
 {
@@ -55,7 +55,7 @@ namespace NArrange.Gui.Configuration
 		/// </summary>
 		private bool _canSelectConfig = true;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -67,7 +67,7 @@ namespace NArrange.Gui.Configuration
 			InitializeComponent();
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -88,7 +88,7 @@ namespace NArrange.Gui.Configuration
 			}
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -238,6 +238,6 @@ namespace NArrange.Gui.Configuration
 			}
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

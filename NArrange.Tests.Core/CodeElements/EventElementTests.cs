@@ -84,6 +84,6 @@ namespace NArrange.Tests.Core.CodeElements
 			Assert.AreEqual(original.Parameters, clone.Parameters, "Parameters was not copied correctly.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

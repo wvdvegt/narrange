@@ -348,6 +348,6 @@ namespace NArrange.Tests.Core
 			Assert.AreEqual("MyClass2", grandchildGroup.Children[0].Name);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

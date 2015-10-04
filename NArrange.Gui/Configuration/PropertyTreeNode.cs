@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Gui.Configuration
 {
@@ -73,7 +73,7 @@ namespace NArrange.Gui.Configuration
 		/// </summary>
 		private ToolStripMenuItem _removeMenuItem;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -92,7 +92,7 @@ namespace NArrange.Gui.Configuration
 			this.Initialize();
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Events
 
@@ -101,7 +101,7 @@ namespace NArrange.Gui.Configuration
 		/// </summary>
 		public event EventHandler PropertyValueChanged;
 
-		#endregion Events
+		#endregion
 
 		#region Properties
 
@@ -135,7 +135,7 @@ namespace NArrange.Gui.Configuration
 			}
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -219,6 +219,6 @@ namespace NArrange.Gui.Configuration
 			}
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

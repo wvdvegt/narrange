@@ -77,6 +77,6 @@ namespace NArrange.Tests.Core
 			RegionArranger regionArranger = new RegionArranger(null, new ElementConfiguration());
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

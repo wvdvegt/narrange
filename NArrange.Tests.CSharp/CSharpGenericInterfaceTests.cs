@@ -13,6 +13,6 @@ namespace NArrange.Tests.CSharp
 			CSharp6FeatureTests.CompileArrangeAndRecompile("Generics.cs");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

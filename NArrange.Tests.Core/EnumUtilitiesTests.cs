@@ -40,6 +40,6 @@ namespace NArrange.Tests.Core
 			Assert.AreEqual(str, EnumUtilities.ToString(modifiers));
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

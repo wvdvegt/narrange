@@ -21,6 +21,6 @@ namespace NArrange.Tests.Gui
 			Assert.IsNotNull(form, "Expected a valid base form instance.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

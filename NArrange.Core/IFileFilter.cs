@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -55,6 +55,6 @@ namespace NArrange.Core
 		/// <returns>True if the file matches the filter, otherwise false.</returns>
 		bool IsMatch(FileInfo file);
 
-		#endregion Methods
+		#endregion
 	}
 }

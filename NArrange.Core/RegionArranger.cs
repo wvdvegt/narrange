@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -71,7 +71,7 @@ namespace NArrange.Core
 		/// </summary>
 		private RegionConfiguration _regionConfiguration;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -109,7 +109,7 @@ namespace NArrange.Core
 			_levelRegions = levelRegions.AsReadOnly();
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Methods
 
@@ -231,6 +231,6 @@ namespace NArrange.Core
 			}
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

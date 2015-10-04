@@ -17,7 +17,7 @@ namespace NArrange.Tests.CSharp
 		private string _prettyCodeResourceName = "PropertyChanges.PrettyCode.cs";
 		private string _uglyCodeResourceName = "PropertyChanges.UglyCode.cs";
 
-		#endregion Fields
+		#endregion
 
 		#region Methods
 
@@ -132,6 +132,6 @@ namespace NArrange.Tests.CSharp
 			return f + ".cs";
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

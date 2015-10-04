@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -56,7 +56,7 @@ namespace NArrange.Core
 		/// </summary>
 		private readonly List<IElementArranger> _arrangers;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -68,7 +68,7 @@ namespace NArrange.Core
 			_arrangers = new List<IElementArranger>();
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Methods
 
@@ -182,6 +182,6 @@ namespace NArrange.Core
 			return canArrange;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

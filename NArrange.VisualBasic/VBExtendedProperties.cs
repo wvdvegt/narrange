@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.VisualBasic
 {
@@ -95,6 +95,6 @@ namespace NArrange.VisualBasic
 		/// </summary>
 		public const string WithEvents = VBKeyword.WithEvents;
 
-		#endregion Fields
+		#endregion
 	}
 }

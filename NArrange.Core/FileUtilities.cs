@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 
 using System.IO;
@@ -201,6 +201,6 @@ namespace NArrange.Core
 			return encoding;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

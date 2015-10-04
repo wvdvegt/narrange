@@ -337,6 +337,6 @@ namespace NArrange.Tests.Core.Configuration
 			}
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

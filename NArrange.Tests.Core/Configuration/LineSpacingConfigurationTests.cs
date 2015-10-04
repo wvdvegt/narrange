@@ -59,6 +59,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.AreEqual("LineSpacing: RemoveConsecutiveBlankLines - True", str, "Unexpected string representation.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

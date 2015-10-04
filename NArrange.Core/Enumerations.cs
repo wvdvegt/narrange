@@ -34,7 +34,7 @@
  *<contributor>Everton Elvio Koser</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -699,5 +699,5 @@ namespace NArrange.Core
 		All = SpaceAndTab | CarriageReturnAndLinefeed
 	}
 
-	#endregion Enumerations
+	#endregion
 }

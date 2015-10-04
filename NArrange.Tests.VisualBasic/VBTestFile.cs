@@ -31,7 +31,7 @@ namespace NArrange.Tests.VisualBasic
 		/// </summary>
 		private string _resourceName;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -45,7 +45,7 @@ namespace NArrange.Tests.VisualBasic
 			_assembly = GetAssembly(resourceName);
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -65,7 +65,7 @@ namespace NArrange.Tests.VisualBasic
 			get { return _resourceName; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -177,6 +177,6 @@ namespace NArrange.Tests.VisualBasic
 			return assembly;
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

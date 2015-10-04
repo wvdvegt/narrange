@@ -675,6 +675,6 @@ namespace NArrange.Tests.Core
 			Assert.AreEqual(0, regionElement.Children.IndexOf(field1), "Element is not at the correct index.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

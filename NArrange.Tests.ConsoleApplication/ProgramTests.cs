@@ -57,7 +57,7 @@ namespace NArrange.Tests.ConsoleApplication
 		/// </summary>
 		private string _testValidSourceFile2;
 
-		#endregion Fields
+		#endregion
 
 		#region Methods
 
@@ -668,6 +668,6 @@ namespace NArrange.Tests.ConsoleApplication
 			return Program.Run(logger, commandArgs);
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

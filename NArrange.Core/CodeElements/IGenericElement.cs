@@ -33,7 +33,7 @@
  *<author>James Nies</author>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core.CodeElements
 {
@@ -51,7 +51,7 @@ namespace NArrange.Core.CodeElements
 		/// </summary>
 		ReadOnlyCollection<TypeParameter> TypeParameters { get; }
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -61,6 +61,6 @@ namespace NArrange.Core.CodeElements
 		/// <param name="typeParameter">The type parameter.</param>
 		void AddTypeParameter(TypeParameter typeParameter);
 
-		#endregion Methods
+		#endregion
 	}
 }

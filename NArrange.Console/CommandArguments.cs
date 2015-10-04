@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.ConsoleApplication
 {
@@ -89,7 +89,7 @@ namespace NArrange.ConsoleApplication
 		/// </summary>
 		private bool _trace;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -100,42 +100,7 @@ namespace NArrange.ConsoleApplication
 		{
 		}
 
-		#endregion Constructors
-
-		#region Enumerations
-
-		/// <summary>
-		/// Enumeration that defines the valid command argument flags
-		/// </summary>
-		private enum CommandArgumentFlag
-		{
-			/// <summary>
-			/// Unknown command argument.
-			/// </summary>
-			Unknown,
-
-			/// <summary>
-			/// Configuration file.
-			/// </summary>
-			Configuration,
-
-			/// <summary>
-			/// Perform backup.
-			/// </summary>
-			Backup,
-
-			/// <summary>
-			/// Perform restore.
-			/// </summary>
-			Restore,
-
-			/// <summary>
-			/// Trace logging.
-			/// </summary>
-			Trace
-		}
-
-		#endregion Enumerations
+		#endregion
 
 		#region Properties
 
@@ -187,7 +152,7 @@ namespace NArrange.ConsoleApplication
 			get { return _trace; }
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -350,6 +315,41 @@ namespace NArrange.ConsoleApplication
 			return flag;
 		}
 
-		#endregion Methods
+		#endregion
+
+		#region Enumerations
+
+		/// <summary>
+		/// Enumeration that defines the valid command argument flags
+		/// </summary>
+		private enum CommandArgumentFlag
+		{
+			/// <summary>
+			/// Unknown command argument.
+			/// </summary>
+			Unknown,
+
+			/// <summary>
+			/// Configuration file.
+			/// </summary>
+			Configuration,
+
+			/// <summary>
+			/// Perform backup.
+			/// </summary>
+			Backup,
+
+			/// <summary>
+			/// Perform restore.
+			/// </summary>
+			Restore,
+
+			/// <summary>
+			/// Trace logging.
+			/// </summary>
+			Trace
+		}
+
+		#endregion
 	}
 }

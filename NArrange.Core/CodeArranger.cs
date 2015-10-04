@@ -34,7 +34,7 @@
  *<contributor>Justin Dearing</contributor>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-#endregion Header
+#endregion
 
 namespace NArrange.Core
 {
@@ -66,7 +66,7 @@ namespace NArrange.Core
 		/// </summary>
 		private ChainElementArranger _elementArrangerChain;
 
-		#endregion Fields
+		#endregion
 
 		#region Constructors
 
@@ -86,7 +86,7 @@ namespace NArrange.Core
 			_configuration = configuration.Clone() as CodeConfiguration;
 		}
 
-		#endregion Constructors
+		#endregion
 
 		#region Properties
 
@@ -121,7 +121,7 @@ namespace NArrange.Core
 			}
 		}
 
-		#endregion Properties
+		#endregion
 
 		#region Methods
 
@@ -288,6 +288,6 @@ namespace NArrange.Core
 			}
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

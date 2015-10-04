@@ -11,7 +11,7 @@
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-#endregion Header
+#endregion
 
 
 using System.Reflection;

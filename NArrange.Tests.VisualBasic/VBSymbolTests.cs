@@ -39,6 +39,6 @@ namespace NArrange.Tests.VisualBasic
 			Assert.IsFalse(VBSymbol.IsVBSymbol('*'));
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }

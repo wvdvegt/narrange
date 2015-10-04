@@ -98,6 +98,6 @@ namespace NArrange.Tests.Core.Configuration
 			Assert.AreEqual("Encoding: CodePage - 65001", str, "Unexpected string representation.");
 		}
 
-		#endregion Methods
+		#endregion
 	}
 }
