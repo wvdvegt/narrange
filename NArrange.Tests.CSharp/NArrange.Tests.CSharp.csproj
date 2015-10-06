@@ -87,9 +87,11 @@
     <Compile Include="CSharpTestFile.cs" />
     <Compile Include="CSharpTestUtilities.cs" />
     <Compile Include="CSharpWriterTests.cs" />
+    <Compile Include="CSharpGenericDelegateTests.cs" />
     <Compile Include="InlinePropertyWhenPossibleTests.cs" />
     <Compile Include="SourceHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="TestSourceFiles\Delegates.cs" />
     <EmbeddedResource Include="TestSourceFiles\Generics.cs" />
     <EmbeddedResource Include="TestSourceFiles\PropertyChanges\PropertyWithLogicCode.cs" />
     <EmbeddedResource Include="TestSourceFiles\PropertyChanges\PrettyCode.cs" />

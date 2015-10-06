@@ -1,6 +1,7 @@
-2015-10-04	Marc Stanglmayr
+2015-10-06	Marc Stanglmayr
 
 	* First "official" release of this fork, after I ran it on multiple larget codebases (100k+ LOCs) and it didn't break anything and was able to parse all files
+	* Added covariant/contravariant delegate support
 	
 2015-10-04	Marc Stanglmayr
 

@@ -985,9 +985,24 @@ namespace NArrange.CSharp
 				string[] typeParameterNames = typeParameterString.Split(
 					new char[] { CSharpSymbol.AliasSeparator, ' ' },
 					StringSplitOptions.RemoveEmptyEntries);
-				foreach (string typeParameterName in typeParameterNames)
+
+				bool checkVariance = false;
+				for (int i = 0; i < typeParameterNames.Length; i++)
 				{
+					string typeParameterName = typeParameterNames[i];
+					if (typeParameterName == "in" || typeParameterName == "out")
+					{
+						checkVariance = true;
+						continue;
+					}
 					TypeParameter typeParameter = new TypeParameter();
+
+					if (checkVariance)
+					{
+						checkVariance = false;
+						typeParameter.IsIn = typeParameterNames[i - 1] == "in";
+						typeParameter.IsOut = typeParameterNames[i - 1] == "out";
+					}
 					typeParameter.Name = typeParameterName;
 					delegateElement.AddTypeParameter(typeParameter);
 				}
@@ -2299,6 +2314,24 @@ namespace NArrange.CSharp
 					CSharpSymbol.BeginBlock).Split(
 						WhiteSpaceCharacters,
 						StringSplitOptions.RemoveEmptyEntries);
+
+				for (int i = 0; i < words.Length - 1; i++)
+				{
+					// looking for:
+					// Test<in T>, Test<out T>, Test<in T, out TSome>, ...
+
+					if (words[i] == "in" || words[i] == "out" ||
+						words[i].EndsWith("<in") || words[i].EndsWith("<out"))
+					{
+						if (words[i + 1].EndsWith(",") || words[i + 1].EndsWith(">"))
+						{
+							// contravariant/covariant word was split, merge it back together
+
+							// take all before, merge the two pieces of the word and add all after
+							words = words.Take(i).Concat(new[] { words[i] + " " + words[i + 1] }).Concat(words.Skip(i + 2)).ToArray();
+						}
+					}
+				}
 
 				char lastChar = processedElementText[processedElementText.Length - 1];
 				bool isStatement = lastChar == CSharpSymbol.EndOfStatement;

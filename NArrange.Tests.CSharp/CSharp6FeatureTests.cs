@@ -4,6 +4,7 @@ using NArrange.Core.CodeElements;
 using NArrange.CSharp;
 using NArrange.Tests.Core;
 using NUnit.Framework;
+using System;
 using System.CodeDom.Compiler;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -100,6 +101,10 @@ namespace NArrange.Tests.CSharp
 				currentContent.Should()
 					.NotBe(newContent, "because regions where missing and NArrange always adds them for us.");
 				Compile(tempFile).Should().BeTrue();
+			}
+			catch (Exception ex)
+			{
+				throw;
 			}
 			finally
 			{
