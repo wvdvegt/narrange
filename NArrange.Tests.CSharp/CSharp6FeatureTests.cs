@@ -69,7 +69,7 @@ namespace NArrange.Tests.CSharp
 				ReadOnlyCollection<ICodeElement> elements = parser.Parse(reader);
 				elements.Should().HaveCount(1, "because there is only one namespace");
 				elements[0].Children.Should().HaveCount(1, "because there is 1 class in the namespace");
-				elements[0].Children[0].Children.Should().HaveCount(4, "because there are 3 subclasses in the class");
+				elements[0].Children[0].Children.Should().HaveCount(4, "because there are 4 subclasses in the class");
 				var customer1 = elements[0].Children[0].Children[0];
 				var customer2 = elements[0].Children[0].Children[1];
 				var customer3 = elements[0].Children[0].Children[2];
@@ -86,6 +86,26 @@ namespace NArrange.Tests.CSharp
 				customer4.Children.Should().HaveCount(2, "because there are only 2 properties");
 				customer4.Children[0].ElementType.Should().Be(ElementType.Property);
 				customer4.Children[1].ElementType.Should().Be(ElementType.Property);
+			}
+		}
+
+		/// <summary>
+		/// Tests this as it was bugged in the first version.
+		/// </summary>
+		[Test]
+		public void TestExpressionPropertyWithGreaterThanSignInBody()
+		{
+			CSharpTestFile testFile = CSharpTestUtilities.GetExpressionBodyFile();
+			using (TextReader reader = testFile.GetReader())
+			{
+				CSharpParser parser = new CSharpParser();
+				ReadOnlyCollection<ICodeElement> elements = parser.Parse(reader);
+				var bugfix = elements[2].Children[0].Children[3];
+				bugfix.Name.Should().Be("Bugfix");
+				bugfix.Children.Should().HaveCount(2, "because there are only 2 properties");
+				bugfix.Children[0].ElementType.Should().Be(ElementType.Property);
+				bugfix.Children[1].ElementType.Should().Be(ElementType.Property);
+				((PropertyElement) bugfix.Children[1]).ExpressionBodyText.Should().Be("Value > 10");
 			}
 		}
 

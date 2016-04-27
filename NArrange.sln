@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F1066034-B17D-4512-9065-258B79506624}"
 EndProject
@@ -9,8 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{BD8B331C-6CB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F1B30F9B-36AE-493B-95E6-30D05244264C}"
 	ProjectSection(SolutionItems) = preProject
+		changelog.txt = changelog.txt
 		readme.txt = readme.txt
-		release.txt = release.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NArrange.Tests.ConsoleApplication", "NArrange.Tests.ConsoleApplication\NArrange.Tests.ConsoleApplication.csproj", "{DBBF9749-FE77-4DB2-ABA3-1A3967755830}"

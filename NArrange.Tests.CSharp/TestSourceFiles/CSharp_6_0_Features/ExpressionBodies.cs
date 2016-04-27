@@ -97,5 +97,12 @@ namespace SampleNamespace
 				throw new NotImplementedException();
 			}
 		}
+
+		public class Bugfix
+		{
+			public int Value { get; set; }
+
+			public bool PropertyWithGreaterThanInExpressionBody => Value > 10;
+		}
 	}
 }

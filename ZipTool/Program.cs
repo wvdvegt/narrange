@@ -11,7 +11,7 @@ namespace ZipTool
 		static void Main()
 		{
 			// helper to create a new release
-			var version = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
+			var version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
 			var name = $"narrange-release {version}.zip";
 			ZipFiles(name,

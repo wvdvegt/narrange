@@ -53,6 +53,15 @@ namespace NArrange.Tests.CSharp
 		}
 
 		/// <summary>
+		/// C# 6.0 expression bodies.
+		/// </summary>
+		/// <returns></returns>
+		public static CSharpTestFile GetExpressionBodyFile()
+		{
+			return new CSharpTestFile("CSharp_6_0_Features.ExpressionBodies.cs", true);
+		}
+
+		/// <summary>
 		/// Interface definition test file.
 		/// </summary>
 		/// <returns>The test file.</returns>

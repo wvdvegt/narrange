@@ -1748,7 +1748,7 @@ namespace NArrange.CSharp
 		/// <param name="trim">Whether or not the parsed text should be trimmed.</param>
 		/// <param name="initialDepth">Optional set initial depth. 1 is usually fine, but for auto properties we need 0 here.</param>
 		/// <returns>The parsed text.</returns>
-		private string ParseNestedText(char beginChar, char endChar, bool beginExpected, bool trim, int initialDepth = 1)
+		private string ParseNestedText(char beginChar, char endChar, bool beginExpected, bool trim, int initialDepth = 1, bool countBeginCharOnlyOnce = false)
 		{
 			StringBuilder blockText = new StringBuilder(DefaultBlockLength);
 
@@ -1787,6 +1787,7 @@ namespace NArrange.CSharp
 				bool escaped = false;
 
 				bool firstLoop = true;
+				bool countedBeginChar = false;
 				while (depth > 0 || firstLoop)
 				{
 					char previousPreviousChar = PreviousChar;
@@ -1855,8 +1856,9 @@ namespace NArrange.CSharp
 
 					inComment = inBlockComment || inLineComment;
 					if (beginChar != EmptyChar && CurrentChar == beginChar &&
-						!inCharLiteral && !inString && !inComment)
+						!inCharLiteral && !inString && !inComment && (!countBeginCharOnlyOnce || !countedBeginChar))
 					{
+						countedBeginChar = true;
 						blockText.Append(CurrentChar);
 						depth++;
 						firstLoop = false;
@@ -1913,7 +1915,7 @@ namespace NArrange.CSharp
 			}
 			const bool trim = true;
 			// need initial depth to be 0 as we don't have { + } bracket but ; as end delimiters
-			var found = ParseNestedText(assignmentSymbols[0], CSharpSymbol.EndOfStatement, false, trim, initialDepth: 0);
+			var found = ParseNestedText(assignmentSymbols[0], CSharpSymbol.EndOfStatement, false, trim, initialDepth: 0, countBeginCharOnlyOnce: true);
 
 			// remove assignment symbols
 			found = found.Substring(assignmentSymbols.Length);

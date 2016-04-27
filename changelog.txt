@@ -1,3 +1,7 @@
+2016-04-27	Marc Stanglmayr
+
+	* Fixed a bug with expression bodies that contained the ">" sign as part of their body (would cause the parser to fail for the entire document)
+
 2015-10-06	Marc Stanglmayr
 
 	* First "official" release of this fork, after I ran it on multiple larget codebases (100k+ LOCs) and it didn't break anything and was able to parse all files
