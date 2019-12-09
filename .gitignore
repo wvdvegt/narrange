@@ -8,3 +8,6 @@
 **/packages/*
 XmlDoc
 /!Releases
+/NArrange for C# 6.0.url
+/readme.txt
+*.snk
