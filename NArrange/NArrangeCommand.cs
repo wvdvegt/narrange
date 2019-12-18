@@ -1,16 +1,15 @@
-﻿using System;
-using System.ComponentModel.Design;
-using System.Diagnostics;
-using System.Globalization;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using EnvDTE;
-using Task = System.Threading.Tasks.Task;
-
-using NArrange.Core;
-
-namespace NArrange
+﻿namespace NArrange
 {
+    using System;
+    using System.ComponentModel.Design;
+
+    using Microsoft.VisualStudio.Shell;
+
+    using EnvDTE;
+
+    using NArrange.Core;
+    using Task = System.Threading.Tasks.Task;
+
     /// <summary>
     /// Command handler
     /// </summary>
@@ -94,17 +93,7 @@ namespace NArrange
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            //string message = string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.GetType().FullName);
-            //string title = "NArrange";
-
-            //! Show a message box to prove we were here
-            //VsShellUtilities.ShowMessageBox(
-            //    this.package,
-            //    message,
-            //    title,
-            //    OLEMSGICON.OLEMSGICON_INFO,
-            //    OLEMSGBUTTON.OLEMSGBUTTON_OK,
-            //    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+            ((Logger)logger).EmitHeader();
 
             //! Get Active Document Path.
             DTE dte = (DTE)ServiceProvider.GetServiceAsync(typeof(DTE))?.Result;

@@ -1,17 +1,16 @@
-﻿using System;
-using System.ComponentModel.Design;
-using System.Diagnostics;
-using System.Globalization;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using EnvDTE;
-using Task = System.Threading.Tasks.Task;
-
-using NArrange.Core;
-using System.IO;
-
-namespace NArrange
+﻿namespace NArrange
 {
+    using System;
+    using System.ComponentModel.Design;
+    using System.IO;
+
+    using Microsoft.VisualStudio.Shell;
+
+    using EnvDTE;
+
+    using NArrange.Core;
+    using Task = System.Threading.Tasks.Task;
+
     /// <summary>
     /// Command handler
     /// </summary>
@@ -95,17 +94,7 @@ namespace NArrange
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            //string message = string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.GetType().FullName);
-            //string title = "NArrange";
-
-            //! Show a message box to prove we were here
-            //VsShellUtilities.ShowMessageBox(
-            //    this.package,
-            //    message,
-            //    title,
-            //    OLEMSGICON.OLEMSGICON_INFO,
-            //    OLEMSGBUTTON.OLEMSGBUTTON_OK,
-            //    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+            ((Logger)logger).EmitHeader();
 
             //! Get Active Document Path.
             DTE dte = (DTE)ServiceProvider.GetServiceAsync(typeof(DTE))?.Result;
@@ -131,19 +120,26 @@ namespace NArrange
 
             string key = BackupUtilities.CreateFileNameKey(document);
 
-            logger.LogMessage(LogLevel.Info, $"Restoring backup from {Path.Combine(BackupUtilities.BackupRoot,key)}...");
-
-            //! Try to Undo NArrange of the Active File.
-            Boolean success = BackupUtilities.RestoreFiles(BackupUtilities.BackupRoot, key);
-
-            switch (success)
+            if (Directory.Exists(Path.Combine(BackupUtilities.BackupRoot, key)))
             {
-                case true:
-                    logger.LogMessage(LogLevel.Info, "Undo NArrange Successful.", new object[] { });
-                    break;
-                case false:
-                    logger.LogMessage(LogLevel.Error, "Undo NArrange Failure.", new object[] { });
-                    break;
+                logger.LogMessage(LogLevel.Info, $"Restoring backup from {Path.Combine(BackupUtilities.BackupRoot, key)}...");
+
+                //! Try to Undo NArrange of the Active File.
+                Boolean success = BackupUtilities.RestoreFiles(BackupUtilities.BackupRoot, key);
+
+                switch (success)
+                {
+                    case true:
+                        logger.LogMessage(LogLevel.Info, "Undo NArrange Successful.", new object[] { });
+                        break;
+                    case false:
+                        logger.LogMessage(LogLevel.Error, "Undo NArrange Failure.", new object[] { });
+                        break;
+                }
+            }
+            else
+            {
+                logger.LogMessage(LogLevel.Warning, "NArrange backup folder not found.", new object[] { });
             }
         }
     }
