@@ -8,6 +8,7 @@ using EnvDTE;
 using Task = System.Threading.Tasks.Task;
 
 using NArrange.Core;
+using System.IO;
 
 namespace NArrange
 {
@@ -129,6 +130,8 @@ namespace NArrange
             FileArranger fileArranger = new FileArranger(null, logger);
 
             string key = BackupUtilities.CreateFileNameKey(document);
+
+            logger.LogMessage(LogLevel.Info, $"Restoring backup from {Path.Combine(BackupUtilities.BackupRoot,key)}...");
 
             //! Try to Undo NArrange of the Active File.
             Boolean success = BackupUtilities.RestoreFiles(BackupUtilities.BackupRoot, key);
