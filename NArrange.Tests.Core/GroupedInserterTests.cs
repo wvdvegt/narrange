@@ -29,10 +29,13 @@ namespace NArrange.Tests.Core
 		/// Test construction with a null configuration.
 		/// </summary>
 		[Test]
-		[ExpectedException(typeof (ArgumentNullException))]
 		public void CreateWithNullTest()
 		{
-			GroupedInserter regionedInserter = new GroupedInserter(null);
+			Assert.Throws<ArgumentNullException>(
+	 delegate
+	 {
+		 GroupedInserter regionedInserter = new GroupedInserter(null);
+	 });
 		}
 
 		/// <summary>

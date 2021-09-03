@@ -47,11 +47,16 @@ namespace NArrange.Tests.Core
 		/// Tests parsing a null project fileName.
 		/// </summary>
 		[Test]
-		[ExpectedException(typeof (ArgumentNullException))]
+
 		public void ParseNullTest()
-		{
-			MonoDevelopProjectParser projectParser = new MonoDevelopProjectParser();
-			projectParser.Parse(null);
+		{			
+		 MonoDevelopProjectParser projectParser = new MonoDevelopProjectParser();
+			
+		Assert.Throws<ArgumentNullException>(
+		 delegate
+		 {
+			 projectParser.Parse(null);
+		 });
 		}
 
 		/// <summary>
@@ -89,7 +94,7 @@ namespace NArrange.Tests.Core
 		/// <summary>
 		/// Performs test fixture setup.
 		/// </summary>
-		[TestFixtureSetUp]
+		[SetUp]
 		public void TestFixtureSetup()
 		{
 			_testProjectFile = Path.GetTempFileName() + ".mdp";
@@ -100,7 +105,7 @@ namespace NArrange.Tests.Core
 		/// <summary>
 		/// Performs test fixture cleanup.
 		/// </summary>
-		[TestFixtureTearDown]
+		[TearDown]
 		public void TestFixtureTearDown()
 		{
 			try

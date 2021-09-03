@@ -50,10 +50,14 @@ namespace NArrange.Tests.Core
 		/// Tests parsing a null filename.
 		/// </summary>
 		[Test]
-		[ExpectedException(typeof (ArgumentNullException))]
 		public void ParseNullTest()
 		{
-			SolutionParser.Instance.Parse(null);
+			Assert.Throws<ArgumentNullException>(
+			delegate
+			{
+
+				SolutionParser.Instance.Parse(null);
+			});
 		}
 
 		#endregion

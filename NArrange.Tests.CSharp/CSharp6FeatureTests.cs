@@ -122,7 +122,7 @@ namespace NArrange.Tests.CSharp
 					.NotBe(newContent, "because regions where missing and NArrange always adds them for us.");
 				Compile(tempFile).Should().BeTrue();
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				throw;
 			}

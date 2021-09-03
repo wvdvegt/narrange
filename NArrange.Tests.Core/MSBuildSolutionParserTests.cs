@@ -47,11 +47,15 @@ namespace NArrange.Tests.Core
 		/// Tests parsing a null fileName.
 		/// </summary>
 		[Test]
-		[ExpectedException(typeof (ArgumentNullException))]
 		public void ParseNullTest()
 		{
 			MSBuildSolutionParser solutionParser = new MSBuildSolutionParser();
-			solutionParser.Parse(null);
+
+			Assert.Throws<ArgumentNullException>(
+	 delegate
+	 {
+		 solutionParser.Parse(null);
+	 });
 		}
 
 		/// <summary>
@@ -82,7 +86,7 @@ namespace NArrange.Tests.Core
 		/// <summary>
 		/// Performs test fixture setup.
 		/// </summary>
-		[TestFixtureSetUp]
+		[SetUp]
 		public void TestFixtureSetup()
 		{
 			_testSolutionFile = Path.GetTempFileName() + ".csproj";
@@ -93,7 +97,7 @@ namespace NArrange.Tests.Core
 		/// <summary>
 		/// Performs test fixture cleanup.
 		/// </summary>
-		[TestFixtureTearDown]
+		[TearDown]
 		public void TestFixtureTearDown()
 		{
 			try

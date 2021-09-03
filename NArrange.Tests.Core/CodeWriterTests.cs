@@ -21,7 +21,6 @@ namespace NArrange.Tests.Core
 		/// Tests writing an element with an unknown tab style.
 		/// </summary>
 		[Test]
-		[ExpectedException(typeof (InvalidOperationException))]
 		public virtual void TabStyleUnknownTest()
 		{
 			TypeElement classElement = new TypeElement();
@@ -52,36 +51,47 @@ namespace NArrange.Tests.Core
 			configuration.Formatting.Tabs.TabStyle = (TabStyle) int.MinValue;
 
 			writer = new StringWriter();
-			codeWriter.Write(codeElements.AsReadOnly(), writer);
+			Assert.Throws<InvalidOperationException>(
+	 delegate
+	 {
+		 codeWriter.Write(codeElements.AsReadOnly(), writer);
+	 });
 		}
 
 		/// <summary>
 		/// Tests calling Write with a null element collection.
 		/// </summary>
 		[Test]
-		[ExpectedException(typeof (ArgumentNullException))]
 		public void WriteNullElementsTest()
 		{
 			TCodeWriter codeWriter = new TCodeWriter();
-			codeWriter.Write(null, new StringWriter());
+
+			Assert.Throws<ArgumentNullException>(
+			 delegate
+			 {
+				 codeWriter.Write(null, new StringWriter());
+			 });
 		}
 
 		/// <summary>
 		/// Tests calling Write with a null writer.
 		/// </summary>
 		[Test]
-		[ExpectedException(typeof (ArgumentNullException))]
 		public void WriteNullWriterTest()
 		{
 			TCodeWriter codeWriter = new TCodeWriter();
-			codeWriter.Write(new List<ICodeElement>().AsReadOnly(), null);
+
+			Assert.Throws<ArgumentNullException>(
+			 delegate
+			 {
+				 codeWriter.Write(new List<ICodeElement>().AsReadOnly(), null);
+			 });
 		}
 
 		/// <summary>
 		/// Tests writing an ungrecognized Type element.
 		/// </summary>
 		[Test]
-		[ExpectedException(typeof (ArgumentOutOfRangeException))]
 		public void WriteUnrecognizedTypeTest()
 		{
 			List<ICodeElement> codeElements = new List<ICodeElement>();
@@ -95,7 +105,12 @@ namespace NArrange.Tests.Core
 			codeElements.Add(classElement);
 
 			TCodeWriter codeWriter = new TCodeWriter();
-			codeWriter.Write(codeElements.AsReadOnly(), writer);
+
+			Assert.Throws<ArgumentOutOfRangeException>(
+						 delegate
+						 {
+							 codeWriter.Write(codeElements.AsReadOnly(), writer);
+						 });
 		}
 
 		#endregion
