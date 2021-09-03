@@ -1,11 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F1066034-B17D-4512-9065-258B79506624}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{BD8B331C-6CBE-40EB-8CB7-DB9A73B6EF20}"
+	ProjectSection(SolutionItems) = preProject
+		NArrange.Core\NArrange.snk = NArrange.Core\NArrange.snk
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F1B30F9B-36AE-493B-95E6-30D05244264C}"
 	ProjectSection(SolutionItems) = preProject
@@ -43,6 +46,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NArrange.VisualBasic", "NArrange.VisualBasic\NArrange.VisualBasic.csproj", "{33A733CE-7BDD-42D6-ADE6-77B82226F965}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZipTool", "ZipTool\ZipTool.csproj", "{D2F83DB1-9CFC-4ADD-A78E-73C7EF4C4DE8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Private", "Private", "{F9E4173C-59EA-4700-B9E6-14AADB3BB586}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NArrange.Vsix", "NArrange.Vsix\NArrange.Vsix.csproj", "{8DF839D6-53AA-4518-A0D2-E6ED14BE35C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -106,6 +113,10 @@ Global
 		{D2F83DB1-9CFC-4ADD-A78E-73C7EF4C4DE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2F83DB1-9CFC-4ADD-A78E-73C7EF4C4DE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2F83DB1-9CFC-4ADD-A78E-73C7EF4C4DE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DF839D6-53AA-4518-A0D2-E6ED14BE35C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DF839D6-53AA-4518-A0D2-E6ED14BE35C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DF839D6-53AA-4518-A0D2-E6ED14BE35C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DF839D6-53AA-4518-A0D2-E6ED14BE35C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -124,5 +135,9 @@ Global
 		{08E45819-C9EF-46D3-884E-FF0B471C6766} = {F1066034-B17D-4512-9065-258B79506624}
 		{D3191B0F-3A2F-459C-93E3-68A8FA1A3A3C} = {F1066034-B17D-4512-9065-258B79506624}
 		{33A733CE-7BDD-42D6-ADE6-77B82226F965} = {BD8B331C-6CBE-40EB-8CB7-DB9A73B6EF20}
+		{8DF839D6-53AA-4518-A0D2-E6ED14BE35C7} = {F9E4173C-59EA-4700-B9E6-14AADB3BB586}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B1334A87-317C-41F2-9C81-9077C28A9B71}
 	EndGlobalSection
 EndGlobal
